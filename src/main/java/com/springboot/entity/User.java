@@ -2,23 +2,44 @@ package com.springboot.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.List;
+
 @Entity
-@Table(name = "user")
-public class User extends BasicInfomation implements Serializable {
-    private Long id;
-    private String name;
-    private String email;
-    private String phone;
+@Table(name = "user",catalog = "",schema = "")
+public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "name",length = 100)
+    private String name;
+
+    @Column(name = "email",length = 50)
+    private String email;
+
+    @Column(name = "phone",length = 100)
+    private String phone;
+
+    @Version
+    Timestamp timestamp;
+
+    @ManyToMany(cascade = {}, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "roles_id")})
+    private List<Role> roles;
+
+    public User() {
+    }
+
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-    @Column(name = "name",length = 100)
+
     public String getName() {
         return name;
     }
@@ -26,7 +47,7 @@ public class User extends BasicInfomation implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    @Column(name = "eamil",length = 50)
+
     public String getEmail() {
         return email;
     }
@@ -34,12 +55,20 @@ public class User extends BasicInfomation implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-    @Column(name = "phone",length = 100)
+
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 }

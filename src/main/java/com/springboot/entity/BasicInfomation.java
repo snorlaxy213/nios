@@ -1,11 +1,25 @@
 package com.springboot.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Column;
 import java.util.Date;
 
+
 public class BasicInfomation {
+    @Column(name = "createBy",length = 100,nullable = false)
     String createBy;
+
+    @Column(name = "createDtm",nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date createDtm;
+
+
+    @Column(name = "updateby",length = 100, nullable = false)
     String updateBy;
+
+    @Column(name = "updateDtm",nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date updateDtm;
 
     public String getCreateBy() {
