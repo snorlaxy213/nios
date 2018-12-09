@@ -3,24 +3,34 @@ package com.springboot.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import java.io.Serializable;
 import java.util.Date;
 
+@Embeddable
+public class BasicInfomation implements Serializable {
 
-public class BasicInfomation {
-    @Column(name = "createBy",length = 100,nullable = false)
+    private static final long serialVersionUID = 1L;
+
+    @Column(name = "Create_By",length = 100,nullable = false,updatable = false)
     String createBy;
 
-    @Column(name = "createDtm",nullable = false)
+    @Column(name = "Create_Dtm",nullable = false,updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date createDtm;
 
+    @Column(name = "Create_Clinic",length = 1,nullable = false,updatable = false)
+    private Integer createClinic;
 
-    @Column(name = "updateby",length = 100, nullable = false)
+    @Column(name = "Update_By",length = 100, nullable = false)
     String updateBy;
 
-    @Column(name = "updateDtm",nullable = false)
+    @Column(name = "Update_Dtm",nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date updateDtm;
+
+    @Column(name = "Update_Clinic",length = 1,nullable = false)
+    private Integer updateClinic;
 
     public String getCreateBy() {
         return createBy;
@@ -52,5 +62,21 @@ public class BasicInfomation {
 
     public void setUpdateDtm(Date updateDtm) {
         this.updateDtm = updateDtm;
+    }
+
+    public Integer getCreateClinic() {
+        return createClinic;
+    }
+
+    public void setCreateClinic(Integer createClinic) {
+        this.createClinic = createClinic;
+    }
+
+    public Integer getUpdateClinic() {
+        return updateClinic;
+    }
+
+    public void setUpdateClinic(Integer updateClinic) {
+        this.updateClinic = updateClinic;
     }
 }
