@@ -48,7 +48,7 @@ public class LoginController {
             subject.login(usernamePasswordToken);
             return "redirect:/main.html";
         } catch (UnknownAccountException e) {
-            //login fail:user is not exist
+            //login fail:user is no t exist
             model.addAttribute("msg", "user is not exist");
             return "login";
         } catch (IncorrectCredentialsException e) {
