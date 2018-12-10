@@ -17,7 +17,7 @@ public class UserController {
 
     @ResponseBody
     @GetMapping("/user/{id}")
-    public List<User> getUser(@PathVariable("id") Long id){
+    public List<User> getUser(@PathVariable("id") Long id) {
 
         List<User> users = userRepository.findAll();
         return users;
@@ -25,7 +25,7 @@ public class UserController {
 
     @ResponseBody
     @GetMapping("/user")
-    public User insertUser(User user){
+    public User insertUser(User user) {
         User save = userRepository.save(user);
         return save;
     }

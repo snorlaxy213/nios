@@ -1,12 +1,15 @@
 package com.springboot.controller;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpSession;
-import java.util.Map;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -17,7 +20,7 @@ import java.util.Map;
 @Controller
 public class LoginController {
 
-    @PostMapping(value = "user/login")
+    /*@PostMapping(value = "user/login")
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
                         Map<String,Object> map, HttpSession session){
@@ -28,5 +31,34 @@ public class LoginController {
             map.put("msg", "password error");
             return "login";
         }
+    }*/
+
+    @PostMapping(value = "user/login")
+    public String login(@RequestParam("username") String username,
+                        @RequestParam("password") String password,
+                        Model model){
+        //obtain subject
+        Subject subject = SecurityUtils.getSubject();
+
+        //packaging user data
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username,password);
+
+        //execute login method
+        try {
+            subject.login(usernamePasswordToken);
+            return "redirect:/main.html";
+        } catch (UnknownAccountException e) {
+            //login fail:user is not exist
+            model.addAttribute("msg", "user is not exist");
+            return "login";
+        } catch (IncorrectCredentialsException e) {
+            model.addAttribute("msg", "password is not right");
+            return "login";
+        }
+    }
+
+    @GetMapping(value = "/toLogin")
+    public String toLogin(){
+        return "login";
     }
 }
