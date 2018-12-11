@@ -13,8 +13,8 @@ public class User implements Serializable {
     private static final long serialVersionUID = 2L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "User_ID", length = 12)
+    private String id;
 
     @Column(name = "Name",length = 100, nullable = false)
     private String name;
@@ -53,19 +53,20 @@ public class User implements Serializable {
     @Column(name = "Timestamp")
     private Timestamp timestamp;
 
-    @ManyToMany(cascade = {}, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "roles_id")})
-    private List<Role> roles;
+    @ManyToMany(targetEntity = UserRole.class, fetch = FetchType.LAZY)
+    @JoinTable(name = "User_User_Role",
+            joinColumns = @JoinColumn(name = "User_ID"),
+            inverseJoinColumns = @JoinColumn(name = "Userrole_ID"))
+    private List<UserRole> userroles;
 
     public User() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
-    public void setId(Long id) {
+
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -101,12 +102,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public List<UserRole> getUserroles() {
+        return userroles;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setUserroles(List<UserRole> userroles) {
+        this.userroles = userroles;
     }
 
     public String getMobile() {

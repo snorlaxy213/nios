@@ -4,6 +4,7 @@ import com.springboot.entity.User;
 import com.springboot.service.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,19 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         System.out.println("execute Authorization logic ");
-        return null;
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+
+        //give resource authorization
+        info.addStringPermission("user:add");
+
+
+        //Subject subject = SecurityUtils.getSubject();
+        //User user = (User) subject.getPreviousPrincipals();
+        //info.addStringPermission(user.getRoles().get(1).getName());
+
+
+
+        return info;
     }
 
     @Override
@@ -36,6 +49,6 @@ public class ShiroRealm extends AuthorizingRealm {
 
         //judge if password is right
         //tips: method second element must will be database password
-        return new SimpleAuthenticationInfo("",user.getPassword(),"");
+        return new SimpleAuthenticationInfo(user,user.getPassword(),"");
     }
 }

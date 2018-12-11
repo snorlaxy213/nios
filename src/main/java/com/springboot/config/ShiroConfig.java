@@ -1,5 +1,6 @@
 package com.springboot.config;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -67,9 +68,16 @@ public class ShiroConfig {
     /**
      * create realm
      */
-
     @Bean("shiroRealm")
     public ShiroRealm getShiroRealm(){
         return new ShiroRealm();
+    }
+
+    /**
+     * set ShiroDialect for mix thymeleaf and shiro to use
+     */
+    @Bean
+    public ShiroDialect getShiroDialect(){
+        return new ShiroDialect();
     }
 }
