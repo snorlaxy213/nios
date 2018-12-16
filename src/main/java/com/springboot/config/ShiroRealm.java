@@ -2,11 +2,13 @@ package com.springboot.config;
 
 import com.springboot.entity.User;
 import com.springboot.service.UserService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ShiroRealm extends AuthorizingRealm {
@@ -16,27 +18,21 @@ public class ShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        System.out.println("execute Authorization logic ");
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
         //give resource authorization
-        info.addStringPermission("user:add");
+        //info.addStringPermission("user:add");
 
-
-        //Subject subject = SecurityUtils.getSubject();
-        //User user = (User) subject.getPreviousPrincipals();
-        //info.addStringPermission(user.getRoles().get(1).getName());
-
-
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User) subject.getPreviousPrincipals();
+        info.addStringPermission("admin");
 
         return info;
     }
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        System.out.println("execute Authentication logic ");
         //write shiro judgment logic ,judge username and password
-
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String username = token.getUsername();
 

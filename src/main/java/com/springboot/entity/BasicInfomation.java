@@ -22,14 +22,14 @@ public class BasicInfomation implements Serializable {
     @Column(name = "Create_Clinic",length = 1,nullable = false,updatable = false)
     private Integer createClinic;
 
-    @Column(name = "Update_By",length = 100, nullable = false)
+    @Column(name = "Update_By",length = 100, nullable = true)
     String updateBy;
 
-    @Column(name = "Update_Dtm",nullable = false)
+    @Column(name = "Update_Dtm",nullable = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date updateDtm;
 
-    @Column(name = "Update_Clinic",length = 1,nullable = false)
+    @Column(name = "Update_Clinic",length = 1,nullable = true)
     private Integer updateClinic;
 
     public String getCreateBy() {

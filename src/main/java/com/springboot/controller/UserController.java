@@ -23,10 +23,22 @@ public class UserController {
         return users;
     }
 
-    @ResponseBody
-    @GetMapping("/user")
-    public User insertUser(User user) {
+
+    @GetMapping("/user/{type}")
+    public String insertUser(User user, @PathVariable("type") String type) {
+
+        if ("page".equals(type)){
+            return "user/UserProfile";
+        }
         User save = userRepository.save(user);
-        return save;
+        return "save";
     }
+
+    @GetMapping("/toUser")
+    public String toUser() {
+
+        return "user/UserProfile";
+    }
+
+
 }
