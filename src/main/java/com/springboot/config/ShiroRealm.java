@@ -36,7 +36,13 @@ public class ShiroRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String username = token.getUsername();
 
-        User user = userService.findByname(username);
+        User user = null;
+        try {
+            user = userService.findByname(username);
+        } catch (Exception e) {
+
+        }
+
 
         if(user == null){
             //if user is not exist
