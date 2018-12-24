@@ -38,23 +38,28 @@ public class LoginController {
                         @RequestParam("password") String password,
                         Model model){
         //obtain subject
-        Subject subject = SecurityUtils.getSubject();
+        Subject currentUser = SecurityUtils.getSubject();
 
-        //packaging user data
-        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username,password);
+        if (!currentUser.isAuthenticated()) {
+            //packaging user data
+            UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username,password);
 
-        //execute login method
-        try {
-            subject.login(usernamePasswordToken);
-            return "redirect:/main.html";
-        } catch (UnknownAccountException e) {
-            //login fail:user is no t exist
-            model.addAttribute("msg", "user is not exist");
-            return "login";
-        } catch (IncorrectCredentialsException e) {
-            model.addAttribute("msg", "password is not right");
-            return "login";
+            //execute login method
+            try {
+                currentUser.login(usernamePasswordToken);
+                return "redirect:/main.html";
+            } catch (UnknownAccountException e) {
+                //login fail:user is no t exist
+                model.addAttribute("msg", "user is not exist");
+                return "login";
+            } catch (IncorrectCredentialsException e) {
+                //password is error
+                model.addAttribute("msg", "password is not right");
+                return "login";
+            }
         }
+
+        return "redirect:/main.html";
     }
 
     @GetMapping(value = "/toLogin")

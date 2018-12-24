@@ -24,7 +24,7 @@ public class ShiroRealm extends AuthorizingRealm {
         //info.addStringPermission("user:add");
 
         Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getPreviousPrincipals();
+        User user = (User) subject.getPrincipal();
         info.addStringPermission("admin");
 
         return info;
@@ -43,14 +43,16 @@ public class ShiroRealm extends AuthorizingRealm {
 
         }
 
-
         if(user == null){
             //if user is not exist
-            return null;   //shiro will return UnknownAccountException
+            //shiro will return UnknownAccountException
+            throw new UnknownAccountException("user is not exist");
         }
 
         //judge if password is right
-        //tips: method second element must will be database password
-        return new SimpleAuthenticationInfo(user,user.getPassword(),"");
+        //principal : AuthenticationInfo entity information
+        //credentials : Password
+        //realmName : currnt realm's name;you can return getName();
+        return new SimpleAuthenticationInfo(user,user.getPassword(),"user");
     }
 }

@@ -39,6 +39,9 @@ public class ShiroConfig {
         //-------------------perms
         filterMap.put("/emps", "perms[user:add]");
 
+        //------------------logout
+        filterMap.put("/logout.action", "logout");
+
         //------------------authc
         filterMap.put("/*", "authc");
 
@@ -48,8 +51,6 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setUnauthorizedUrl("/main.html");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
-
-
 
         return shiroFilterFactoryBean;
     }
