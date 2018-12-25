@@ -2,6 +2,7 @@ package com.springboot.dto;
 
 import com.springboot.entity.BasicInfomation;
 import com.springboot.entity.UserRole;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -19,8 +20,10 @@ public class UserDto extends BasicInfomation {
 
     private String password;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date effective;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date expiry;
 
     private Date changePassword;

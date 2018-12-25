@@ -1,20 +1,12 @@
 package com.springboot.config;
 
-import com.springboot.component.LoginHandlerInterceptor;
 import com.springboot.component.NiosLocaleResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-/**
- * 〈一句话功能简述〉<br>
- *
- * @author Jules Chen
- * @create 2018/11/23
- */
 @Configuration
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
@@ -27,7 +19,9 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
                 registry.addViewController("/login.html").setViewName("login");
                 registry.addViewController("/index.html").setViewName("index");
                 registry.addViewController("/welcome.html").setViewName("welcome");
-
+                registry.addViewController("/admin-role.html").setViewName("admin-role");
+                registry.addViewController("/member-add.html").setViewName("member-add");
+                registry.addViewController("/member-list.html").setViewName("member-list");
             }
 
             /*@Override
@@ -39,6 +33,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         };
         return adapter;
     }
+
     @Bean
     public LocaleResolver localeResolver(){
         return new NiosLocaleResolver();
