@@ -36,16 +36,10 @@ public class ShiroRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String username = token.getUsername();
 
-        User user = null;
-        try {
-            user = userService.findByname(username);
-        } catch (Exception e) {
-
-        }
+        User user  = userService.findById(username);
 
         if(user == null){
-            //if user is not exist
-            //shiro will return UnknownAccountException
+            //if user is not exist ,shiro will return UnknownAccountException
             throw new UnknownAccountException("user is not exist");
         }
 

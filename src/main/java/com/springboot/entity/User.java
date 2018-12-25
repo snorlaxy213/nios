@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "User_Profile",catalog = "",schema = "")
+@Table(name = "User_Profile",catalog = "nios",schema = "")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 2L;

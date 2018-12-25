@@ -24,19 +24,18 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/").setViewName("login");
-                registry.addViewController("/index.html").setViewName("login");
-                registry.addViewController("/main.html").setViewName("dashboard");
+                registry.addViewController("/login.html").setViewName("login");
+                registry.addViewController("/index.html").setViewName("index");
+                registry.addViewController("/welcome.html").setViewName("welcome");
 
             }
 
-
-            @Override
+            /*@Override
             public void addInterceptors(InterceptorRegistry registry) {
                 //已经做好静态资源映射
                 registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
                         .excludePathPatterns("/index.html","/","/user/login","/asserts/**","/webjars/**");
-
-            }
+            }*/
         };
         return adapter;
     }

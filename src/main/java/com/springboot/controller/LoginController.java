@@ -20,19 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
 
-    /*@PostMapping(value = "user/login")
-    public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password,
-                        Map<String,Object> map, HttpSession session){
-        if(!StringUtils.isEmpty(username)&&"123".equals(password)){
-            session.setAttribute("loginUser",username);
-            return "redirect:/main.html";
-        }else {
-            map.put("msg", "password error");
-            return "login";
-        }
-    }*/
-
     @PostMapping(value = "user/login")
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password,
@@ -47,7 +34,7 @@ public class LoginController {
             //execute login method
             try {
                 currentUser.login(usernamePasswordToken);
-                return "redirect:/main.html";
+                return "redirect:/index.html";
             } catch (UnknownAccountException e) {
                 //login fail:user is no t exist
                 model.addAttribute("msg", "user is not exist");
@@ -59,7 +46,7 @@ public class LoginController {
             }
         }
 
-        return "redirect:/main.html";
+        return "redirect:/index.html";
     }
 
     @GetMapping(value = "/toLogin")

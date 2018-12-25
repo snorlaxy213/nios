@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service("userServiceimpl")
 public class UserServiceimpl implements UserService {
@@ -22,11 +23,18 @@ public class UserServiceimpl implements UserService {
     Mapper mapper;
 
     @Override
-    public User findByname(String username) throws Exception {
+    public User findByName(String id) {
+        Optional<User> user = userRepository.findById(id);
+        return user.get();
+    }
+
+    @Override
+    public User findById(String id) {
         List<User> users = userRepository.findAll();
+
         User temp = null;
         for(User user : users){
-            if(username.equals(user.getName())){
+            if(id.equals(user.getId())){
                 temp = user;
             }
         }
@@ -45,7 +53,6 @@ public class UserServiceimpl implements UserService {
         } catch (Exception e) {
             throw e;
         }
-
     }
 
     boolean validation(UserDto userDto){
