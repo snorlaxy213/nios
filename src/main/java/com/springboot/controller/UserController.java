@@ -4,6 +4,7 @@ import com.springboot.dto.UserDto;
 import com.springboot.entity.User;
 import com.springboot.repository.UserRepository;
 import com.springboot.service.UserService;
+import org.apache.log4j.Logger;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,8 +19,10 @@ import java.util.List;
 @Controller
 public class UserController {
 
+    private static final Logger LOGGER = Logger.getLogger(UserController.class);
+
     @Autowired
-    @Qualifier("userServiceimpl")
+    @Qualifier("userServiceImpl")
     UserService userService;
 
     @Autowired
@@ -37,7 +40,7 @@ public class UserController {
 
     @ResponseBody
     @GetMapping("/user")
-    public List<UserDto> getUser() throws Exception {
+    public List<UserDto> getUser() {
         try {
             List<User> users = userRepository.findAll();
 
@@ -48,17 +51,22 @@ public class UserController {
             }
             return userDtos;
         } catch (Exception e) {
-            throw e;
+            LOGGER.info(e.getMessage());
         }
+        return null;
     }
 
-    @PostMapping("/user")
-    public void save(UserDto userDto){
+    @ResponseBody
+    @PostMapping(value = "/user")
+    public String save( UserDto userDto){
+        String msg = "";
         try {
-            userService.save(userDto);
+            msg = userService.save(userDto);
+            return msg;
         } catch (Exception e) {
-
+            LOGGER.info(e.getMessage());
         }
+        return msg;
     }
 
 }

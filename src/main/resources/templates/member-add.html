@@ -34,13 +34,13 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户ID：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="id" name="id" required>
+				<input type="text" class="input-text" value="" placeholder="" id="id" name="id">
 			</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="name" name="name" required>
+				<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
 			</div>
 		</div>
 		<div class="row cl">
@@ -58,13 +58,13 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>有效日期：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="date" class="input-text" placeholder="@" name="effective" id="date" required>
+				<input type="date" class="input-text" name="effective" id="date">
 			</div>
 		</div>
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>失效日期：</label>
+			<label class="form-label col-xs-4 col-sm-3">失效日期：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="date" class="input-text" placeholder="@" name="expiry" id="expiry_date">
+				<input type="date" class="input-text" name="expiry" id="expiry_date">
 			</div>
 		</div>
 		<div class="row cl">
@@ -93,6 +93,47 @@ $(function(){
 		radioClass: 'iradio-blue',
 		increaseArea: '20%'
 	});
+
+	$("#form-member-add").validate({
+		rules:{
+			id:{
+				required:true,
+			},
+			name:{
+				required:true,
+				minlength:2,
+				maxlength:16
+			},
+			mobile:{
+				required:true,
+				isMobile:true,
+			},
+			email:{
+				required:true,
+				email:true,
+			},
+
+		},
+		onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+			$.ajax({
+				type: "POST",
+				url: "/nios/user",
+				contentType: "application/x-www-form-urlencoded",
+				data: $("#form-member-add").serialize(),
+				dataType: "json",
+				success: function (msg) {
+				}
+			});
+			var index = parent.layer.getFrameIndex(window.name);
+			//parent.$('.btn-refresh').click();
+			parent.layer.close(index);
+		}
+	});
+
+
 
 });
 </script> 

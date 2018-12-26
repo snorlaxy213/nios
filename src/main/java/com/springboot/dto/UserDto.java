@@ -1,6 +1,5 @@
 package com.springboot.dto;
 
-import com.springboot.entity.BasicInfomation;
 import com.springboot.entity.UserRole;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -8,7 +7,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-public class UserDto extends BasicInfomation {
+public class UserDto extends BasicRowInfo {
 
     private String id;
 

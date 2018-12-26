@@ -20,7 +20,6 @@ spring:
     hibernate:
       ddl-auto: update
 
-
-
-
+logging:
+  config: src\main\resources\log4j.properties
 
