@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,19 @@ public class UserServiceImpl implements UserService {
     @Autowired
     @Qualifier("mapper")
     Mapper mapper;
+
+    @Override
+    public List<UserDto> findAll() {
+        List<User> users = userRepository.findAll();
+
+        List<UserDto> userDtos = new ArrayList<>();
+        users.forEach(user -> {
+            UserDto userDto = mapper.map(user,UserDto.class);
+            userDtos.add(userDto);
+        });
+
+        return userDtos;
+    }
 
     @Override
     public User findByName(String id) {
