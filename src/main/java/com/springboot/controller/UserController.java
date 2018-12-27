@@ -1,5 +1,6 @@
 package com.springboot.controller;
 
+import com.springboot.dto.Message;
 import com.springboot.dto.UserDto;
 import com.springboot.entity.User;
 import com.springboot.repository.UserRepository;
@@ -58,15 +59,15 @@ public class UserController {
 
     @ResponseBody
     @PostMapping(value = "/user")
-    public String save( UserDto userDto){
+    public Message save(UserDto userDto){
         String msg = "";
         try {
             msg = userService.save(userDto);
-            return msg;
+            return Message.success();
         } catch (Exception e) {
             LOGGER.info(e.getMessage());
         }
-        return msg;
+        return Message.success();
     }
 
 }
