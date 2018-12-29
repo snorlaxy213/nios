@@ -40,21 +40,21 @@
                 <form class="form-horizontal">
                     <div class="form-group">
                         <label for="UserID_add" class="col-sm-2 control-label">UserID</label>
-                        <div class="col-sm-10 has-success">
+                        <div class="col-sm-10">
                             <input type="text" name="id" class="form-control" id="UserID_add" placeholder="UserID">
                             <span class="help-block"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="UserName_add" class="col-sm-2 control-label">UserName</label>
-                        <div class="col-sm-10 has-warning">
+                        <div class="col-sm-10">
                             <input type="text" name="name"  class="form-control" id="UserName_add" placeholder="UserName">
                             <span class="help-block"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="Email_add" class="col-sm-2 control-label">Email</label>
-                        <div class="col-sm-10 has-error">
+                        <div class="col-sm-10">
                             <input type="email" name="email" class="form-control" id="Email_add" placeholder="Email">
                             <span class="help-block"></span>
                         </div>
@@ -63,18 +63,21 @@
                         <label for="Mobile_add" class="col-sm-2 control-label">Mobile</label>
                         <div class="col-sm-10">
                             <input type="text" name="mobile" class="form-control" id="Mobile_add" placeholder="Mobile">
+                            <span class="help-block"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="Effect_Date_add" class="col-sm-2 control-label">Effect_Date</label>
                         <div class="col-sm-10">
                             <input type="date" name="effective" class="form-control" id="Effect_Date_add" placeholder="Effect_Date">
+                            <span class="help-block"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="Expiry_Date_add" class="col-sm-2 control-label">Expiry_Date</label>
                         <div class="col-sm-10">
                             <input type="date" name="expiry" class="form-control" id="Expiry_Date_add" placeholder="Expiry_Date">
+                            <span class="help-block"></span>
                         </div>
                     </div>
                 </form>
@@ -206,7 +209,29 @@
         <script type="text/javascript" th:src="@{/js/index.js}" src="/js/index.js"></script>
         <!--  Javascript for Nios  -->
         <script type="text/javascript">
+            $(function () {
+                to_page(1);
+            });
+
+            function to_page(pn) {
+                $.ajax({
+                    url: "${APP_PATH}/emps",
+                    data: "pn=" + pn,
+                    type: "GET",
+                    success: function (result) {
+                        build_workers_table(result);
+
+                        //build_page_info(result);
+
+                        //build_page_nav(result);
+                    }
+                });
+            }
+
             $("#user_save_btn").click(function () {
+                if (!validate_add_form()) {
+                    return false;
+                }
                 $.ajax({
                     url: "/nios/user",
                     type: "POST",
@@ -214,12 +239,47 @@
                     success: function (result) {
                         if(result.code==100){
                             $("#UserAddModal").modal('hide');
-                            alert("SUCCESS");
                         }
-
                     }
-                })
+                });
             });
+            function validate_add_form() {
+                //userId validation
+                var userId = $("#UserID_add").val();
+                console.log("userId",userId)
+                //6-16 digit number or letter
+                var regUserId = /(^[a-zA-Z0-9_-]{6,16}$)/;
+                if (!regUserId.test(userId)) {
+                    show_validate_msg("#UserID_add", "error", "The user name can be a combination of 6-16 digits in English and a number");
+                    return false;
+                } else {
+                    show_validate_msg("#UserID_add", "success", "");
+                }
+
+                //email validation
+                var email = $("#Email_add").val();
+                var regemail = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                if (!regemail.test(email)) {
+                    show_validate_msg("#Email_add", "error", "email format is not right");
+                    return false
+                }else  {
+                    show_validate_msg("#Email_add", "success", "");
+                }
+                return true;
+            }
+
+            function show_validate_msg(ele,status,msg) {
+                $(ele).parent().removeClass("has-success has-error");
+                $(ele).next("span").text("");
+
+                if ("success" == status) {
+                    $(ele).parent().addClass("has-success");
+                    $(ele).next("span").text(msg);
+                } else if ("error" == status) {
+                    $(ele).parent().addClass("has-error");
+                    $(ele).next("span").text(msg);
+                }
+            }
 
         </script>
     </div>

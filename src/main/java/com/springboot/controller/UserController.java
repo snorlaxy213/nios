@@ -48,7 +48,7 @@ public class UserController {
     @ResponseBody
     @PostMapping(value = "/user")
     public Message save(UserDto userDto){
-        String msg = "123456";
+        String msg = "";
         try {
             msg = userService.save(userDto);
             return Message.success();
