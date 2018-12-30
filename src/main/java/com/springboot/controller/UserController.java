@@ -1,20 +1,21 @@
 package com.springboot.controller;
 
+import com.springboot.commons.PageUtils;
 import com.springboot.dto.Message;
 import com.springboot.dto.UserDto;
-import com.springboot.repository.UserRepository;
+import com.springboot.entity.User;
 import com.springboot.service.UserService;
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 @Controller
 public class UserController {
@@ -25,8 +26,6 @@ public class UserController {
     @Qualifier("userServiceImpl")
     UserService userService;
 
-    @Autowired
-    UserRepository userRepository;
 
     @Autowired
     @Qualifier("mapper")
@@ -37,12 +36,20 @@ public class UserController {
         return "user/UserProfile";
     }
 
-    @GetMapping("/user")
+    /*@GetMapping("/user")
     public List<UserDto> getUser(Model model) {
         List<UserDto> userDtos = userService.findAll();
 
         model.addAttribute("userDtos", userDtos);
         return userDtos;
+    }*/
+
+    @ResponseBody
+    @GetMapping("/user")
+    public Message getUser(@RequestParam(value = "pageNumber", defaultValue = "0")Integer pageNumber, Model model) {
+        Page<User> users = userService.findAllWithPage(pageNumber, PageUtils.PAGE_SIZE);
+
+        return Message.success().add("userInfo",users);
     }
 
     @ResponseBody
@@ -57,5 +64,7 @@ public class UserController {
         }
         return Message.success();
     }
+
+
 
 }

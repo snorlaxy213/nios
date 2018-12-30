@@ -8,14 +8,19 @@ import com.springboot.service.UserService;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service("userServiceImpl")
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -39,10 +44,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByName(String id) {
-        Optional<User> user = userRepository.findById(id);
-        return user.get();
+    public Page<User> findAllWithPage(Integer pageNumber, Integer pageSize) {
+        Sort sort = new Sort(Sort.Direction.ASC,"id");
+        Pageable pageable = new PageRequest(pageNumber, pageSize, sort);
+
+        Page<User> users = userRepository.findAll(pageable);
+
+        return users;
     }
+
 
     @Override
     public User findById(String id) {
