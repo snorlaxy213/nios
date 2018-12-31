@@ -2,7 +2,7 @@
 <mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://dozer.sourceforge.net
           http://dozer.sourceforge.net/schema/beanmapping.xsd">
-    <mapping>
+    <mapping date-format="yyyy-MM-dd">
         <class-a>com.springboot.entity.User</class-a>
         <class-b>com.springboot.dto.UserDto</class-b>
         <field>
@@ -28,6 +28,14 @@
         <field>
             <a>basicInfomation.updateClinic</a>
             <b>updateClinic</b>
+        </field>
+        <field>
+            <a>effective</a>
+            <b>effectiveStr</b>
+        </field>
+        <field>
+            <a>expiry</a>
+            <b>expiryStr</b>
         </field>
     </mapping>
 </mappings>

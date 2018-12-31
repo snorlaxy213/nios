@@ -1,5 +1,7 @@
 package com.springboot.config;
 
+import com.springboot.dto.Message;
+import com.springboot.dto.UserDto;
 import com.springboot.entity.User;
 import com.springboot.service.UserService;
 import org.apache.shiro.SecurityUtils;
@@ -36,9 +38,11 @@ public class ShiroRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String username = token.getUsername();
 
-        User user  = userService.findById(username);
+        Message message  = userService.findById(username);
 
-        if(user == null){
+        UserDto userDto = (UserDto) message.getExtend().get("user");
+
+        if(userDto == null){
             //if user is not exist ,shiro will return UnknownAccountException
             throw new UnknownAccountException("user is not exist");
         }
@@ -47,6 +51,6 @@ public class ShiroRealm extends AuthorizingRealm {
         //principal : AuthenticationInfo entity information
         //credentials : Password
         //realmName : currnt realm's name;you can return getName();
-        return new SimpleAuthenticationInfo(user,user.getPassword(),"user");
+        return new SimpleAuthenticationInfo(userDto,userDto.getPassword(),"user");
     }
 }

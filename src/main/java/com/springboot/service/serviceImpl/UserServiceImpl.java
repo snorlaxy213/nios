@@ -1,10 +1,12 @@
 package com.springboot.service.serviceImpl;
 
+import com.springboot.dto.Message;
 import com.springboot.dto.UserDto;
 import com.springboot.entity.BasicInfomation;
 import com.springboot.entity.User;
 import com.springboot.repository.UserRepository;
 import com.springboot.service.UserService;
+import org.apache.log4j.Logger;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,13 +17,20 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service("userServiceImpl")
 @Transactional
 public class UserServiceImpl implements UserService {
+
+    private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
+
+    private static final String YYYYMMDD = "yyyy-MM-dd";
+
 
     @Autowired
     UserRepository userRepository;
@@ -36,7 +45,7 @@ public class UserServiceImpl implements UserService {
 
         List<UserDto> userDtos = new ArrayList<>();
         users.forEach(user -> {
-            UserDto userDto = mapper.map(user,UserDto.class);
+            UserDto userDto = mapper.map(user, UserDto.class);
             userDtos.add(userDto);
         });
 
@@ -44,27 +53,40 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<User> findAllWithPage(Integer pageNumber, Integer pageSize) {
-        Sort sort = new Sort(Sort.Direction.ASC,"id");
+    public Message findAllWithPage(Integer pageNumber, Integer pageSize) {
+        Sort sort = new Sort(Sort.Direction.ASC, "id");
         Pageable pageable = new PageRequest(pageNumber, pageSize, sort);
 
-        Page<User> users = userRepository.findAll(pageable);
+        Page<User> userPages = userRepository.findAll(pageable);
 
-        return users;
+        List<User> users = userPages.getContent();
+
+        List<UserDto> userDtos = new ArrayList<>();
+        users.forEach(user -> {
+            UserDto userDto = mapper.map(user, UserDto.class);
+            userDtos.add(userDto);
+        });
+
+        Integer totalPage = userPages.getTotalPages();
+        Long totalElement = userPages.getTotalElements();
+
+        return Message.success().add("list", userDtos).add("totalPage", totalPage).add("totalElement", totalElement);
     }
 
 
     @Override
-    public User findById(String id) {
-        List<User> users = userRepository.findAll();
+    public Message findById(String id) {
+        Optional<User> user = userRepository.findById(id);
 
-        User temp = null;
-        for(User user : users){
-            if(id.equals(user.getId())){
-                temp = user;
-            }
+        UserDto userDto = mapper.map(user.get(), UserDto.class);
+
+        if (user.isPresent()) {
+            return Message.success().add("user", userDto);
+        } else {
+            return Message.fail();
         }
-        return temp;
+
+
     }
 
     @Override
@@ -73,18 +95,45 @@ public class UserServiceImpl implements UserService {
             if (validation(userDto)) {
                 return "input error";
             }
-            User user = mapper.map(userDto,User.class);
-            this.getModifiedInfo(user.getBasicInfomation(), "1", 1);
-            user.setPassword("123456");
-            userRepository.save(user);
+
+            Long count = userRepository.countById(userDto.getId());
+
+            if (count > 0) {
+                Optional<User> userOptional = userRepository.findById(userDto.getId());
+
+                if (userOptional.isPresent()) {
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(YYYYMMDD);
+
+                    User user = userOptional.get();
+                    user.setName(userDto.getName());
+                    user.setEmail(userDto.getEmail());
+                    user.setMobile(userDto.getMobile());
+                    Date Effective = simpleDateFormat.parse(userDto.getEffectiveStr());
+                    user.setEffective(Effective);
+                    Date Expiry = simpleDateFormat.parse(userDto.getExpiryStr());
+                    user.setExpiry(Expiry);
+
+                    this.getModifiedInfo(user.getBasicInfomation(), "1", 1);
+
+                    userRepository.save(user);
+                    return "success";
+                }
+            } else {
+                User user = mapper.map(userDto, User.class);
+                this.getModifiedInfo(user.getBasicInfomation(), "1", 1);
+                user.setPassword("123456");
+                userRepository.save(user);
+                return "success";
+            }
             return "success";
         } catch (Exception e) {
-            throw e;
+            LOGGER.info(e);
+            return "fail";
         }
     }
 
-    boolean validation(UserDto userDto){
-        if (userDto.getId() == null || userDto.getEffective() == null || userDto.getEmail() == null
+    boolean validation(UserDto userDto) {
+        if (userDto.getId() == null || userDto.getEffectiveStr() == null || userDto.getEmail() == null
                 || userDto.getName() == null) {
             return true;
         } else {
@@ -94,15 +143,15 @@ public class UserServiceImpl implements UserService {
 
     private BasicInfomation getModifiedInfo(BasicInfomation aBscRwInf, String lUID, Integer lClinicCode) {
 
-        if(aBscRwInf!=null){
-            if(aBscRwInf.getCreateBy() == null){
+        if (aBscRwInf != null) {
+            if (aBscRwInf.getCreateBy() == null) {
                 aBscRwInf.setCreateBy(lUID);
                 aBscRwInf.setCreateDtm(new Date());
                 aBscRwInf.setCreateClinic(lClinicCode);
                 aBscRwInf.setUpdateBy(lUID);
                 aBscRwInf.setUpdateDtm(new Date());
                 aBscRwInf.setUpdateClinic(lClinicCode);
-            }else{
+            } else {
                 aBscRwInf.setUpdateBy(lUID);
                 aBscRwInf.setUpdateDtm(new Date());
                 aBscRwInf.setUpdateClinic(lClinicCode);

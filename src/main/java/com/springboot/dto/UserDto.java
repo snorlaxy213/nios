@@ -22,8 +22,12 @@ public class UserDto extends BasicRowInfo {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date effective;
 
+    private String effectiveStr;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date expiry;
+
+    private String expiryStr;
 
     private Date changePassword;
 
@@ -142,5 +146,21 @@ public class UserDto extends BasicRowInfo {
 
     public void setUserroles(List<UserRole> userroles) {
         this.userroles = userroles;
+    }
+
+    public String getEffectiveStr() {
+        return effectiveStr;
+    }
+
+    public void setEffectiveStr(String effectiveStr) {
+        this.effectiveStr = effectiveStr;
+    }
+
+    public String getExpiryStr() {
+        return expiryStr;
+    }
+
+    public void setExpiryStr(String expiryStr) {
+        this.expiryStr = expiryStr;
     }
 }
