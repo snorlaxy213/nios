@@ -1,9 +1,7 @@
 package com.springboot;
 
-import com.springboot.dto.Message;
 import com.springboot.dto.UserRoleDto;
 import com.springboot.service.UserRoleService;
-import com.springboot.service.UserService;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,24 +16,13 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @WebAppConfiguration
-public class NiosApplicationTests {
+public class UserRoleTest {
 
-    private static final Logger LOGGER = Logger.getLogger(NiosApplicationTests.class);
-
-    @Autowired
-    @Qualifier("userServiceImpl")
-    UserService userService;
+    private static final Logger LOGGER = Logger.getLogger(UserRoleTest.class);
 
     @Autowired
     @Qualifier("userRoleServiceImpl")
     UserRoleService userRoleService;
-
-
-    @Test
-    public void contextLoads() {
-        Message users = userService.findAllWithPage(0,1);
-
-    }
 
     @Test
     public void tsetUserRole() {
@@ -44,4 +31,7 @@ public class NiosApplicationTests {
         LOGGER.info(userRoleDtos);
     }
 
+    public void saveUserRole() {
+
+    }
 }

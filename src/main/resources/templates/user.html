@@ -9,158 +9,28 @@
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
     <!-- CSS Libs -->
     <link rel="stylesheet" type="text/css" th:href="@{/lib/css/bootstrap.min.css}" th href="/lib/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/lib/css/font-awesome.min.css}" href="/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/css/font-awesome.min.css}"
+          href="/lib/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/lib/css/animate.min.css}" href="/lib/css/animate.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/lib/css/bootstrap-switch.min.css}" href="/lib/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/css/bootstrap-switch.min.css}"
+          href="/lib/css/bootstrap-switch.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/lib/css/checkbox3.min.css}" href="/lib/css/checkbox3.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/lib/css/jquery.dataTables.min.css}" href="/lib/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/lib/css/dataTables.bootstrap.css}" href="/lib/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/css/jquery.dataTables.min.css}"
+          href="/lib/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/css/dataTables.bootstrap.css}"
+          href="/lib/css/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" th:href="@{/lib/css/select2.min.css}" href="/lib/css/select2.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap-select/1.13.2/dist/css/bootstrap-select.min.css}"/>
     <!-- CSS App -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" href="/css/style.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/themes/flat-blue.css}" href="/css/themes/flat-blue.css">
 </head>
-
 <body class="flat-blue">
-<!-- Modal -->
-<div class="modal fade modal-info" id="UserAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="AddModalLabel">User Add</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label for="UserID_add" class="col-sm-2 control-label">UserID</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="id" class="form-control" id="UserID_add" placeholder="UserID">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="UserName_add" class="col-sm-2 control-label">UserName</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="name" class="form-control" id="UserName_add"
-                                   placeholder="UserName">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="Email_add" class="col-sm-2 control-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="email" name="email" class="form-control" id="Email_add" placeholder="Email">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="Mobile_add" class="col-sm-2 control-label">Mobile</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="mobile" class="form-control" id="Mobile_add" placeholder="Mobile">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="Effect_Date_add" class="col-sm-2 control-label">Effect_Date</label>
-                        <div class="col-sm-10">
-                            <input type="date" name="effectiveStr" class="form-control" id="Effect_Date_add"
-                                   placeholder="Effect_Date">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="Expiry_Date_add" class="col-sm-2 control-label">Expiry_Date</label>
-                        <div class="col-sm-10">
-                            <input type="date" name="expiryStr" class="form-control" id="Expiry_Date_add"
-                                   placeholder="Expiry_Date">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button id="user_save_btn" type="button" class="btn btn-info">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Update Modal -->
-<div class="modal fade modal-info" id="UserUpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title" id="UpdateModalLabel">User Update</h4>
-            </div>
-            <div class="modal-body">
-                <form class="form-horizontal">
-                    <div class="form-group">
-                        <label for="UserID_update" class="col-sm-2 control-label">UserID</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="id" class="form-control" id="UserID_update" placeholder="UserID">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="UserName_update" class="col-sm-2 control-label">UserName</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="name" class="form-control" id="UserName_update"
-                                   placeholder="UserName">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="Email_update" class="col-sm-2 control-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="email" name="email" class="form-control" id="Email_update" placeholder="Email">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="Mobile_update" class="col-sm-2 control-label">Mobile</label>
-                        <div class="col-sm-10">
-                            <input type="text" name="mobile" class="form-control" id="Mobile_update" placeholder="Mobile">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="Effect_Date_update" class="col-sm-2 control-label">Effect_Date</label>
-                        <div class="col-sm-10">
-                            <input type="date" name="effectiveStr" class="form-control" id="Effect_Date_update"
-                                   placeholder="Effect_Date">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="Expiry_Date_update" class="col-sm-2 control-label">Expiry_Date</label>
-                        <div class="col-sm-10">
-                            <input type="date" name="expiryStr" class="form-control" id="Expiry_Date_update"
-                                   placeholder="Expiry_Date">
-                            <span class="help-block"></span>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button id="user_update_btn" type="button" class="btn btn-info">Update</button>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="app-container">
     <div class="row content-container">
         <!-- insert topvar -->
-        <div th:replace="~{commons/bar::topnav(activeUri='user')}"></div>
+        <div th:replace="~{commons/bar::topnav(activeUri='user.html')}"></div>
         <!-- insert sidebar -->
-        <div th:replace="~{commons/bar::sidebar(activeUri='user')}"></div>
+        <div th:replace="~{commons/bar::sidebar(activeUri='user.html')}"></div>
         <!-- Main Content -->
         <div class="container-fluid">
             <div class="side-body">
@@ -233,62 +103,73 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form class="form-horizontal">
+                                <form id="User_Form" class="form-horizontal">
                                     <div class="form-group">
-                                        <label for="UserID_add" class="col-sm-2 control-label">UserID</label>
+                                        <label for="UserID" class="col-sm-2 control-label">UserID</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="id" class="form-control" id="UserID_add" placeholder="UserID">
+                                            <input type="text" name="id" class="form-control" id="UserID"
+                                                   placeholder="UserID">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="UserName_add" class="col-sm-2 control-label">UserName</label>
+                                        <label for="UserName" class="col-sm-2 control-label">UserName</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="name" class="form-control" id="UserName_add"
+                                            <input type="text" name="name" class="form-control" id="UserName"
                                                    placeholder="UserName">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Email_add" class="col-sm-2 control-label">Email</label>
+                                        <label for="Email" class="col-sm-2 control-label">Email</label>
                                         <div class="col-sm-10">
-                                            <input type="email" name="email" class="form-control" id="Email_add" placeholder="Email">
+                                            <input type="email" name="email" class="form-control" id="Email"
+                                                   placeholder="Email">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Mobile_add" class="col-sm-2 control-label">Mobile</label>
+                                        <label for="Mobile" class="col-sm-2 control-label">Mobile</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="mobile" class="form-control" id="Mobile_add" placeholder="Mobile">
+                                            <input type="text" name="mobile" class="form-control" id="Mobile"
+                                                   placeholder="Mobile">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Effect_Date_add" class="col-sm-2 control-label">Effect_Date</label>
+                                        <label for="Effect_Date" class="col-sm-2 control-label">Effect_Date</label>
                                         <div class="col-sm-10">
-                                            <input type="date" name="effectiveStr" class="form-control" id="Effect_Date_add"
+                                            <input type="date" name="effectiveStr" class="form-control"
+                                                   id="Effect_Date"
                                                    placeholder="Effect_Date">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Expiry_Date_add" class="col-sm-2 control-label">Expiry_Date</label>
+                                        <label for="Expiry_Date" class="col-sm-2 control-label">Expiry_Date</label>
                                         <div class="col-sm-10">
-                                            <input type="date" name="expiryStr" class="form-control" id="Expiry_Date_add"
+                                            <input type="date" name="expiryStr" class="form-control"
+                                                   id="Expiry_Date"
                                                    placeholder="Expiry_Date">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Role" class="col-sm-2 control-label">Role</label>
+                                        <label for="userRoles" class="col-sm-2 control-label">Role</label>
                                         <div class="col-sm-10">
-                                            <select id="Role" class="form-control selectpicker" multiple>
+                                            <select name="userRoles" id="userRoles" class="form-control" multiple>
                                                 <option value="1">广东省</option>
                                                 <option value="2">广西省</option>
                                                 <option value="3">福建省</option>
                                                 <option value="4">湖南省</option>
                                                 <option value="5">山东省</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Reset</button>
+                                            <button id="user_save_btn" type="button" class="btn btn-info">Save</button>
                                         </div>
                                     </div>
                                 </form>
@@ -299,190 +180,38 @@
             </div>
         </div>
     </div>
-
-
-
 </div>
-    <footer class="app-footer">
-        <div class="wrapper">
-            <span class="pull-right">2.1 <a href="#"><i class="fa fa-long-arrow-up"></i></a></span> © 2015 Copyright.
-        </div>
-    </footer>
-    <div>
-        <!-- Javascript Libs -->
-        <script type="text/javascript" th:src="@{/lib/js/jquery.min.js}" src="/lib/js/jquery.min.js"></script>
-        <script type="text/javascript" th:src="@{/lib/js/bootstrap.min.js}" src="/lib/js/bootstrap.min.js"></script>
-        <script type="text/javascript" th:src="@{/lib/js/Chart.min.js}" src="/lib/js/Chart.min.js"></script>
-        <script type="text/javascript" th:src="@{/lib/js/bootstrap-switch.min.js}" src="/lib/js/bootstrap-switch.min.js"></script>
-        <script type="text/javascript" th:src="@{/lib/js/jquery.matchHeight-min.js}" src="/lib/js/jquery.matchHeight-min.js"></script>
-        <script type="text/javascript" th:src="@{/lib/js/jquery.dataTables.min.js}" src="/lib/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" th:src="@{/lib/js/dataTables.bootstrap.min.js}" src="/lib/js/dataTables.bootstrap.min.js"></script>
-        <script type="text/javascript" th:src="@{/lib/js/select2.full.min.js}" src="/lib/js/select2.full.min.js"></script>
-        <script type="text/javascript" th:src="@{/lib/js/ace/ace.js}" src="/lib/js/ace/ace.js"></script>
-        <script type="text/javascript" th:src="@{/lib/js/ace/mode-html.js}" src="/lib/js/ace/mode-html.js"></script>
-        <script type="text/javascript" th:src="@{/lib/js/ace/theme-github.js}" src="/lib/js/ace/theme-github.js"></script>
-        <script type="text/javascript" th:src="@{/webjars/bootstrap-select/1.13.2/dist/js/bootstrap-select.min.js}"></script>
-
-        <!-- Javascript -->
-        <script type="text/javascript" th:src="@{/js/app.js}" src="/js/app.js"></script>
+<footer class="app-footer">
+    <div class="wrapper">
+        <span class="pull-right">2.1 <a href="#"><i class="fa fa-long-arrow-up"></i></a></span>
     </div>
-</div>
+</footer>
+<div>
+    <!-- Javascript Libs -->
+    <script type="text/javascript" th:src="@{/lib/js/jquery.min.js}" src="/lib/js/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/lib/js/bootstrap.min.js}" src="/lib/js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{/lib/js/Chart.min.js}" src="/lib/js/Chart.min.js"></script>
+    <script type="text/javascript" th:src="@{/lib/js/bootstrap-switch.min.js}"
+            src="/lib/js/bootstrap-switch.min.js"></script>
+    <script type="text/javascript" th:src="@{/lib/js/jquery.matchHeight-min.js}"
+            src="/lib/js/jquery.matchHeight-min.js"></script>
+    <script type="text/javascript" th:src="@{/lib/js/jquery.dataTables.min.js}"
+            src="/lib/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" th:src="@{/lib/js/dataTables.bootstrap.min.js}"
+            src="/lib/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{/lib/js/select2.full.min.js}" src="/lib/js/select2.full.min.js"></script>
+    <script type="text/javascript" th:src="@{/lib/js/ace/ace.js}" src="/lib/js/ace/ace.js"></script>
+    <script type="text/javascript" th:src="@{/lib/js/ace/mode-html.js}" src="/lib/js/ace/mode-html.js"></script>
+    <script type="text/javascript" th:src="@{/lib/js/ace/theme-github.js}" src="/lib/js/ace/theme-github.js"></script>
+
+    <!-- Javascript -->
+    <script type="text/javascript" th:src="@{/js/app.js}" src="/js/app.js"></script>
+
     <!--  Javascript for Nios  -->
-    <script th:inline="javascript" type="text/javascript">
-        $(function () {
-            to_page(0);
-        });
+    <script type="text/javascript" th:src="@{/js/user.js}"></script>
+</div>
+</div>
 
-        function to_page(pn) {
-            $.ajax({
-                url: "/nios/user",
-                data: "pn=" + pn,
-                type: "GET",
-                success: function (result) {
-                    build_users_table(result);
-
-                    //build_page_info(result);
-
-                    //build_page_nav(result);
-                }
-            });
-        }
-
-        function build_users_table(result) {
-            //清空表格数据
-            $("#users_table tbody").empty();
-            var userInfo = result.extend.list;
-            //jquery遍历方法each，emps第一个遍历的元素,item当前对象
-            //此处要对照JSON数据，获取到员工的list
-            //item.*读取bean中数据
-            $.each(userInfo, function (index, item) {
-                var checkBoxTD = $("<td><input type='checkbox' class='check_item'/></td>");
-                var userIdTd = $("<td></td>").append(item.id);
-                var userNameTd = $("<td></td>").append(item.name);
-                var MobileTd = $("<td></td>").append(item.mobile);
-                var EmailTd = $("<td></td>").append(item.email);
-                var effecticeDateTd = $("<td></td>").append(item.effectiveStr);
-                var expiryDateTd = $("<td></td>").append(item.expiryStr);
-                var editBtn = $("<button></button>").addClass("btn btn-primary  btn-sm edit_btn").append($("<span></span>").addClass(
-                    "glyphicon glyphicon-pencil")).append("update");
-                //为编辑按钮添加一个自定义的属性，来表示当前员工。赋值给edit-id
-                editBtn.attr("edit-id", item.id);
-                var delBth = $("<button></button>").addClass(
-                    "btn btn-danger  btn-sm delete_btn").append(
-                    $("<span></span>")
-                        .addClass("glyphicon glyphicon-trash")).append(
-                    "dalete");
-                //为删除按钮添加一个自定义的属性，来表示当前员工。赋值给edit-id
-                delBth.attr("del-id", item.id);
-                var btnTd = $("<td></td>").append(editBtn).append(" ").append(
-                    delBth);
-                //append方法执行完以后还是返回原来的元素，所以可以不停使用append方法添加内容
-                $("<tr></tr>").append(checkBoxTD).append(userIdTd).append(userNameTd).append(MobileTd).append(EmailTd).append(effecticeDateTd).append(expiryDateTd).append(btnTd).appendTo("#users_table tbody");
-            });
-        }
-
-        $("#user_save_btn").click(function () {
-            if (!validate_add_form()) {
-                return false;
-            }
-            $.ajax({
-                url: "/nios/user",
-                type: "POST",
-                data: $("#UserAddModal form").serialize(),
-                success: function (result) {
-                    if (result.code == 100) {
-                        $("#UserAddModal").modal('hide');
-                        to_page(0);
-                    }
-                }
-            });
-        });
-
-        $("#user_update_btn").click(function () {
-
-            $.ajax({
-                url: "/nios/user",
-                type: "POST",
-                data: $("#UserUpdateModal form").serialize(),
-                success: function (result) {
-                    if (result.code == 100) {
-                        $("#UserUpdateModal").modal('hide');
-                        to_page(0);
-                    }
-                }
-            });
-        });
-
-        function validate_add_form() {
-            //userId validation
-            var userId = $("#UserID_add").val();
-            console.log("userId", userId)
-            //6-16 digit number or letter
-            var regUserId = /(^[a-zA-Z0-9_-]{6,16}$)/;
-            if (!regUserId.test(userId)) {
-                show_validate_msg("#UserID_add", "error", "The user name can be a combination of 6-16 digits in English and a number");
-                return false;
-            } else {
-                show_validate_msg("#UserID_add", "success", "");
-            }
-
-            //email validation
-            var email = $("#Email_add").val();
-            var regemail = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-            if (!regemail.test(email)) {
-                show_validate_msg("#Email_add", "error", "email format is not right");
-                return false
-            } else {
-                show_validate_msg("#Email_add", "success", "");
-            }
-            return true;
-        }
-
-        function show_validate_msg(ele, status, msg) {
-            $(ele).parent().removeClass("has-success has-error");
-            $(ele).next("span").text("");
-
-            if ("success" == status) {
-                $(ele).parent().addClass("has-success");
-                $(ele).next("span").text(msg);
-            } else if ("error" == status) {
-                $(ele).parent().addClass("has-error");
-                $(ele).next("span").text(msg);
-            }
-        }
-
-        $(document).on("click",".edit_btn",function(){
-
-            getUser($(this).attr("edit-id"));
-
-            //3.把员工ID传递给模态框的更新按钮
-            $("#user_update_btn").attr("edit-id",$(this).attr("edit-id"));
-
-            $("#UserUpdateModal").modal({
-                backdrop : "static"
-            });
-
-        });
-
-        function getUser(id){
-            $.ajax({
-                url:"/nios/user/"+id,
-                type:"GET",
-                success:function(result){
-                    var empData=result.extend.user;
-                    $("#UserID_update").val(empData.id);
-                    $("#UserName_update").val(empData.name);
-                    $("#Email_update").val(empData.email);
-                    $("#Mobile_update").val(empData.mobile);
-                    $("#Effect_Date_update").val(empData.effectiveStr);
-                }
-
-            });
-        }
-
-
-
-    </script>
 </body>
 
 </html>

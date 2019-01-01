@@ -38,4 +38,32 @@
             <b>expiryStr</b>
         </field>
     </mapping>
+    <mapping date-format="yyyy-MM-dd">
+        <class-a>com.springboot.entity.UserRole</class-a>
+        <class-b>com.springboot.dto.UserRoleDto</class-b>
+        <field>
+            <a>basicInfomation.createBy</a>
+            <b>createBy</b>
+        </field>
+        <field>
+            <a>basicInfomation.createDtm</a>
+            <b>createDtm</b>
+        </field>
+        <field>
+            <a>basicInfomation.createClinic</a>
+            <b>createClinic</b>
+        </field>
+        <field>
+            <a>basicInfomation.updateBy</a>
+            <b>updateBy</b>
+        </field>
+        <field>
+            <a>basicInfomation.updateDtm</a>
+            <b>updateDtm</b>
+        </field>
+        <field>
+            <a>basicInfomation.updateClinic</a>
+            <b>updateClinic</b>
+        </field>
+    </mapping>
 </mappings>
