@@ -17,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -91,45 +92,48 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String save(UserDto userDto) {
-        try {
-            if (validation(userDto)) {
-                return "input error";
-            }
 
-            Long count = userRepository.countById(userDto.getId());
+        if (validation(userDto)) {
+            return "input error";
+        }
 
-            if (count > 0) {
-                Optional<User> userOptional = userRepository.findById(userDto.getId());
+        Long count = userRepository.countById(userDto.getId());
 
-                if (userOptional.isPresent()) {
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(YYYYMMDD);
+        if (count > 0) {
+            Optional<User> userOptional = userRepository.findById(userDto.getId());
 
-                    User user = userOptional.get();
-                    user.setName(userDto.getName());
-                    user.setEmail(userDto.getEmail());
-                    user.setMobile(userDto.getMobile());
-                    Date Effective = simpleDateFormat.parse(userDto.getEffectiveStr());
-                    user.setEffective(Effective);
-                    Date Expiry = simpleDateFormat.parse(userDto.getExpiryStr());
-                    user.setExpiry(Expiry);
+            if (userOptional.isPresent()) {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(YYYYMMDD);
 
-                    this.getModifiedInfo(user.getBasicInfomation(), "1", 1);
-
-                    userRepository.save(user);
-                    return "success";
+                User user = userOptional.get();
+                user.setName(userDto.getName());
+                user.setEmail(userDto.getEmail());
+                user.setMobile(userDto.getMobile());
+                Date Effective = null;
+                Date Expiry = null;
+                try {
+                    Effective = simpleDateFormat.parse(userDto.getEffectiveStr());
+                    Expiry = simpleDateFormat.parse(userDto.getExpiryStr());
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-            } else {
-                User user = mapper.map(userDto, User.class);
+                user.setEffective(Effective);
+                user.setExpiry(Expiry);
+
                 this.getModifiedInfo(user.getBasicInfomation(), "1", 1);
-                user.setPassword("123456");
+
                 userRepository.save(user);
                 return "success";
             }
+        } else {
+            User user = mapper.map(userDto, User.class);
+            this.getModifiedInfo(user.getBasicInfomation(), "1", 1);
+            user.setPassword("123456");
+            userRepository.save(user);
             return "success";
-        } catch (Exception e) {
-            LOGGER.info(e);
-            return "fail";
         }
+        return "success";
+
     }
 
     boolean validation(UserDto userDto) {

@@ -1,6 +1,7 @@
 package com.springboot;
 
 import com.springboot.dto.UserRoleDto;
+import com.springboot.entity.BasicInfomation;
 import com.springboot.service.UserRoleService;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -31,7 +32,14 @@ public class UserRoleTest {
         LOGGER.info(userRoleDtos);
     }
 
+    @Test
     public void saveUserRole() {
+        UserRoleDto userRoleDto = new UserRoleDto();
+        userRoleDto.setDescription("test");
+        userRoleDto.setName("test");
+        userRoleDto.setStatus("Y");
+        userRoleDto.setBasicInfomation(new BasicInfomation());
 
+        userRoleService.save(userRoleDto);
     }
 }
