@@ -39,7 +39,9 @@ public class SqeNoServiceImpl implements SqeNoService {
             for (int i = 0; i < keyLength; i++) {
                 stringBuilder.append("0");
             }
+            temp.setNextIdentity(nextIdentity+1);
             stringBuilder.append(nextIdentity);
+            sqeNoServiceRepository.save(temp);
         });
 
         return stringBuilder.toString();

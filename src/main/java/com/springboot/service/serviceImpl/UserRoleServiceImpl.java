@@ -89,9 +89,6 @@ public class UserRoleServiceImpl implements UserRoleService {
                 aBscRwInf.setCreateBy(lUID);
                 aBscRwInf.setCreateDtm(new Date());
                 aBscRwInf.setCreateClinic(lClinicCode);
-                aBscRwInf.setUpdateBy(lUID);
-                aBscRwInf.setUpdateDtm(new Date());
-                aBscRwInf.setUpdateClinic(lClinicCode);
             } else {
                 aBscRwInf.setUpdateBy(lUID);
                 aBscRwInf.setUpdateDtm(new Date());
