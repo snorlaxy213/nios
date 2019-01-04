@@ -8,7 +8,7 @@ import java.util.List;
 public interface UserRoleService {
     UserRoleDto findUserRoleById(String id);
 
-    List<UserRoleDto> findUserRole();
+    List<UserRoleDto> findAll();
 
-    Message save(UserRoleDto userRoleDto);
+    void save(UserRoleDto userRoleDto);
 }
