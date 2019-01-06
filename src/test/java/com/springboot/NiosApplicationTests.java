@@ -39,7 +39,7 @@ public class NiosApplicationTests {
 
     @Test
     public void tsetUserRole() {
-        List<UserRoleDto> userRoleDtos = userRoleService.findUserRole();
+        List<UserRoleDto> userRoleDtos = userRoleService.findAll();
 
         LOGGER.info(userRoleDtos);
     }
