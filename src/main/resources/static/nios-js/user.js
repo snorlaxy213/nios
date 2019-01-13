@@ -4,15 +4,12 @@ $(function () {
 
 function to_page(pn) {
     $.ajax({
-        url: "/nios/user",
+        url: "/nios/User/User",
         data: "pn=" + pn,
         type: "GET",
         success: function (result) {
             build_users_table(result);
 
-            //build_page_info(result);
-
-            //build_page_nav(result);
         }
     });
 }
@@ -56,7 +53,7 @@ $("#user_save_btn").click(function () {
     }
     var json = getJson();
     $.ajax({
-        url: "/nios/user",
+        url: "/nios/User/User",
         type: "POST",
         async: false,
         dataType : "json",
@@ -74,7 +71,7 @@ $("#user_save_btn").click(function () {
 $("#user_update_btn").click(function () {
 
     $.ajax({
-        url: "/nios/user",
+        url: "/nios/User/User",
         type: "POST",
         data: $("#UserUpdateModal form").serialize(),
         success: function (result) {
@@ -133,7 +130,7 @@ $(document).on("click",".edit_btn",function(){
 
 function getUser(id){
     $.ajax({
-        url:"/nios/user/"+id,
+        url:"/nios/User/User/"+id,
         type:"GET",
         success:function(result){
             var empData=result.extend.user;
@@ -145,6 +142,22 @@ function getUser(id){
             $("#Expiry_Date").val(empData.expiryStr);
         }
 
+    });
+}
+
+function getUserRole() {
+    $.ajax({
+        url:"/nios/UserRole/UserRole/"+id,
+        type:"GET",
+        success:function(result){
+            var empData=result.extend.user;
+            $("#UserID").val(empData.id);
+            $("#UserName").val(empData.name);
+            $("#Email").val(empData.email);
+            $("#Mobile").val(empData.mobile);
+            $("#Effect_Date").val(empData.effectiveStr);
+            $("#Expiry_Date").val(empData.expiryStr);
+        }
     });
 }
 

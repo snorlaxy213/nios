@@ -91,10 +91,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String save(UserDto userDto) {
+    public Message save(UserDto userDto) {
 
         if (validation(userDto)) {
-            return "input error";
+            Message message = Message.fail();
+            message.setMsg("input error");
+            return message;
         }
 
         Long count = userRepository.countById(userDto.getId());
@@ -123,17 +125,16 @@ public class UserServiceImpl implements UserService {
                 this.getModifiedInfo(user.getBasicInfomation(), "1", 1);
 
                 userRepository.save(user);
-                return "success";
+                return Message.success();
             }
         } else {
             User user = mapper.map(userDto, User.class);
             this.getModifiedInfo(user.getBasicInfomation(), "1", 1);
             user.setPassword("123456");
             userRepository.save(user);
-            return "success";
+            return Message.success();
         }
-        return "success";
-
+        return Message.success();
     }
 
     boolean validation(UserDto userDto) {

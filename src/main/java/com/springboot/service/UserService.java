@@ -12,7 +12,7 @@ public interface UserService {
 
     Message findAllWithPage(Integer pageNumber, Integer pageSize);
 
-    String save(UserDto userDto);
+    Message save(UserDto userDto);
 
     Message findById(String id);
 }

@@ -32,58 +32,38 @@
         <div class="container-fluid">
             <div class="side-body">
                 <div class="page-title">
-                    <span class="title">License</span>
+                    <span class="title">User Role</span>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <div class="title">User-Add</div>
+                                    <!-- Button trigger modal -->
+                                    <button type="button"
+                                            class="btn btn-primary btn-info" data-toggle="modal"
+                                            data-target="#UserAddModal">Add
+                                    </button>
+                                    <button type="button" class="btn btn-danger">Batch
+                                        Delete
+                                    </button>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form class="form-horizontal">
-                                    <div class="form-group">
-                                        <label for="UserID" class="col-sm-2 control-label">UserID</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="UserID" placeholder="UserID">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="UserName" class="col-sm-2 control-label">UserName</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="UserName" placeholder="UserName">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="Email" class="col-sm-2 control-label">Email</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="Email" placeholder="Email">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="Date" class="col-sm-2 control-label">Date</label>
-                                        <div class="col-sm-10">
-                                            <input type="date" class="form-control" id="Date" placeholder="Date">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <div class="checkbox3 checkbox-round checkbox-check checkbox-light">
-                                                <input type="checkbox" id="checkbox-10">
-                                                <label for="checkbox-10">
-                                                    Remember me
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-default">Sign in</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                <table id="userRoles_table" class="table table-hover" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th><input type="checkbox" id="delete-btn"></th>
+                                        <th>UserRole-id</th>
+                                        <th>UserRole</th>
+                                        <th>Describe</th>
+                                        <th>Status</th>
+                                        <th>Operate</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -111,7 +91,9 @@
         <script type="text/javascript" th:src="@{/lib/js/ace/theme-github.js}" src="/lib/js/ace/theme-github.js"></script>
         <!-- Javascript -->
         <script type="text/javascript" th:src="@{/js/app.js}" src="/js/app.js"></script>
-        <script type="text/javascript" th:src="@{/js/index.js}" src="/js/index.js"></script>
+
+        <!--  Javascript for Nios  -->
+        <script type="text/javascript" th:src="@{/nios-js/user-role.js}"></script>
 </body>
 
 </html>

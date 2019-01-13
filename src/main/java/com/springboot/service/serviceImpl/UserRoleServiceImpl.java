@@ -47,7 +47,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public List<UserRoleDto> findAll() {
+    public Message findAll() {
         List<UserRole> userRoles = userRoleRepository.findAll();
 
         List<UserRoleDto> userRoleDtos = new ArrayList<>();
@@ -55,11 +55,24 @@ public class UserRoleServiceImpl implements UserRoleService {
             UserRoleDto userRoleDto = mapper.map(userRole,UserRoleDto.class);
             userRoleDtos.add(userRoleDto);
         });
-        return userRoleDtos;
+
+        return Message.success().add("list",userRoleDtos);
     }
 
     @Override
-    public void save(UserRoleDto userRoleDto) {
+    public Message findById(String id) {
+        Optional userRoleOptional = userRoleRepository.findById(id);
+        UserRoleDto userRoleDto;
+        if (userRoleOptional.isPresent()) {
+            userRoleDto = mapper.map(userRoleOptional.get(), UserRoleDto.class);
+            return Message.success().add("list", userRoleDto);
+        } else {
+            return Message.fail();
+        }
+    }
+
+    @Override
+    public Message save(UserRoleDto userRoleDto) {
         Long count = userRoleRepository.countById(userRoleDto.getId());
 
         if (count > 0) {
@@ -83,6 +96,7 @@ public class UserRoleServiceImpl implements UserRoleService {
             this.getModifiedInfo(userRole.getBasicInfomation(), "1", 1);
             userRoleRepository.save(userRole);
         }
+        return Message.success();
     }
 
     private BasicInfomation getModifiedInfo(BasicInfomation aBscRwInf, String lUID, Integer lClinicCode) {

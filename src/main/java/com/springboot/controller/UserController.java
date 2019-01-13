@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/User")
 public class UserController {
 
     private static final Logger LOGGER = Logger.getLogger(UserController.class);
@@ -31,7 +32,7 @@ public class UserController {
     }
 
     @ResponseBody
-    @GetMapping("/user")
+    @GetMapping("/User")
     public Message getUser(@RequestParam(value = "pageNumber", defaultValue = "0")Integer pageNumber) {
         Message users = userService.findAllWithPage(pageNumber, PageUtils.PAGE_SIZE);
 
@@ -39,7 +40,7 @@ public class UserController {
     }
 
     @ResponseBody
-    @GetMapping("/user/{id}")
+    @GetMapping("/User/{id}")
     public Message getUserById(@PathVariable(value = "id")String id) {
         Message message = userService.findById(id);
 
@@ -47,15 +48,10 @@ public class UserController {
     }
 
     @ResponseBody
-    @PostMapping(value = "/user")
+    @PostMapping(value = "/User")
     public Message save(@RequestBody UserDto userDto){
-        String msg = "";
-        try {
-            msg = userService.save(userDto);
-            return Message.success();
-        } catch (Exception e) {
-            LOGGER.info(e.getMessage());
-        }
-        return Message.success();
+        Message message = userService.save(userDto);
+
+        return message;
     }
 }
