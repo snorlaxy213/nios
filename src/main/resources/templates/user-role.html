@@ -68,6 +68,90 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <div class="title">
+                                        User Save
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <form id="UserRole_Form" class="form-horizontal">
+                                    <div class="form-group">
+                                        <label for="UserRoleID" class="col-sm-2 control-label">UserRole-id</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="id" class="form-control" id="UserRoleID"
+                                                   placeholder="UserID">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="UserRole" class="col-sm-2 control-label">UserRole</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="name" class="form-control" id="UserRole"
+                                                   placeholder="UserRole">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Describe" class="col-sm-2 control-label">Describe</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="Describe" class="form-control" id="Describe"
+                                                   placeholder="Describe">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Mobile" class="col-sm-2 control-label">Mobile</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="mobile" class="form-control" id="Mobile"
+                                                   placeholder="Mobile">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Status</label>
+                                        <div class="col-sm-10">
+                                            <div class="radio3 radio-check radio-success radio-inline">
+                                                <input type="radio" id="radioY" name="Status" value="option2">
+                                                <label for="radioY">
+                                                    Y
+                                                </label>
+                                            </div>
+                                            <div class="radio3 radio-check radio-warning radio-inline">
+                                                <input type="radio" id="radioN" name="Status" value="option3">
+                                                <label for="radioN">
+                                                    N
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Permission" class="col-sm-2 control-label">Permission</label>
+                                        <div class="col-sm-10">
+                                            <select name="Permission" id="Permission" class="form-control" multiple>
+                                                <option value="1">广东省</option>
+                                                <option value="2">广西省</option>
+                                                <option value="3">福建省</option>
+                                                <option value="4">湖南省</option>
+                                                <option value="5">山东省</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Reset</button>
+                                            <button id="user_save_btn" type="button" class="btn btn-info">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -94,6 +178,8 @@
 
         <!--  Javascript for Nios  -->
         <script type="text/javascript" th:src="@{/nios-js/user-role.js}"></script>
+    </div>
+</div>
 </body>
 
 </html>
