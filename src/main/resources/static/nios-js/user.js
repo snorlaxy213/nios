@@ -18,7 +18,7 @@ function build_users_table(result) {
     //清空表格数据
     $("#users_table tbody").empty();
     var userInfo = result.extend.list;
-    //jquery遍历方法each，emps第一个遍历的元素,item当前对象
+    //jquery遍历方法each，userInfo第一个遍历的元素,item当前对象
     //此处要对照JSON数据，获取到员工的list
     //item.*读取bean中数据
     $.each(userInfo, function (index, item) {

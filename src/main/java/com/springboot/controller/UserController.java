@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @Controller
 @RequestMapping("/User")
 public class UserController {
@@ -20,7 +22,6 @@ public class UserController {
     @Autowired
     @Qualifier("userServiceImpl")
     UserService userService;
-
 
     @Autowired
     @Qualifier("mapper")
@@ -34,24 +35,21 @@ public class UserController {
     @ResponseBody
     @GetMapping("/User")
     public Message getUser(@RequestParam(value = "pageNumber", defaultValue = "0")Integer pageNumber) {
-        Message users = userService.findAllWithPage(pageNumber, PageUtils.PAGE_SIZE);
-
-        return users;
+        Map<String, Object> users = userService.findAllWithPage(pageNumber, PageUtils.PAGE_SIZE);
+        return Message.success().setData(users);
     }
 
     @ResponseBody
     @GetMapping("/User/{id}")
     public Message getUserById(@PathVariable(value = "id")String id) {
-        Message message = userService.findById(id);
-
-        return message;
+        UserDto userDto = userService.findById(id);
+        return Message.success().add("user",userDto);
     }
 
     @ResponseBody
     @PostMapping(value = "/User")
     public Message save(@RequestBody UserDto userDto){
-        Message message = userService.save(userDto);
-
-        return message;
+        String message = userService.save(userDto);
+        return Message.success(message);
     }
 }

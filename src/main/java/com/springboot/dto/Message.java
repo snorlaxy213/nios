@@ -15,14 +15,27 @@ public class Message {
     public static Message success() {
         Message result = new Message();
         result.setCode(100);
-        result.setMsg("处理成功！");
+        result.setMsg("success！");
+        return result;
+    }
+
+    public static Message success(String msg) {
+        Message result = new Message();
+        result.setCode(100);
+        result.setMsg(msg);
         return result;
     }
 
     public static Message fail() {
         Message result = new Message();
         result.setCode(200);
-        result.setMsg("处理失败！");
+        result.setMsg("fail！");
+        return result;
+    }
+
+    public Message setData(Map<String, Object> extend) {
+        Message result = new Message();
+        result.setExtend(extend);
         return result;
     }
 

@@ -38,9 +38,7 @@ public class ShiroRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String username = token.getUsername();
 
-        Message message  = userService.findById(username);
-
-        UserDto userDto = (UserDto) message.getExtend().get("user");
+        UserDto userDto  = userService.findById(username);
 
         if(userDto == null){
             //if user is not exist ,shiro will return UnknownAccountException

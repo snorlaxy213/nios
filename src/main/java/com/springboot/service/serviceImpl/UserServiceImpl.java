@@ -19,10 +19,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service("userServiceImpl")
 @Transactional
@@ -31,7 +28,6 @@ public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
 
     private static final String YYYYMMDD = "yyyy-MM-dd";
-
 
     @Autowired
     UserRepository userRepository;
@@ -49,17 +45,14 @@ public class UserServiceImpl implements UserService {
             UserDto userDto = mapper.map(user, UserDto.class);
             userDtos.add(userDto);
         });
-
         return userDtos;
     }
 
     @Override
-    public Message findAllWithPage(Integer pageNumber, Integer pageSize) {
+    public Map<String, Object> findAllWithPage(Integer pageNumber, Integer pageSize) {
         Sort sort = new Sort(Sort.Direction.ASC, "id");
         Pageable pageable = new PageRequest(pageNumber, pageSize, sort);
-
         Page<User> userPages = userRepository.findAll(pageable);
-
         List<User> users = userPages.getContent();
 
         List<UserDto> userDtos = new ArrayList<>();
@@ -68,35 +61,25 @@ public class UserServiceImpl implements UserService {
             userDtos.add(userDto);
         });
 
-        Integer totalPage = userPages.getTotalPages();
-        Long totalElement = userPages.getTotalElements();
-
-        return Message.success().add("list", userDtos).add("totalPage", totalPage).add("totalElement", totalElement);
+        Map<String, Object> map = new HashMap<>();
+        map.put("totalPage",userPages.getTotalPages());
+        map.put("totalElement",userPages.getTotalElements());
+        map.put("list", userDtos);
+        return map;
     }
 
 
     @Override
-    public Message findById(String id) {
+    public UserDto findById(String id) {
         Optional<User> user = userRepository.findById(id);
-
         UserDto userDto = mapper.map(user.get(), UserDto.class);
-
-        if (user.isPresent()) {
-            return Message.success().add("user", userDto);
-        } else {
-            return Message.fail();
-        }
-
-
+        return userDto;
     }
 
     @Override
-    public Message save(UserDto userDto) {
-
+    public String save(UserDto userDto) {
         if (validation(userDto)) {
-            Message message = Message.fail();
-            message.setMsg("input error");
-            return message;
+            return "save fail";
         }
 
         Long count = userRepository.countById(userDto.getId());
@@ -123,18 +106,17 @@ public class UserServiceImpl implements UserService {
                 user.setExpiry(Expiry);
 
                 this.getModifiedInfo(user.getBasicInfomation(), "1", 1);
-
                 userRepository.save(user);
-                return Message.success();
+                return user.getId();
             }
         } else {
             User user = mapper.map(userDto, User.class);
             this.getModifiedInfo(user.getBasicInfomation(), "1", 1);
             user.setPassword("123456");
             userRepository.save(user);
-            return Message.success();
+
         }
-        return Message.success();
+        return "";
     }
 
     boolean validation(UserDto userDto) {

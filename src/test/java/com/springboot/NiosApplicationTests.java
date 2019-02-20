@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.List;
+import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -45,7 +46,7 @@ public class NiosApplicationTests {
 
     @Test
     public void contextLoads() {
-        Message users = userService.findAllWithPage(0,1);
+        Map<String,Object> users = userService.findAllWithPage(0,1);
     }
 
     @Test

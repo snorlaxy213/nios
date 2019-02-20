@@ -4,15 +4,16 @@ import com.springboot.dto.Message;
 import com.springboot.dto.UserDto;
 
 import java.util.List;
+import java.util.Map;
 
 
 public interface UserService {
 
     List<UserDto> findAll();
 
-    Message findAllWithPage(Integer pageNumber, Integer pageSize);
+    Map<String, Object> findAllWithPage(Integer pageNumber, Integer pageSize);
 
-    Message save(UserDto userDto);
+    String save(UserDto userDto);
 
-    Message findById(String id);
+    UserDto findById(String id);
 }
