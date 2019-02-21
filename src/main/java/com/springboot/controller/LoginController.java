@@ -11,12 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- * 〈一句话功能简述〉<br>
- *
- * @author Jules Chen
- * @create 2018/11/23
- */
 @Controller
 public class LoginController {
 
@@ -36,7 +30,7 @@ public class LoginController {
                 currentUser.login(usernamePasswordToken);
                 return "redirect:/index.html";
             } catch (UnknownAccountException e) {
-                //login fail:user is no t exist
+                //user is no t exist
                 model.addAttribute("msg", "user is not exist");
                 return "login";
             } catch (IncorrectCredentialsException e) {

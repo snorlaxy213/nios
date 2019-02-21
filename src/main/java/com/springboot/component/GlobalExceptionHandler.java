@@ -1,6 +1,5 @@
 package com.springboot.component;
 
-import com.springboot.dto.Message;
 import com.springboot.exception.GlobalException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,17 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
 
-    public Message exceptionHandler(HttpServletRequest request,Exception e){
+    public void exceptionHandler(HttpServletRequest request,Exception e) throws Exception{
         e.printStackTrace();
         if (e instanceof GlobalException){
             GlobalException globalException = (GlobalException)e;
-            return Message.fail(globalException.getMsg());
+            throw globalException;
         }else if (e instanceof MethodArgumentNotValidException){
             MethodArgumentNotValidException methodArgumentNotValidException  = (MethodArgumentNotValidException)e;
-            String errorMsg = methodArgumentNotValidException.getMessage();
-            return Message.fail(errorMsg);
+            throw methodArgumentNotValidException;
         }else {
-            return Message.fail(e.getMessage());
+            throw e;
         }
     }
 

@@ -1,12 +1,14 @@
 package com.springboot.exception;
 
 public class GlobalException extends RuntimeException  {
-    String code;
-    String msg;
+    private static final long serialVersionUID = 6217595989138800316L;
 
-    public GlobalException(String code, String msg) {
+    String code;
+    String message;
+
+    public GlobalException(String code, String message) {
         this.code = code;
-        this.msg = msg;
+        this.message = message;
     }
 
     public String getCode() {
@@ -17,11 +19,11 @@ public class GlobalException extends RuntimeException  {
         this.code = code;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
