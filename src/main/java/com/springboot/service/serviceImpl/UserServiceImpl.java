@@ -1,6 +1,5 @@
 package com.springboot.service.serviceImpl;
 
-import com.springboot.dto.Message;
 import com.springboot.dto.UserDto;
 import com.springboot.entity.BasicInfomation;
 import com.springboot.entity.User;
@@ -17,7 +16,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -77,54 +75,34 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String save(UserDto userDto) {
-        if (validation(userDto)) {
-            return "save fail";
+    public String save(UserDto userDto) throws Exception {
+        // Null value determination
+        if (userDto.getId() == null || userDto.getEffectiveStr() == null) {
+            return "Null value determination";
         }
 
         Long count = userRepository.countById(userDto.getId());
 
         if (count > 0) {
             Optional<User> userOptional = userRepository.findById(userDto.getId());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(YYYYMMDD);
 
-            if (userOptional.isPresent()) {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(YYYYMMDD);
+            User user = userOptional.get();
+            user.setName(userDto.getName());
+            user.setEmail(userDto.getEmail());
+            user.setMobile(userDto.getMobile());
+            user.setEffective(simpleDateFormat.parse(userDto.getEffectiveStr()));
+            user.setExpiry(simpleDateFormat.parse(userDto.getExpiryStr()));
+            this.getModifiedInfo(user.getBasicInfomation(), "1", 1);
 
-                User user = userOptional.get();
-                user.setName(userDto.getName());
-                user.setEmail(userDto.getEmail());
-                user.setMobile(userDto.getMobile());
-                Date Effective = null;
-                Date Expiry = null;
-                try {
-                    Effective = simpleDateFormat.parse(userDto.getEffectiveStr());
-                    Expiry = simpleDateFormat.parse(userDto.getExpiryStr());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                user.setEffective(Effective);
-                user.setExpiry(Expiry);
-
-                this.getModifiedInfo(user.getBasicInfomation(), "1", 1);
-                userRepository.save(user);
-                return user.getId();
-            }
+            userRepository.save(user);
+            return user.getId();
         } else {
             User user = mapper.map(userDto, User.class);
             this.getModifiedInfo(user.getBasicInfomation(), "1", 1);
             user.setPassword("123456");
             userRepository.save(user);
-
-        }
-        return "";
-    }
-
-    boolean validation(UserDto userDto) {
-        if (userDto.getId() == null || userDto.getEffectiveStr() == null || userDto.getEmail() == null
-                || userDto.getName() == null) {
-            return true;
-        } else {
-            return false;
+            return user.getId();
         }
     }
 

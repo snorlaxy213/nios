@@ -26,10 +26,31 @@ public class Message {
         return result;
     }
 
+    public static Message success(int code, String msg) {
+        Message result = new Message();
+        result.setCode(code);
+        result.setMsg(msg);
+        return result;
+    }
+
     public static Message fail() {
         Message result = new Message();
         result.setCode(200);
         result.setMsg("fail！");
+        return result;
+    }
+
+    public static Message fail(int code, String msg) {
+        Message result = new Message();
+        result.setCode(code);
+        result.setMsg(msg);
+        return result;
+    }
+
+    public static Message fail(String msg) {
+        Message result = new Message();
+        result.setCode(200);
+        result.setMsg(msg);
         return result;
     }
 

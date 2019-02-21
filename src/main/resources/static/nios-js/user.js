@@ -86,7 +86,6 @@ $("#user_update_btn").click(function () {
 function validate_add_form() {
     //userId validation
     var userId = $("#UserID").val();
-    console.log("userId", userId)
     //6-16 digit number or letter
     var regUserId = /(^[a-zA-Z0-9_-]{6,16}$)/;
     if (!regUserId.test(userId)) {

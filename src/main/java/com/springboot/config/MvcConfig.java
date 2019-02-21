@@ -25,12 +25,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
                 registry.addViewController("/user-role.html").setViewName("user-role");
             }
 
-            /*@Override
-            public void addInterceptors(InterceptorRegistry registry) {
-                //已经做好静态资源映射
-                registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**")
-                        .excludePathPatterns("/index.html","/","/user/login","/asserts/**","/webjars/**");
-            }*/
         };
         return adapter;
     }

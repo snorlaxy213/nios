@@ -3,18 +3,23 @@ package com.springboot.dto;
 import com.springboot.entity.UserRole;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
 public class UserDto extends BasicRowInfo {
 
+    @NotEmpty
     private String id;
 
+    @NotEmpty
     private String name;
 
+    @NotEmpty
     private String email;
 
+    @NotEmpty
     private String mobile;
 
     private String password;

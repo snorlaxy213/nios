@@ -13,7 +13,7 @@ public interface UserService {
 
     Map<String, Object> findAllWithPage(Integer pageNumber, Integer pageSize);
 
-    String save(UserDto userDto);
+    String save(UserDto userDto) throws Exception;
 
     UserDto findById(String id);
 }

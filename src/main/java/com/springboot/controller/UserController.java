@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
@@ -48,8 +49,13 @@ public class UserController {
 
     @ResponseBody
     @PostMapping(value = "/User")
-    public Message save(@RequestBody UserDto userDto){
-        String message = userService.save(userDto);
-        return Message.success(message);
+    public Message save(@RequestBody @Valid UserDto userDto) {
+        try {
+            String message = userService.save(userDto);
+            return Message.success(message);
+        } catch (Exception e) {
+            LOGGER.info(e.getMessage());
+            return Message.fail();
+        }
     }
 }
