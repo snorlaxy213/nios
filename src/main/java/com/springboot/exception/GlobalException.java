@@ -1,29 +1,48 @@
 package com.springboot.exception;
 
+import java.util.List;
+
 public class GlobalException extends RuntimeException  {
-    private static final long serialVersionUID = 6217595989138800316L;
 
-    String code;
-    String message;
+    private String msgCode;
+    private String content;
+    private List<ErrorField> errorFields;
 
-    public GlobalException(String code, String message) {
-        this.code = code;
-        this.message = message;
+    public GlobalException() {
     }
 
-    public String getCode() {
-        return code;
+    public GlobalException(String msgCode, String content) {
+        this.msgCode = msgCode;
+        this.content = content;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public GlobalException(String msgCode, String content, List<ErrorField> errorFields) {
+        this.msgCode = msgCode;
+        this.content = content;
+        this.errorFields = errorFields;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsgCode() {
+        return msgCode;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMsgCode(String msgCode) {
+        this.msgCode = msgCode;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public List<ErrorField> getErrorFields() {
+        return errorFields;
+    }
+
+    public void setErrorFields(List<ErrorField> errorFields) {
+        this.errorFields = errorFields;
     }
 }

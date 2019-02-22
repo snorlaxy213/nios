@@ -1,8 +1,6 @@
 package com.springboot.config;
 
-import com.springboot.dto.Message;
 import com.springboot.dto.UserDto;
-import com.springboot.entity.User;
 import com.springboot.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -18,18 +16,26 @@ public class ShiroRealm extends AuthorizingRealm {
     @Autowired
     UserService userService;
 
+    /**
+     * 为用户授权
+     * @param principalCollection
+     * @return
+     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-
-        //give resource authorization
-        //info.addStringPermission("user:add");
-
         Subject subject = SecurityUtils.getSubject();
-        User user = (User) subject.getPrincipal();
-        info.addStringPermission("admin");
+        UserDto userDto = (UserDto) subject.getPrincipal();
+        String userID = userDto.getId();
+        UserDto user = userService.findById(userID);
+//https://www.jianshu.com/p/7716951f4d7f
+        if (user != null) {
+            SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+            info.addStringPermission("admin");
 
-        return info;
+            return info;
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -48,7 +54,7 @@ public class ShiroRealm extends AuthorizingRealm {
         //judge if password is right
         //principal : AuthenticationInfo entity information
         //credentials : Password
-        //realmName : currnt realm's name;you can return getName();
+        //realmName : current realm's name;you can return getName();
         return new SimpleAuthenticationInfo(userDto,userDto.getPassword(),"user");
     }
 }
