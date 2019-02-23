@@ -2,7 +2,7 @@ package com.springboot;
 
 import com.springboot.dto.Message;
 import com.springboot.dto.UserRoleDto;
-import com.springboot.entity.BasicInfomation;
+import com.springboot.entity.BasicInformation;
 import com.springboot.service.UserRoleService;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -34,10 +34,9 @@ public class UserRoleTest {
     @Test
     public void saveUserRole() {
         UserRoleDto userRoleDto = new UserRoleDto();
-        userRoleDto.setDescription("test");
         userRoleDto.setName("test");
         userRoleDto.setStatus("Y");
-        userRoleDto.setBasicInfomation(new BasicInfomation());
+        userRoleDto.setBasicInformation(new BasicInformation());
 
         userRoleService.save(userRoleDto);
     }

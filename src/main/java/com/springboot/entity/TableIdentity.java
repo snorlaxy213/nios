@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Table(name="Table_Identity")
 public class TableIdentity  implements Serializable {
 
-    private static final long serialVersionUID = -6768369215687169543L;
+    private static final long serialVersionUID = 2088076327213612639L;
 
     private String tableName;
     private String identityPrefix;

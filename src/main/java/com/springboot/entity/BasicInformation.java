@@ -1,31 +1,32 @@
-package com.springboot.dto;
+package com.springboot.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Date;
 
-public class BasicRowInfo implements Serializable {
+@Embeddable
+public class BasicInformation implements Serializable {
 
-    private static final long serialVersionUID = -2912625519140191986L;
+    private static final long serialVersionUID = -5822147338970168191L;
 
-    private String createBy;
+    String createBy;
 
-    private Date createDtm;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    Date createDtm;
 
     private Integer createClinic;
 
-    private String updateBy;
+    String updateBy;
 
-    private Date updateDtm;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    Date updateDtm;
 
     private Integer updateClinic;
 
-    public BasicRowInfo() {
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
+    @Column(name = "Create_By",length = 100,nullable = false,updatable = false)
     public String getCreateBy() {
         return createBy;
     }
@@ -34,6 +35,7 @@ public class BasicRowInfo implements Serializable {
         this.createBy = createBy;
     }
 
+    @Column(name = "Create_Dtm",nullable = false,updatable = false)
     public Date getCreateDtm() {
         return createDtm;
     }
@@ -42,6 +44,7 @@ public class BasicRowInfo implements Serializable {
         this.createDtm = createDtm;
     }
 
+    @Column(name = "Create_Clinic",length = 1,nullable = false,updatable = false)
     public Integer getCreateClinic() {
         return createClinic;
     }
@@ -50,6 +53,7 @@ public class BasicRowInfo implements Serializable {
         this.createClinic = createClinic;
     }
 
+    @Column(name = "Update_By",length = 100, nullable = true)
     public String getUpdateBy() {
         return updateBy;
     }
@@ -58,6 +62,7 @@ public class BasicRowInfo implements Serializable {
         this.updateBy = updateBy;
     }
 
+    @Column(name = "Update_Dtm",nullable = true)
     public Date getUpdateDtm() {
         return updateDtm;
     }
@@ -66,6 +71,7 @@ public class BasicRowInfo implements Serializable {
         this.updateDtm = updateDtm;
     }
 
+    @Column(name = "Update_Clinic",length = 1,nullable = true)
     public Integer getUpdateClinic() {
         return updateClinic;
     }

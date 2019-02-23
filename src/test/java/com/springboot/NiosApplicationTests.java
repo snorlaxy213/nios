@@ -1,8 +1,6 @@
 package com.springboot;
 
 import com.springboot.dto.Message;
-import com.springboot.entity.Permission;
-import com.springboot.service.PermissionService;
 import com.springboot.service.UserRoleService;
 import com.springboot.service.UserService;
 import org.apache.log4j.Logger;
@@ -14,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.List;
 import java.util.Map;
 
 @RunWith(SpringRunner.class)
@@ -32,21 +29,10 @@ public class NiosApplicationTests {
     @Qualifier("userRoleServiceImpl")
     UserRoleService userRoleService;
 
-    @Autowired
-    @Qualifier("permissionServiceImpl")
-    PermissionService permissionService;
-
-    @Test
-    public void permissionLoads() {
-        Message message = permissionService.findAll();
-        List<Permission> permissions = (List<Permission>) message.getExtend().get("permissions");
-        System.out.println(permissions.get(0).getId());
-    }
-
-
     @Test
     public void contextLoads() {
         Map<String,Object> users = userService.findAllWithPage(0,1);
+        System.out.println(users);
     }
 
     @Test

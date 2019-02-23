@@ -1,50 +1,39 @@
 package com.springboot.dto;
 
 import com.springboot.entity.UserRole;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
-public class UserDto extends BasicRowInfo {
+public class UserDto extends BasicRowInfo implements Serializable {
+
+    private static final long serialVersionUID = 1711743832907074561L;
 
     @NotEmpty
+    @Length(max = 12)
     private String id;
 
     @NotEmpty
+    @Length(max = 100)
     private String name;
 
     @NotEmpty
+    @Length(max = 50)
     private String email;
 
     @NotEmpty
+    @Length(max = 100)
     private String mobile;
 
+    @Length(max = 200)
     private String password;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date effective;
-
-    private String effectiveStr;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date expiry;
-
-    private String expiryStr;
-
-    private Date changePassword;
-
-    private Date lastSuccessLogin;
-
-    private Date lastFailedLogin;
-
-    private Integer failedLoginCount;
 
     private Timestamp timestamp;
 
-    private List<UserRole> userroles;
+    private List<UserRole> userRoles;
 
     public UserDto() {
     }
@@ -89,54 +78,6 @@ public class UserDto extends BasicRowInfo {
         this.password = password;
     }
 
-    public Date getEffective() {
-        return effective;
-    }
-
-    public void setEffective(Date effective) {
-        this.effective = effective;
-    }
-
-    public Date getExpiry() {
-        return expiry;
-    }
-
-    public void setExpiry(Date expiry) {
-        this.expiry = expiry;
-    }
-
-    public Date getChangePassword() {
-        return changePassword;
-    }
-
-    public void setChangePassword(Date changePassword) {
-        this.changePassword = changePassword;
-    }
-
-    public Date getLastSuccessLogin() {
-        return lastSuccessLogin;
-    }
-
-    public void setLastSuccessLogin(Date lastSuccessLogin) {
-        this.lastSuccessLogin = lastSuccessLogin;
-    }
-
-    public Date getLastFailedLogin() {
-        return lastFailedLogin;
-    }
-
-    public void setLastFailedLogin(Date lastFailedLogin) {
-        this.lastFailedLogin = lastFailedLogin;
-    }
-
-    public Integer getFailedLoginCount() {
-        return failedLoginCount;
-    }
-
-    public void setFailedLoginCount(Integer failedLoginCount) {
-        this.failedLoginCount = failedLoginCount;
-    }
-
     public Timestamp getTimestamp() {
         return timestamp;
     }
@@ -145,27 +86,11 @@ public class UserDto extends BasicRowInfo {
         this.timestamp = timestamp;
     }
 
-    public List<UserRole> getUserroles() {
-        return userroles;
+    public List<UserRole> getUserRoles() {
+        return userRoles;
     }
 
-    public void setUserroles(List<UserRole> userroles) {
-        this.userroles = userroles;
-    }
-
-    public String getEffectiveStr() {
-        return effectiveStr;
-    }
-
-    public void setEffectiveStr(String effectiveStr) {
-        this.effectiveStr = effectiveStr;
-    }
-
-    public String getExpiryStr() {
-        return expiryStr;
-    }
-
-    public void setExpiryStr(String expiryStr) {
-        this.expiryStr = expiryStr;
+    public void setUserRoles(List<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 }

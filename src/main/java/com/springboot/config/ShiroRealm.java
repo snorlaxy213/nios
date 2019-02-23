@@ -1,6 +1,7 @@
 package com.springboot.config;
 
 import com.springboot.dto.UserDto;
+import com.springboot.service.UserRoleService;
 import com.springboot.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -10,11 +11,17 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 public class ShiroRealm extends AuthorizingRealm {
 
     @Autowired
+    @Qualifier("userServiceImpl")
     UserService userService;
+
+    @Autowired
+    @Qualifier("userRoleServiceImpl")
+    UserRoleService userRoleService;
 
     /**
      * 为用户授权
@@ -27,7 +34,7 @@ public class ShiroRealm extends AuthorizingRealm {
         UserDto userDto = (UserDto) subject.getPrincipal();
         String userID = userDto.getId();
         UserDto user = userService.findById(userID);
-//https://www.jianshu.com/p/7716951f4d7f
+
         if (user != null) {
             SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
             info.addStringPermission("admin");

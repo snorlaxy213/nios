@@ -6,27 +6,27 @@
         <class-a>com.springboot.entity.User</class-a>
         <class-b>com.springboot.dto.UserDto</class-b>
         <field>
-            <a>basicInfomation.createBy</a>
+            <a>basicInformation.createBy</a>
             <b>createBy</b>
         </field>
         <field>
-            <a>basicInfomation.createDtm</a>
+            <a>basicInformation.createDtm</a>
             <b>createDtm</b>
         </field>
         <field>
-            <a>basicInfomation.createClinic</a>
+            <a>basicInformation.createClinic</a>
             <b>createClinic</b>
         </field>
         <field>
-            <a>basicInfomation.updateBy</a>
+            <a>basicInformation.updateBy</a>
             <b>updateBy</b>
         </field>
         <field>
-            <a>basicInfomation.updateDtm</a>
+            <a>basicInformation.updateDtm</a>
             <b>updateDtm</b>
         </field>
         <field>
-            <a>basicInfomation.updateClinic</a>
+            <a>basicInformation.updateClinic</a>
             <b>updateClinic</b>
         </field>
         <field>
@@ -42,27 +42,27 @@
         <class-a>com.springboot.entity.UserRole</class-a>
         <class-b>com.springboot.dto.UserRoleDto</class-b>
         <field>
-            <a>basicInfomation.createBy</a>
+            <a>basicInformation.createBy</a>
             <b>createBy</b>
         </field>
         <field>
-            <a>basicInfomation.createDtm</a>
+            <a>basicInformation.createDtm</a>
             <b>createDtm</b>
         </field>
         <field>
-            <a>basicInfomation.createClinic</a>
+            <a>basicInformation.createClinic</a>
             <b>createClinic</b>
         </field>
         <field>
-            <a>basicInfomation.updateBy</a>
+            <a>basicInformation.updateBy</a>
             <b>updateBy</b>
         </field>
         <field>
-            <a>basicInfomation.updateDtm</a>
+            <a>basicInformation.updateDtm</a>
             <b>updateDtm</b>
         </field>
         <field>
-            <a>basicInfomation.updateClinic</a>
+            <a>basicInformation.updateClinic</a>
             <b>updateClinic</b>
         </field>
     </mapping>

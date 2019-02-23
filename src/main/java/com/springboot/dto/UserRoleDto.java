@@ -1,29 +1,27 @@
 package com.springboot.dto;
 
-import com.springboot.entity.BasicInfomation;
-import com.springboot.entity.Permission;
+import com.springboot.entity.BasicInformation;
 import com.springboot.entity.User;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class UserRoleDto extends BasicRowInfo {
+public class UserRoleDto extends BasicRowInfo implements Serializable {
+
+    private static final long serialVersionUID = 2870638623857572763L;
 
     private String id;
 
     private String name;
 
-    private String description;
-
     private String status;
-
-    private BasicInfomation basicInfomation;
-
-    private Timestamp timestamp;
 
     private List<User> users;
 
-    private List<Permission> permissions;
+    private BasicInformation basicInformation;
+
+    private Timestamp timestamp;
 
     public UserRoleDto() {
     }
@@ -44,36 +42,12 @@ public class UserRoleDto extends BasicRowInfo {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public BasicInfomation getBasicInfomation() {
-        return basicInfomation;
-    }
-
-    public void setBasicInfomation(BasicInfomation basicInfomation) {
-        this.basicInfomation = basicInfomation;
-    }
-
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
     }
 
     public List<User> getUsers() {
@@ -84,11 +58,19 @@ public class UserRoleDto extends BasicRowInfo {
         this.users = users;
     }
 
-    public List<Permission> getPermissions() {
-        return permissions;
+    public BasicInformation getBasicInformation() {
+        return basicInformation;
     }
 
-    public void setPermissions(List<Permission> permissions) {
-        this.permissions = permissions;
+    public void setBasicInformation(BasicInformation basicInformation) {
+        this.basicInformation = basicInformation;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 }

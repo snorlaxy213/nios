@@ -1,7 +1,7 @@
 package com.springboot.service.serviceImpl;
 
 import com.springboot.dto.UserDto;
-import com.springboot.entity.BasicInfomation;
+import com.springboot.entity.BasicInformation;
 import com.springboot.entity.User;
 import com.springboot.repository.UserRepository;
 import com.springboot.service.UserService;
@@ -76,10 +76,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String save(UserDto userDto) throws Exception {
-        // Null value determination
-        if (userDto.getId() == null || userDto.getEffectiveStr() == null) {
-            return "Null value determination";
-        }
 
         Long count = userRepository.countById(userDto.getId());
 
@@ -91,22 +87,20 @@ public class UserServiceImpl implements UserService {
             user.setName(userDto.getName());
             user.setEmail(userDto.getEmail());
             user.setMobile(userDto.getMobile());
-            user.setEffective(simpleDateFormat.parse(userDto.getEffectiveStr()));
-            user.setExpiry(simpleDateFormat.parse(userDto.getExpiryStr()));
-            this.getModifiedInfo(user.getBasicInfomation(), "1", 1);
+            this.getModifiedInfo(user.getBasicInformation(), "1", 1);
 
             userRepository.save(user);
             return user.getId();
         } else {
             User user = mapper.map(userDto, User.class);
-            this.getModifiedInfo(user.getBasicInfomation(), "1", 1);
+            this.getModifiedInfo(user.getBasicInformation(), "1", 1);
             user.setPassword("123456");
             userRepository.save(user);
             return user.getId();
         }
     }
 
-    private BasicInfomation getModifiedInfo(BasicInfomation aBscRwInf, String lUID, Integer lClinicCode) {
+    private BasicInformation getModifiedInfo(BasicInformation aBscRwInf, String lUID, Integer lClinicCode) {
 
         if (aBscRwInf != null) {
             if (aBscRwInf.getCreateBy() == null) {

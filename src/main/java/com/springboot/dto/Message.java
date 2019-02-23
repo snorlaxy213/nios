@@ -6,10 +6,9 @@ import java.util.Map;
 public class Message {
     // 状态码100-成功，200-失败
     private int code;
-    // 提示信息
+
     private String msg;
 
-    // 用户要返回给浏览器的JSON数据
     private Map<String, Object> extend = new HashMap<String, Object>();
 
     public static Message success() {

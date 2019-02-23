@@ -6,54 +6,28 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-@Table(name = "User_Role",catalog = "",schema = "")
+@Table(name = "User_Role")
 public class UserRole implements Serializable {
 
-    private static final Long serialVersionUID = 3L;
+    private static final long serialVersionUID = -1151816668229028036L;
 
-    @Id
-    @Column(name = "UserRole_ID", length = 12)
     private String id;
 
-    @Column(name = "UserRole_Name", length = 30, nullable = false)
     private String name;
 
-    @Column(name = "UserRole_Desc", length = 255, nullable = false)
-    private String description;
-
-    @Column(name = "Status", length = 1, nullable = false)
     private String status;
 
-    @Embedded
-    private BasicInfomation basicInfomation;
+    private BasicInformation basicInformation;
 
-    @Version
-    @Column(name = "Timestamp")
     private Timestamp timestamp;
 
-    @ManyToMany(
-            mappedBy = "userroles",
-            targetEntity = User.class,
-            fetch = FetchType.LAZY
-    )
     private List<User> users;
-
-    @ManyToMany(
-            targetEntity = Permission.class,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
-            fetch = FetchType.LAZY
-    )
-    @JoinTable(
-            name = "User_Role_Permission",
-            joinColumns = @JoinColumn(name = "Userrole_ID"),
-            inverseJoinColumns = @JoinColumn(name = "Permission_ID")
-    )
-    private List<Permission> permissions;
-
 
     public UserRole() {
     }
 
+    @Id
+    @Column(name = "UserRole_ID", length = 12)
     public String getId() {
         return id;
     }
@@ -62,6 +36,7 @@ public class UserRole implements Serializable {
         this.id = id;
     }
 
+    @Column(name = "UserRole_Name", length = 30, nullable = false)
     public String getName() {
         return name;
     }
@@ -70,14 +45,7 @@ public class UserRole implements Serializable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
+    @Column(name = "Status", length = 1, nullable = false)
     public String getStatus() {
         return status;
     }
@@ -86,14 +54,17 @@ public class UserRole implements Serializable {
         this.status = status;
     }
 
-    public BasicInfomation getBasicInfomation() {
-        return basicInfomation;
+    @Embedded
+    public BasicInformation getBasicInformation() {
+        return basicInformation;
     }
 
-    public void setBasicInfomation(BasicInfomation basicInfomation) {
-        this.basicInfomation = basicInfomation;
+    public void setBasicInformation(BasicInformation basicInformation) {
+        this.basicInformation = basicInformation;
     }
 
+    @Version
+    @Column(name = "Timestamp")
     public Timestamp getTimestamp() {
         return timestamp;
     }
@@ -102,6 +73,11 @@ public class UserRole implements Serializable {
         this.timestamp = timestamp;
     }
 
+    @ManyToMany(
+            mappedBy = "userRoles",
+            targetEntity = User.class,
+            fetch = FetchType.LAZY
+    )
     public List<User> getUsers() {
         return users;
     }

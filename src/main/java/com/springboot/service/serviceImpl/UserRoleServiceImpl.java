@@ -2,7 +2,7 @@ package com.springboot.service.serviceImpl;
 
 import com.springboot.dto.Message;
 import com.springboot.dto.UserRoleDto;
-import com.springboot.entity.BasicInfomation;
+import com.springboot.entity.BasicInformation;
 import com.springboot.entity.UserRole;
 import com.springboot.repository.UserRoleRepository;
 import com.springboot.service.SqeNoService;
@@ -25,6 +25,8 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     private static final Logger LOGGER = Logger.getLogger(UserRoleServiceImpl.class);
 
+    private static final String TABLENAME = "USER_ROLE";
+
     @Autowired
     @Qualifier("mapper")
     Mapper mapper;
@@ -41,7 +43,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
         UserRoleDto userRoleDto = null;
         if (optional.isPresent()) {
-            userRoleDto = mapper.map(optional.get(),UserRoleDto.class);
+            userRoleDto = mapper.map(optional.get(), UserRoleDto.class);
         }
         return userRoleDto;
     }
@@ -52,11 +54,11 @@ public class UserRoleServiceImpl implements UserRoleService {
 
         List<UserRoleDto> userRoleDtos = new ArrayList<>();
         userRoles.forEach(userRole -> {
-            UserRoleDto userRoleDto = mapper.map(userRole,UserRoleDto.class);
+            UserRoleDto userRoleDto = mapper.map(userRole, UserRoleDto.class);
             userRoleDtos.add(userRoleDto);
         });
 
-        return Message.success().add("list",userRoleDtos);
+        return Message.success().add("list", userRoleDtos);
     }
 
     @Override
@@ -80,26 +82,25 @@ public class UserRoleServiceImpl implements UserRoleService {
 
             userRoleOptional.ifPresent(userRole -> {
                 userRole.setId(userRoleDto.getId());
-                userRole.setDescription(userRoleDto.getDescription());
                 userRole.setName(userRoleDto.getName());
                 userRole.setStatus(userRoleDto.getStatus());
 
-                this.getModifiedInfo(userRole.getBasicInfomation(), "1", 1);
+                this.getModifiedInfo(userRole.getBasicInformation(), "1", 1);
 
                 userRoleRepository.save(userRole);
             });
         } else {
-            String id = sqeNoService.getSeqNo("USERROLE");
+            String id = sqeNoService.getSeqNo(TABLENAME);
 
-            UserRole userRole = mapper.map(userRoleDto,UserRole.class);
+            UserRole userRole = mapper.map(userRoleDto, UserRole.class);
             userRole.setId(id);
-            this.getModifiedInfo(userRole.getBasicInfomation(), "1", 1);
+            this.getModifiedInfo(userRole.getBasicInformation(), "1", 1);
             userRoleRepository.save(userRole);
         }
         return Message.success();
     }
 
-    private BasicInfomation getModifiedInfo(BasicInfomation aBscRwInf, String lUID, Integer lClinicCode) {
+    private BasicInformation getModifiedInfo(BasicInformation aBscRwInf, String lUID, Integer lClinicCode) {
 
         if (aBscRwInf != null) {
             if (aBscRwInf.getCreateBy() == null) {
