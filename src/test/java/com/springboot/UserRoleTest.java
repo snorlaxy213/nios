@@ -1,7 +1,7 @@
 package com.springboot;
 
-import com.springboot.dto.Message;
 import com.springboot.dto.UserRoleDto;
+import com.springboot.dto.User_UserRole;
 import com.springboot.entity.BasicInformation;
 import com.springboot.service.UserRoleService;
 import org.apache.log4j.Logger;
@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -25,8 +27,8 @@ public class UserRoleTest {
     UserRoleService userRoleService;
 
     @Test
-    public void tsetUserRole() {
-        Message message = userRoleService.findAll();
+    public void testUserRole() {
+        List<User_UserRole> message = userRoleService.findUserRole("USR_001");
 
         LOGGER.info(message);
     }
@@ -40,4 +42,6 @@ public class UserRoleTest {
 
         userRoleService.save(userRoleDto);
     }
+
+
 }

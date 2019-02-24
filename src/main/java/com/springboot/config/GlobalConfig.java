@@ -8,8 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
-public class DozerConfig {
-
+public class GlobalConfig {
     @Bean("mapper")
     public DozerBeanMapper mapper(){
         List<String> mappingFiles = Arrays.asList(

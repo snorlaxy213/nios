@@ -1,6 +1,7 @@
 package com.springboot.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,9 +13,18 @@ import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
-    /**
-     * create ShiroFilterFactoryBean
-     */
+
+    @Bean("hashedCredentialsMatcher")
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
+        //指定加密方式为MD5
+        credentialsMatcher.setHashAlgorithmName("MD5");
+        //加密次数
+        credentialsMatcher.setHashIterations(1024);
+        credentialsMatcher.setStoredCredentialsHexEncoded(true);
+        return credentialsMatcher;
+    }
+
     @Bean
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("securityManager") DefaultWebSecurityManager securityManager){
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -37,7 +47,10 @@ public class ShiroConfig {
         filterMap.put("/", "anon");
 
         //-------------------perms
-        filterMap.put("/emps", "perms[user:add]");
+//        filterMap.put("/user.html", "perms[user:add]");
+
+        //-------------------role
+        filterMap.put("/user.html", "roles[ROL_001]");
 
         //------------------logout
         filterMap.put("/logout.action", "logout");
@@ -48,7 +61,7 @@ public class ShiroConfig {
         //modify login page
         shiroFilterFactoryBean.setLoginUrl("/toLogin");
         //set unauthorized page
-        shiroFilterFactoryBean.setUnauthorizedUrl("/main.html");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/index.html");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
 

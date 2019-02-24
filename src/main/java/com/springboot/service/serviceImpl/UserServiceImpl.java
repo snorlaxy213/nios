@@ -16,7 +16,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service("userServiceImpl")
@@ -24,10 +23,9 @@ import java.util.*;
 public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
-
-    private static final String YYYYMMDD = "yyyy-MM-dd";
-
+    
     @Autowired
+    @Qualifier("userRepository")
     UserRepository userRepository;
 
     @Autowired
@@ -54,7 +52,7 @@ public class UserServiceImpl implements UserService {
         List<User> users = userPages.getContent();
 
         List<UserDto> userDtos = new ArrayList<>();
-        users.forEach(user -> {
+            users.forEach(user -> {
             UserDto userDto = mapper.map(user, UserDto.class);
             userDtos.add(userDto);
         });
@@ -81,7 +79,6 @@ public class UserServiceImpl implements UserService {
 
         if (count > 0) {
             Optional<User> userOptional = userRepository.findById(userDto.getId());
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(YYYYMMDD);
 
             User user = userOptional.get();
             user.setName(userDto.getName());
@@ -93,6 +90,8 @@ public class UserServiceImpl implements UserService {
             return user.getId();
         } else {
             User user = mapper.map(userDto, User.class);
+
+            user.setBasicInformation(new BasicInformation());
             this.getModifiedInfo(user.getBasicInformation(), "1", 1);
             user.setPassword("123456");
             userRepository.save(user);
@@ -100,23 +99,20 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private BasicInformation getModifiedInfo(BasicInformation aBscRwInf, String lUID, Integer lClinicCode) {
-
-        if (aBscRwInf != null) {
-            if (aBscRwInf.getCreateBy() == null) {
-                aBscRwInf.setCreateBy(lUID);
-                aBscRwInf.setCreateDtm(new Date());
-                aBscRwInf.setCreateClinic(lClinicCode);
-                aBscRwInf.setUpdateBy(lUID);
-                aBscRwInf.setUpdateDtm(new Date());
-                aBscRwInf.setUpdateClinic(lClinicCode);
-            } else {
-                aBscRwInf.setUpdateBy(lUID);
-                aBscRwInf.setUpdateDtm(new Date());
-                aBscRwInf.setUpdateClinic(lClinicCode);
-            }
+    private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID, Integer ClinicCode) {
+        if (basicInformation.getCreateBy() != null) {
+            basicInformation.setUpdateBy(userID);
+            basicInformation.setUpdateDtm(new Date());
+            basicInformation.setUpdateClinic(ClinicCode);
+        }else {
+            basicInformation.setCreateBy(userID);
+            basicInformation.setCreateDtm(new Date());
+            basicInformation.setCreateClinic(ClinicCode);
+            basicInformation.setUpdateBy(userID);
+            basicInformation.setUpdateDtm(new Date());
+            basicInformation.setUpdateClinic(ClinicCode);
         }
-
-        return aBscRwInf;
+        
+        return basicInformation;
     }
 }

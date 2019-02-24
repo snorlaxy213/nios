@@ -2,6 +2,7 @@ package com.springboot.service.serviceImpl;
 
 import com.springboot.dto.Message;
 import com.springboot.dto.UserRoleDto;
+import com.springboot.dto.User_UserRole;
 import com.springboot.entity.BasicInformation;
 import com.springboot.entity.UserRole;
 import com.springboot.repository.UserRoleRepository;
@@ -14,10 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service("userRoleServiceImpl")
 @Transactional
@@ -32,9 +30,11 @@ public class UserRoleServiceImpl implements UserRoleService {
     Mapper mapper;
 
     @Autowired
+    @Qualifier("userRoleRepository")
     UserRoleRepository userRoleRepository;
 
     @Autowired
+    @Qualifier("sqeNoServiceImpl")
     SqeNoService sqeNoService;
 
     @Override
@@ -58,7 +58,7 @@ public class UserRoleServiceImpl implements UserRoleService {
             userRoleDtos.add(userRoleDto);
         });
 
-        return Message.success().add("list", userRoleDtos);
+        return Message.success("success").add("list", userRoleDtos);
     }
 
     @Override
@@ -67,10 +67,27 @@ public class UserRoleServiceImpl implements UserRoleService {
         UserRoleDto userRoleDto;
         if (userRoleOptional.isPresent()) {
             userRoleDto = mapper.map(userRoleOptional.get(), UserRoleDto.class);
-            return Message.success().add("list", userRoleDto);
+            return Message.success("success").add("list", userRoleDto);
         } else {
-            return Message.fail();
+            return Message.fail("fail");
         }
+    }
+
+    @Override
+    public List<User_UserRole> findUserRole(String userId) {
+        List<Object[]> examples = userRoleRepository.findUserRole(userId);
+
+        Iterator iterator = examples.iterator();
+        List<User_UserRole> user_userRoles = new ArrayList<>();
+        for (int i = 0; i < examples.size(); i++) {
+            Object[] objects = (Object[])iterator.next();
+            User_UserRole user_userRole = new User_UserRole();
+            user_userRole.setUserId((String) objects[0]);
+            user_userRole.setUserRoleId((String) objects[1]);
+            user_userRoles.add(user_userRole);
+        }
+
+        return user_userRoles;
     }
 
     @Override
@@ -97,7 +114,7 @@ public class UserRoleServiceImpl implements UserRoleService {
             this.getModifiedInfo(userRole.getBasicInformation(), "1", 1);
             userRoleRepository.save(userRole);
         }
-        return Message.success();
+        return Message.success("success");
     }
 
     private BasicInformation getModifiedInfo(BasicInformation aBscRwInf, String lUID, Integer lClinicCode) {

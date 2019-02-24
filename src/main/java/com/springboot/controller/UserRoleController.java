@@ -36,7 +36,7 @@ public class UserRoleController {
     public Message save(@RequestBody UserRoleDto userRoleDto) {
         userRoleService.save(userRoleDto);
 
-        return Message.success();
+        return Message.success("success");
     }
 
     @ResponseBody
