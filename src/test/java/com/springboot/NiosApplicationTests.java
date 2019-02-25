@@ -1,6 +1,5 @@
 package com.springboot;
 
-import com.springboot.dto.Message;
 import com.springboot.service.UserRoleService;
 import com.springboot.service.UserService;
 import org.apache.log4j.Logger;
@@ -34,12 +33,4 @@ public class NiosApplicationTests {
         Map<String,Object> users = userService.findAllWithPage(0,1);
         System.out.println(users);
     }
-
-    @Test
-    public void testUserRole() {
-        Message message = userRoleService.findAll();
-
-        LOGGER.info(message);
-    }
-
 }

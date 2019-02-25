@@ -15,8 +15,10 @@ public class TableIdentity  implements Serializable {
     private String tableName;
     private String identityPrefix;
     private long nextIdentity;
-    private String checkDigit;
     private int keyLength;
+
+    public TableIdentity() {
+    }
 
     @Id
     @Column(name = "Table_Name", length = 50)
@@ -27,7 +29,7 @@ public class TableIdentity  implements Serializable {
         this.tableName = tableName;
     }
 
-    @Column(name = "Identity_Prefix", nullable = true, length = 2)
+    @Column(name = "Identity_Prefix", nullable = true, length = 3)
     public String getIdentityPrefix() {
         return identityPrefix;
     }
@@ -35,7 +37,7 @@ public class TableIdentity  implements Serializable {
         this.identityPrefix = identityPrefix;
     }
 
-    @Column(name = "Next_Identity", nullable = false)
+    @Column(name = "Next_Identity", nullable = false, length = 3)
     public long getNextIdentity() {
         return nextIdentity;
     }
@@ -43,15 +45,7 @@ public class TableIdentity  implements Serializable {
         this.nextIdentity = nextIdentity;
     }
 
-    @Column(name = "Check_Digit", nullable = false, length = 1)
-    public String getCheckDigit() {
-        return checkDigit;
-    }
-    public void setCheckDigit(String checkDigit) {
-        this.checkDigit = checkDigit;
-    }
-
-    @Column(name = "Key_Length", nullable = false)
+    @Column(name = "Key_Length", nullable = false, length = 3)
     public int getKeyLength() {
         return keyLength;
     }

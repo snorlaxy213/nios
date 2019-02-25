@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/UserRole")
 public class UserRoleController {
@@ -26,9 +28,9 @@ public class UserRoleController {
     @ResponseBody
     @GetMapping("UserRole")
     public Message findAll() {
-        Message message = userRoleService.findAll();
+        List<UserRoleDto> userRoleDtos = userRoleService.findAll();
 
-        return message;
+        return Message.success("success").add("list",userRoleDtos);
     }
 
     @ResponseBody
@@ -42,9 +44,9 @@ public class UserRoleController {
     @ResponseBody
     @GetMapping("/UserRole/{id}")
     public Message findById(@PathVariable(value = "id") String id) {
-        Message message = userRoleService.findById(id);
+        UserRoleDto userRoleDto = userRoleService.findById(id);
 
-        return message;
+        return Message.success("success").add("userRole",userRoleDto);
     }
 
 }

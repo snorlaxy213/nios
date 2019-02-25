@@ -1,6 +1,5 @@
 package com.springboot.service.serviceImpl;
 
-import com.springboot.dto.Message;
 import com.springboot.dto.UserRoleDto;
 import com.springboot.dto.User_UserRole;
 import com.springboot.entity.BasicInformation;
@@ -23,7 +22,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     private static final Logger LOGGER = Logger.getLogger(UserRoleServiceImpl.class);
 
-    private static final String TABLENAME = "USER_ROLE";
+    private static final String TABLE_NAME = "USER_ROLE";
 
     @Autowired
     @Qualifier("mapper")
@@ -49,7 +48,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public Message findAll() {
+    public List<UserRoleDto> findAll() {
         List<UserRole> userRoles = userRoleRepository.findAll();
 
         List<UserRoleDto> userRoleDtos = new ArrayList<>();
@@ -58,23 +57,23 @@ public class UserRoleServiceImpl implements UserRoleService {
             userRoleDtos.add(userRoleDto);
         });
 
-        return Message.success("success").add("list", userRoleDtos);
+        return userRoleDtos;
     }
 
     @Override
-    public Message findById(String id) {
+    public UserRoleDto findById(String id) {
         Optional userRoleOptional = userRoleRepository.findById(id);
         UserRoleDto userRoleDto;
         if (userRoleOptional.isPresent()) {
             userRoleDto = mapper.map(userRoleOptional.get(), UserRoleDto.class);
-            return Message.success("success").add("list", userRoleDto);
+            return userRoleDto;
         } else {
-            return Message.fail("fail");
+            return null;
         }
     }
 
     @Override
-    public List<User_UserRole> findUserRole(String userId) {
+    public List<User_UserRole> findUser_Role(String userId) {
         List<Object[]> examples = userRoleRepository.findUserRole(userId);
 
         Iterator iterator = examples.iterator();
@@ -91,7 +90,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public Message save(UserRoleDto userRoleDto) {
+    public String save(UserRoleDto userRoleDto) {
         Long count = userRoleRepository.countById(userRoleDto.getId());
 
         if (count > 0) {
@@ -105,16 +104,20 @@ public class UserRoleServiceImpl implements UserRoleService {
                 this.getModifiedInfo(userRole.getBasicInformation(), "1", 1);
 
                 userRoleRepository.save(userRole);
+
             });
+            return userRoleDto.getId();
         } else {
-            String id = sqeNoService.getSeqNo(TABLENAME);
+            String id = sqeNoService.getSeqNo(TABLE_NAME);
 
             UserRole userRole = mapper.map(userRoleDto, UserRole.class);
             userRole.setId(id);
             this.getModifiedInfo(userRole.getBasicInformation(), "1", 1);
             userRoleRepository.save(userRole);
+
+            return userRoleDto.getId();
         }
-        return Message.success("success");
+
     }
 
     private BasicInformation getModifiedInfo(BasicInformation aBscRwInf, String lUID, Integer lClinicCode) {

@@ -68,8 +68,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto findById(String id) {
         Optional<User> user = userRepository.findById(id);
-        UserDto userDto = mapper.map(user.get(), UserDto.class);
-        return userDto;
+        if (user.isPresent()) {
+            UserDto userDto = mapper.map(user.get(), UserDto.class);
+            return userDto;
+        } else {
+            return null;
+        }
     }
 
     @Override

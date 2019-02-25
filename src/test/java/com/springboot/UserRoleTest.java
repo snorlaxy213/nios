@@ -28,7 +28,7 @@ public class UserRoleTest {
 
     @Test
     public void testUserRole() {
-        List<User_UserRole> message = userRoleService.findUserRole("USR_001");
+        List<User_UserRole> message = userRoleService.findUser_Role("USR0001");
 
         LOGGER.info(message);
     }

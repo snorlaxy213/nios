@@ -37,7 +37,7 @@ public class ShiroConfig {
          *              authc:需要认证才可以访问
          *              user:如果使用remember可以直接访问
          *              perms：该资源必须得到权限才可以访问
-         *              role：该资源必须得到角色权限才可以访问
+         *              roles：该资源必须得到角色权限才可以访问
          */
         Map<String,String> filterMap = new LinkedHashMap<String,String>();
 
@@ -46,11 +46,8 @@ public class ShiroConfig {
         filterMap.put("/index.html", "anon");
         filterMap.put("/", "anon");
 
-        //-------------------perms
-//        filterMap.put("/user.html", "perms[user:add]");
-
         //-------------------role
-        filterMap.put("/user.html", "roles[ROL_001]");
+        filterMap.put("/user.html", "roles[ROL0001]");
 
         //------------------logout
         filterMap.put("/logout.action", "logout");

@@ -26,6 +26,9 @@ public class BasicInformation implements Serializable {
 
     private Integer updateClinic;
 
+    public BasicInformation() {
+    }
+
     @Column(name = "Create_By",length = 100,nullable = false,updatable = false)
     public String getCreateBy() {
         return createBy;
