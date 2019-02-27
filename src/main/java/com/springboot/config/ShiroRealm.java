@@ -8,9 +8,11 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -58,14 +60,24 @@ public class ShiroRealm extends AuthorizingRealm {
         UserDto userDto  = userService.findById(username);
 
         if(userDto == null){
-            //if user is not exist ,shiro will return UnknownAccountException
             throw new UnknownAccountException("user is not exist");
         }
+
+        Object principal = userDto;
+        //Unencrypted password
+        Object credentials = userDto.getPassword();
+        String realmName = getName();
+        ByteSource credentialsSalt = ByteSource.Util.bytes(userDto.getId());//Use account ID as salt value
+
+        Object result = new SimpleHash("MD5", "256254", credentialsSalt, 1024);
+        Boolean flag = credentials.toString().equals(result.toString());
+        //Determine if the password is correct
+        return new SimpleAuthenticationInfo(principal,credentials,credentialsSalt,realmName);
 
         //judge if password is right
         //principal : AuthenticationInfo entity information
         //credentials : Password
         //realmName : current realm's name;you can return getName();
-        return new SimpleAuthenticationInfo(userDto,userDto.getPassword(),"user");
+//        return new SimpleAuthenticationInfo(userDto,userDto.getPassword(),"user");
     }
 }

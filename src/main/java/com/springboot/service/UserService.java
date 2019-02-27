@@ -16,5 +16,5 @@ public interface UserService {
 
     UserDto findById(String id);
 
-    void delete(Map<String,String> userIds);
+    void delete(List<String> userIdList);
 }

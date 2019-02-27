@@ -80,8 +80,10 @@ public class ShiroConfig {
      * create realm
      */
     @Bean("shiroRealm")
-    public ShiroRealm getShiroRealm(){
-        return new ShiroRealm();
+    public ShiroRealm getShiroRealm(@Qualifier("hashedCredentialsMatcher") HashedCredentialsMatcher hashedCredentialsMatcher){
+        ShiroRealm shiroRealm = new ShiroRealm();
+        shiroRealm.setCredentialsMatcher(hashedCredentialsMatcher);
+        return shiroRealm;
     }
 
     /**

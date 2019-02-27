@@ -105,16 +105,17 @@ $(document).on("click", ".edit_btn", function () {
 });
 
 $(document).on("click", ".delete_btn", function () {
-    let object = {};
-    object['userId'] = $(this).attr("del-id");
-    let json = JSON.stringify(object);
+    // let object = {};
+    // object['userId'] = $(this).attr("del-id");
+    // let json = JSON.stringify(object);
+    let UserId = $(this).attr("del-id");
     $.ajax({
-        url: "/nios/user/user",
+        url: "/nios/user/user/"+UserId,
         type: "DELETE",
-        async: false,
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        data: json,
+        // async: false,
+        // dataType: "json",
+        // contentType: "application/json; charset=utf-8",
+        // data: json,
         success: function (result) {
             if (result.code == 100) {
                 to_page(0);
@@ -124,7 +125,6 @@ $(document).on("click", ".delete_btn", function () {
 });
 
 $("#check_all").click(function(){
-    // alert($(this).prop("checked"));
     $(".check_item").prop("checked",$(this).prop("checked"));
 });
 
@@ -142,20 +142,16 @@ $("#delete_all_btn").click(function(){
     });
     userNames=userNames.substring(0,userNames.length-1);
     delId_str=delId_str.substring(0,delId_str.length-1);
-    alert(userNames);
-    alert(delId_str);
-    // if(confirm("确认删除【"+empNames+"】吗？")){
-    //     //发送ajax请求
-    //     $.ajax({
-    //         url:"${APP_PATH}/emp/"+delId_str,
-    //         type:"DELETE",
-    //         success:function(result)
-    //         {
-    //             //alert(result.msg);
-    //             to_page(currentPage);
-    //         }
-    //     });
-    // }
+    if(confirm("确认删除【"+userNames+"】吗？")){
+        $.ajax({
+            url:"/nios/user/user/"+delId_str,
+            type:"DELETE",
+            success:function(result)
+            {
+                to_page(0);
+            }
+        });
+    }
 });
 
 function getUser(id) {

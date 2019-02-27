@@ -9,6 +9,8 @@ import com.springboot.repository.UserRepository;
 import com.springboot.service.UserRoleService;
 import com.springboot.service.UserService;
 import org.apache.log4j.Logger;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -113,7 +115,15 @@ public class UserServiceImpl implements UserService {
 
                 user.setBasicInformation(new BasicInformation());
                 this.getModifiedInfo(user.getBasicInformation(), "1", 1);
-                user.setPassword("123456");
+
+                //Password encryption
+                String hashAlgorithmName = "MD5";//Encryption
+                Object credentials = userDto.getPassword();//Unencrypted password
+                Object salt = ByteSource.Util.bytes(userDto.getId());//salt
+                int hashIterations = 1024;//Encrypted 1024 times
+                Object result = new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations);
+
+                user.setPassword((String) result);
                 user.setUserRoles(temp);
                 userRepository.save(user);
                 return user.getId();
@@ -125,13 +135,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(Map<String,String> userIds) {
+    public void delete(List<String> userIdList) {
         try {
-            Iterator iterator = userIds.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry entry = (Map.Entry) iterator.next();
-                userRepository.deleteById((String) entry.getValue());
-            }
+            userIdList.forEach(userId -> userRepository.deleteById(userId));
         } catch (Exception ex) {
             LOGGER.error("delete fail",ex);
             throw ex;

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -60,10 +62,11 @@ public class UserController {
     }
 
     @ResponseBody
-    @DeleteMapping("/user")
-    public Message delete(@RequestBody Map<String,String> userIds) {
+    @DeleteMapping("/user/{userIds}")
+    public Message delete(@PathVariable String userIds) {
         try {
-            userService.delete(userIds);
+            List<String> userList = Arrays.asList(userIds.split("-"));
+            userService.delete(userList);
             return Message.success();
         } catch (Exception e) {
             LOGGER.error(e.getMessage(),e.getCause());
