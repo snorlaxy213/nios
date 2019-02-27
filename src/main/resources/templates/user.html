@@ -43,12 +43,7 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <div class="title">
-                                        <!-- Button trigger modal -->
-                                        <button type="button"
-                                                class="btn btn-primary btn-info" data-toggle="modal"
-                                                data-target="#UserAddModal">Add
-                                        </button>
-                                        <button type="button" class="btn btn-danger">Batch
+                                        <button id="delete_all_btn" type="button" class="btn btn-danger">Batch
                                             Delete
                                         </button>
                                     </div>
@@ -58,11 +53,11 @@
                                 <table id="users_table" class="table table-hover" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
-                                        <th><input type="checkbox" id="delete-btn"></th>
+                                        <th><input type="checkbox" id="check_all"></th>
                                         <th>UserID</th>
                                         <th>Username</th>
-                                        <th>Email</th>
                                         <th>Mobile</th>
+                                        <th>Email</th>
                                         <th>Operate</th>
                                     </tr>
                                     </thead>
@@ -119,9 +114,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="userRoles" class="col-sm-2 control-label">Role</label>
+                                        <label for="UserRoles" class="col-sm-2 control-label">Role</label>
                                         <div class="col-sm-10">
-                                            <select name="userRoles" id="userRoles" class="form-control">
+                                            <select name="userRoles" id="UserRoles" class="form-control">
 
                                             </select>
                                         </div>

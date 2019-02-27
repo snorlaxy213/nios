@@ -1,6 +1,5 @@
 package com.springboot.service;
 
-import com.springboot.dto.Message;
 import com.springboot.dto.UserDto;
 
 import java.util.List;
@@ -13,7 +12,9 @@ public interface UserService {
 
     Map<String, Object> findAllWithPage(Integer pageNumber, Integer pageSize);
 
-    String save(UserDto userDto) throws Exception;
+    String save(UserDto userDto);
 
     UserDto findById(String id);
+
+    void delete(Map<String,String> userIds);
 }

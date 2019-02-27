@@ -5,7 +5,7 @@ $(function () {
 
 function to_page(pn) {
     $.ajax({
-        url: "/nios/User/User",
+        url: "/nios/user/user",
         data: "pn=" + pn,
         type: "GET",
         success: function (result) {
@@ -44,7 +44,7 @@ $("#user_save_btn").click(function () {
     }
     let json = getJson();
     $.ajax({
-        url: "/nios/User/User",
+        url: "/nios/user/user",
         type: "POST",
         async: false,
         dataType: "json",
@@ -53,26 +53,17 @@ $("#user_save_btn").click(function () {
         success: function (result) {
             if (result.code == 100) {
                 to_page(0);
-            }
-        }
-    });
-
-});
-
-$("#user_update_btn").click(function () {
-
-    $.ajax({
-        url: "/nios/User/User",
-        type: "POST",
-        data: $("#UserUpdateModal form").serialize(),
-        success: function (result) {
-            if (result.code == 100) {
-                $("#UserUpdateModal").modal('hide');
-                to_page(0);
+                reset_form("#User_Form");
             }
         }
     });
 });
+
+function reset_form(ele) {
+    $(ele)[0].reset();
+    $(ele).find("*").removeClass("has-error has-success");
+    $(ele).find(".help_block").text("");
+}
 
 function validate_add_form() {
     //userId validation
@@ -102,10 +93,7 @@ function show_validate_msg(ele, status, msg) {
     $(ele).parent().removeClass("has-success has-error");
     $(ele).next("span").text("");
 
-    if ("success" == status) {
-        $(ele).parent().addClass("has-success");
-        $(ele).next("span").text(msg);
-    } else if ("error" == status) {
+    if ("error" == status) {
         $(ele).parent().addClass("has-error");
         $(ele).next("span").text(msg);
     }
@@ -113,22 +101,76 @@ function show_validate_msg(ele, status, msg) {
 
 $(document).on("click", ".edit_btn", function () {
     getUser($(this).attr("edit-id"));
-
     $("#user_save_btn").attr("edit-id", $(this).attr("edit-id"));
+});
+
+$(document).on("click", ".delete_btn", function () {
+    let object = {};
+    object['userId'] = $(this).attr("del-id");
+    let json = JSON.stringify(object);
+    $.ajax({
+        url: "/nios/user/user",
+        type: "DELETE",
+        async: false,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: json,
+        success: function (result) {
+            if (result.code == 100) {
+                to_page(0);
+            }
+        }
+    });
+});
+
+$("#check_all").click(function(){
+    // alert($(this).prop("checked"));
+    $(".check_item").prop("checked",$(this).prop("checked"));
+});
+
+$(document).on("click",".check_item",function(){
+    let flag=$(".check_item:checked").length==$(".check_item").length
+    $("#check_all").prop("checked",flag);
+});
+
+$("#delete_all_btn").click(function(){
+    let userNames="";
+    let delId_str="";
+    $.each($(".check_item:checked"),function(){
+        userNames+=$(this).parents("tr").find("td:eq(2)").text()+",";
+        delId_str+=$(this).parents("tr").find("td:eq(1)").text()+"-";
+    });
+    userNames=userNames.substring(0,userNames.length-1);
+    delId_str=delId_str.substring(0,delId_str.length-1);
+    alert(userNames);
+    alert(delId_str);
+    // if(confirm("确认删除【"+empNames+"】吗？")){
+    //     //发送ajax请求
+    //     $.ajax({
+    //         url:"${APP_PATH}/emp/"+delId_str,
+    //         type:"DELETE",
+    //         success:function(result)
+    //         {
+    //             //alert(result.msg);
+    //             to_page(currentPage);
+    //         }
+    //     });
+    // }
 });
 
 function getUser(id) {
     $.ajax({
-        url: "/nios/User/User/" + id,
+        url: "/nios/user/user/" + id,
         type: "GET",
         success: function (result) {
-            let empData = result.content.user;
-            $("#UserID").val(empData.id);
-            $("#UserName").val(empData.name);
-            $("#Email").val(empData.email);
-            $("#Mobile").val(empData.mobile);
+            let data = result.content.user;
+            let userRoles = data.userRoles;
+            $("#UserID").val(data.id);
+            $("#UserName").val(data.name);
+            $("#Email").val(data.email);
+            $("#Mobile").val(data.mobile);
+            $("#UserRoles").val(userRoles[0].id);
         }
-
     });
 }
 
@@ -138,8 +180,15 @@ function getUserRole() {
         type: "GET",
         success: function (result) {
             let userRoles = result.content.list;
-            $.each(userRoles,function (i,item) {
-                $("#userRoles").append("<option value="+item.id+">"+item.name+"</option>");
+            $.each(userRoles, function (i, item) {
+                if (i == 0) {
+                    let optionEle = $("<option></option>").append(item.name).attr("value", item.id);
+                    optionEle.appendTo("#UserRoles");
+                } else {
+                    let optionEle = $("<option></option>").append(item.name).attr("value", item.id);
+                    optionEle.appendTo("#UserRoles");
+                }
+
             })
         }
     });
@@ -154,7 +203,7 @@ function getJson() {
     object['email'] = $("#Email").val();
     object['mobile'] = $("#Mobile").val();
 
-    $("#userRoles option:selected").each(function () {
+    $("#UserRoles option:selected").each(function () {
         let value = $(this).val();
         let obj = {};
         obj["id"] = value;

@@ -11,6 +11,12 @@ public class Message {
 
     private Map<String, Object> content = new HashMap<String, Object>();
 
+    public static Message success() {
+        Message result = new Message();
+        result.setCode(100);
+        return result;
+    }
+
     public static Message success(String msg) {
         Message result = new Message();
         result.setCode(100);

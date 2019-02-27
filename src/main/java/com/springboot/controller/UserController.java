@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/User")
+@RequestMapping("/user")
 public class UserController {
 
     private static final Logger LOGGER = Logger.getLogger(UserController.class);
@@ -34,28 +34,41 @@ public class UserController {
     }
 
     @ResponseBody
-    @GetMapping("/User")
+    @GetMapping("/user")
     public Message getUser(@RequestParam(value = "pageNumber", defaultValue = "0")Integer pageNumber) {
         Map<String, Object> users = userService.findAllWithPage(pageNumber, PageUtils.PAGE_SIZE);
         return Message.success("success",users);
     }
 
     @ResponseBody
-    @GetMapping("/User/{id}")
+    @GetMapping("/user/{id}")
     public Message getUserById(@PathVariable(value = "id")String id) {
         UserDto userDto = userService.findById(id);
         return Message.success("success").add("user",userDto);
     }
 
     @ResponseBody
-    @PostMapping(value = "/User")
+    @PostMapping(value = "/user")
     public Message save(@RequestBody @Valid UserDto userDto) {
         try {
             String message = userService.save(userDto);
             return Message.success(message);
         } catch (Exception e) {
-            LOGGER.info(e.getMessage());
-            return Message.fail("fail");
+            LOGGER.error(e.getMessage(),e.getCause());
+            throw e;
         }
     }
+
+    @ResponseBody
+    @DeleteMapping("/user")
+    public Message delete(@RequestBody Map<String,String> userIds) {
+        try {
+            userService.delete(userIds);
+            return Message.success();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(),e.getCause());
+            throw e;
+        }
+    }
+
 }

@@ -1,9 +1,12 @@
 package com.springboot.service.serviceImpl;
 
 import com.springboot.dto.UserDto;
+import com.springboot.dto.UserRoleDto;
 import com.springboot.entity.BasicInformation;
 import com.springboot.entity.User;
+import com.springboot.entity.UserRole;
 import com.springboot.repository.UserRepository;
+import com.springboot.service.UserRoleService;
 import com.springboot.service.UserService;
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;
@@ -11,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     @Qualifier("userRepository")
     UserRepository userRepository;
+
+    @Autowired
+    @Qualifier("userRoleServiceImpl")
+    UserRoleService userRoleService;
 
     @Autowired
     @Qualifier("mapper")
@@ -47,12 +53,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map<String, Object> findAllWithPage(Integer pageNumber, Integer pageSize) {
         Sort sort = new Sort(Sort.Direction.ASC, "id");
-        Pageable pageable = new PageRequest(pageNumber, pageSize, sort);
-        Page<User> userPages = userRepository.findAll(pageable);
+//        Pageable pageable = new PageRequest(pageNumber, pageSize, sort);
+        Page<User> userPages = userRepository.findAll(PageRequest.of(pageNumber,pageSize,sort));
         List<User> users = userPages.getContent();
 
         List<UserDto> userDtos = new ArrayList<>();
-            users.forEach(user -> {
+        users.forEach(user -> {
             UserDto userDto = mapper.map(user, UserDto.class);
             userDtos.add(userDto);
         });
@@ -67,9 +73,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto findById(String id) {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            UserDto userDto = mapper.map(user.get(), UserDto.class);
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (userOptional.isPresent()) {
+            UserDto userDto = mapper.map(userOptional.get(), UserDto.class);
             return userDto;
         } else {
             return null;
@@ -77,29 +84,57 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String save(UserDto userDto) throws Exception {
+    public String save(UserDto userDto) {
+        try {
+            List<UserRoleDto> userRoleDtos = userDto.getUserRoles();
+            List<UserRole> temp = new ArrayList<>();
+            userRoleDtos.forEach(userRoleDto -> {
+                String id = userRoleDto.getId();
+                UserRoleDto roleDto = userRoleService.findById(id);
+                UserRole userRole = mapper.map(roleDto,UserRole.class);
+                temp.add(userRole);
+            });
 
-        Long count = userRepository.countById(userDto.getId());
+            Long count = userRepository.countById(userDto.getId());
+            if (count > 0) {
+                Optional<User> userOptional = userRepository.findById(userDto.getId());
 
-        if (count > 0) {
-            Optional<User> userOptional = userRepository.findById(userDto.getId());
+                User user = userOptional.get();
+                user.setName(userDto.getName());
+                user.setEmail(userDto.getEmail());
+                user.setMobile(userDto.getMobile());
+                user.setUserRoles(temp);
+                this.getModifiedInfo(user.getBasicInformation(), "1", 1);
 
-            User user = userOptional.get();
-            user.setName(userDto.getName());
-            user.setEmail(userDto.getEmail());
-            user.setMobile(userDto.getMobile());
-            this.getModifiedInfo(user.getBasicInformation(), "1", 1);
+                userRepository.save(user);
+                return user.getId();
+            } else {
+                User user = mapper.map(userDto, User.class);
 
-            userRepository.save(user);
-            return user.getId();
-        } else {
-            User user = mapper.map(userDto, User.class);
+                user.setBasicInformation(new BasicInformation());
+                this.getModifiedInfo(user.getBasicInformation(), "1", 1);
+                user.setPassword("123456");
+                user.setUserRoles(temp);
+                userRepository.save(user);
+                return user.getId();
+            }
+        } catch (Exception ex) {
+            LOGGER.error("delete fail",ex);
+            throw ex;
+        }
+    }
 
-            user.setBasicInformation(new BasicInformation());
-            this.getModifiedInfo(user.getBasicInformation(), "1", 1);
-            user.setPassword("123456");
-            userRepository.save(user);
-            return user.getId();
+    @Override
+    public void delete(Map<String,String> userIds) {
+        try {
+            Iterator iterator = userIds.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry entry = (Map.Entry) iterator.next();
+                userRepository.deleteById((String) entry.getValue());
+            }
+        } catch (Exception ex) {
+            LOGGER.error("delete fail",ex);
+            throw ex;
         }
     }
 

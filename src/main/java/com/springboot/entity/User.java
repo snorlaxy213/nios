@@ -98,7 +98,7 @@ public class User implements Serializable {
     }
 
     @JsonBackReference
-    @ManyToMany(targetEntity = UserRole.class, fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = UserRole.class, fetch = FetchType.EAGER)
     @JoinTable(name = "User_User_Role",
             joinColumns = @JoinColumn(name = "User_ID"),
             inverseJoinColumns = @JoinColumn(name = "Userrole_ID"))
