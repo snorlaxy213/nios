@@ -55,7 +55,13 @@ $("#user_save_btn").click(function () {
                 to_page(0);
                 reset_form("#User_Form");
             }
-        }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+            alert(XMLHttpRequest.status);
+            alert(XMLHttpRequest.responseText);
+            alert(errorThrown);
+        },
     });
 });
 

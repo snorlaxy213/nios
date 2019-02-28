@@ -27,6 +27,8 @@ import java.util.*;
 public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
+
+    private static final String DEFAULTPASSWOD = "123456";
     
     @Autowired
     @Qualifier("userRepository")
@@ -118,12 +120,12 @@ public class UserServiceImpl implements UserService {
 
                 //Password encryption
                 String hashAlgorithmName = "MD5";//Encryption
-                Object credentials = userDto.getPassword();//Unencrypted password
+                Object credentials = DEFAULTPASSWOD;//Unencrypted password
                 Object salt = ByteSource.Util.bytes(userDto.getId());//salt
                 int hashIterations = 1024;//Encrypted 1024 times
                 Object result = new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations);
 
-                user.setPassword((String) result);
+                user.setPassword(result.toString());
                 user.setUserRoles(temp);
                 userRepository.save(user);
                 return user.getId();
