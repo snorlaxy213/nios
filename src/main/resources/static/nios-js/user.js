@@ -54,14 +54,20 @@ $("#user_save_btn").click(function () {
             if (result.code == 100) {
                 to_page(0);
                 reset_form("#User_Form");
+            } else if (result.code == 300) {
+                let errorMessages = result.errorMessages;
+                let str = "";
+                for (let i = 0; i < errorMessages.length; i++) {
+                    if (i != errorMessages.length) {
+                        str = str + errorMessages[i] + "\n";
+                    } else {
+                        str = str + errorMessages[i];
+                    }
+                }
+                alert(str);
             }
         },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
 
-            alert(XMLHttpRequest.status);
-            alert(XMLHttpRequest.responseText);
-            alert(errorThrown);
-        },
     });
 });
 
@@ -111,17 +117,10 @@ $(document).on("click", ".edit_btn", function () {
 });
 
 $(document).on("click", ".delete_btn", function () {
-    // let object = {};
-    // object['userId'] = $(this).attr("del-id");
-    // let json = JSON.stringify(object);
     let UserId = $(this).attr("del-id");
     $.ajax({
         url: "/nios/user/user/"+UserId,
         type: "DELETE",
-        // async: false,
-        // dataType: "json",
-        // contentType: "application/json; charset=utf-8",
-        // data: json,
         success: function (result) {
             if (result.code == 100) {
                 to_page(0);

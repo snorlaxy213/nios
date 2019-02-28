@@ -9,12 +9,12 @@ import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @RequestMapping("/user")
@@ -51,8 +51,17 @@ public class UserController {
 
     @ResponseBody
     @PostMapping(value = "/user")
-    public Message save(@RequestBody @Valid UserDto userDto) {
+    public Message save(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) {
         try {
+            if (bindingResult.hasErrors()) {
+                List<ObjectError> allErrors = bindingResult.getAllErrors();
+                List<String> errorMessages = new ArrayList<>();
+                for (ObjectError error : allErrors) {
+                    String defaultMessage = error.getDefaultMessage();
+                    errorMessages.add(defaultMessage);
+                }
+                return Message.validation(300, errorMessages);
+            }
             String message = userService.save(userDto);
             return Message.success(message);
         } catch (Exception e) {

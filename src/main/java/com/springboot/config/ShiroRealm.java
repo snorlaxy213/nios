@@ -70,14 +70,7 @@ public class ShiroRealm extends AuthorizingRealm {
         ByteSource credentialsSalt = ByteSource.Util.bytes(userDto.getId());//Use account ID as salt value
 
         Object result = new SimpleHash("MD5", "123456", credentialsSalt, 1024);
-        Boolean flag = credentials.toString().equals(result.toString());
         //Determine if the password is correct
         return new SimpleAuthenticationInfo(principal,credentials,credentialsSalt,realmName);
-
-        //judge if password is right
-        //principal : AuthenticationInfo entity information
-        //credentials : Password
-        //realmName : current realm's name;you can return getName();
-//        return new SimpleAuthenticationInfo(userDto,userDto.getPassword(),"user");
     }
 }
