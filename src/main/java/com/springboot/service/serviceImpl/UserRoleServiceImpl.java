@@ -54,6 +54,11 @@ public class UserRoleServiceImpl implements UserRoleService {
         List<UserRoleDto> userRoleDtos = new ArrayList<>();
         userRoles.forEach(userRole -> {
             UserRoleDto userRoleDto = mapper.map(userRole, UserRoleDto.class);
+            if ("Y".equals(userRoleDto.getStatus())) {
+                userRoleDto.setStatus("Effective");
+            } else if ("N".equals(userRoleDto.getStatus())) {
+                userRoleDto.setStatus("unEffective");
+            }
             userRoleDtos.add(userRoleDto);
         });
 
