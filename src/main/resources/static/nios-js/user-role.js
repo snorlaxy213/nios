@@ -84,7 +84,7 @@ $("#userRole_save_btn").click(function () {
 function getJson() {
     let object = {};
 
-    object['id'] = $("#UserRoleID").val();
+    // object['id'] = $("#UserRoleID").val();
     object['name'] = $("#UserRoleName").val();
     object['status'] = $("input[name='Status']:checked").val();
 
@@ -109,15 +109,15 @@ $(document).on("click",".check_item",function(){
 });
 
 $("#delete_all_btn").click(function(){
-    let userNames="";
+    let userRoleNames="";
     let delId_str="";
     $.each($(".check_item:checked"),function(){
-        userNames+=$(this).parents("tr").find("td:eq(2)").text()+",";
+        userRoleNames+=$(this).parents("tr").find("td:eq(2)").text()+",";
         delId_str+=$(this).parents("tr").find("td:eq(1)").text()+"-";
     });
-    userNames=userNames.substring(0,userNames.length-1);
+    userRoleNames=userRoleNames.substring(0,userRoleNames.length-1);
     delId_str=delId_str.substring(0,delId_str.length-1);
-    if(confirm("确认删除【"+userNames+"】吗？")){
+    if(confirm("确认删除【"+userRoleNames+"】吗？")){
         $.ajax({
             url:"/nios/userRole/userRole/"+delId_str,
             type:"DELETE",

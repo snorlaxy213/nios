@@ -109,6 +109,11 @@
                         <span class="icon glyphicon glyphicon-user"></span><span class="title">User</span>
                     </a>
                 </li>
+                <li class="active" th:class="${activeUri=='appointment.html'?'active':''}">
+                    <a th:href="@{/appointment.html}">
+                        <span class="icon glyphicon glyphicon-user"></span><span class="title">Appointment</span>
+                    </a>
+                </li>
                 <li class="panel panel-default dropdown active" th:class="${activeUri=='user-role.html'?'panel panel-default dropdown active':'panel panel-default dropdown'}">
                     <a data-toggle="collapse" href="#dropdown-element">
                         <span class="icon fa fa-desktop"></span><span class="title">Management</span>

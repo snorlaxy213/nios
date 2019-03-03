@@ -33,10 +33,12 @@ public class SqeNoServiceImpl implements SqeNoService {
         tableIdentity.ifPresent(temp ->{
             String identityPrefix = temp.getIdentityPrefix();
             Long nextIdentity = temp.getNextIdentity();
+            int nextIdentityLength = String.valueOf(nextIdentity).length();
             int keyLength = temp.getKeyLength();
 
             stringBuilder.append(identityPrefix);
-            for (int i = 0; i < keyLength; i++) {
+            int strLength = keyLength - nextIdentityLength;
+            for (int i = 0; i < strLength; i++) {
                 stringBuilder.append("0");
             }
             temp.setNextIdentity(nextIdentity+1);
