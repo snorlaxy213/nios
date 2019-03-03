@@ -15,4 +15,6 @@ public interface UserRoleService {
     UserRoleDto findById(String id);
 
     List<User_UserRole> findUser_Role(String userId);
+
+    void delete(List<String> userRoleIdList);
 }

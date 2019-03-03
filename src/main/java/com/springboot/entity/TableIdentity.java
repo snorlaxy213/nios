@@ -29,7 +29,7 @@ public class TableIdentity  implements Serializable {
         this.tableName = tableName;
     }
 
-    @Column(name = "Identity_Prefix", nullable = true, length = 3)
+    @Column(name = "Identity_Prefix", length = 3)
     public String getIdentityPrefix() {
         return identityPrefix;
     }

@@ -117,6 +117,7 @@ public class UserRoleServiceImpl implements UserRoleService {
 
             UserRole userRole = mapper.map(userRoleDto, UserRole.class);
             userRole.setId(id);
+            userRole.setBasicInformation(new BasicInformation());
             this.getModifiedInfo(userRole.getBasicInformation(), "1", 1);
             userRoleRepository.save(userRole);
 
@@ -125,20 +126,30 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     }
 
-    private BasicInformation getModifiedInfo(BasicInformation aBscRwInf, String lUID, Integer lClinicCode) {
-
-        if (aBscRwInf != null) {
-            if (aBscRwInf.getCreateBy() == null) {
-                aBscRwInf.setCreateBy(lUID);
-                aBscRwInf.setCreateDtm(new Date());
-                aBscRwInf.setCreateClinic(lClinicCode);
-            } else {
-                aBscRwInf.setUpdateBy(lUID);
-                aBscRwInf.setUpdateDtm(new Date());
-                aBscRwInf.setUpdateClinic(lClinicCode);
-            }
+    private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID, Integer ClinicCode) {
+        if (basicInformation.getCreateBy() != null) {
+            basicInformation.setUpdateBy(userID);
+            basicInformation.setUpdateDtm(new Date());
+            basicInformation.setUpdateClinic(ClinicCode);
+        }else {
+            basicInformation.setCreateBy(userID);
+            basicInformation.setCreateDtm(new Date());
+            basicInformation.setCreateClinic(ClinicCode);
+            basicInformation.setUpdateBy(userID);
+            basicInformation.setUpdateDtm(new Date());
+            basicInformation.setUpdateClinic(ClinicCode);
         }
 
-        return aBscRwInf;
+        return basicInformation;
+    }
+
+    @Override
+    public void delete(List<String> userIdList) {
+        try {
+            userIdList.forEach(userId -> userRoleRepository.deleteById(userId));
+        } catch (Exception ex) {
+            LOGGER.error("delete fail",ex);
+            throw ex;
+        }
     }
 }
