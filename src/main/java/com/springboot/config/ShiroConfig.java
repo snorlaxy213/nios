@@ -1,20 +1,22 @@
 package com.springboot.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import com.springboot.commons.JWTFilter;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
 
-    @Bean("hashedCredentialsMatcher")
+    /*@Bean("hashedCredentialsMatcher")
     public HashedCredentialsMatcher hashedCredentialsMatcher() {
         HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
         //指定加密方式为MD5
@@ -23,12 +25,17 @@ public class ShiroConfig {
         credentialsMatcher.setHashIterations(1024);
         credentialsMatcher.setStoredCredentialsHexEncoded(true);
         return credentialsMatcher;
-    }
+    }*/
 
     @Bean
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("securityManager") DefaultWebSecurityManager securityManager){
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
+
+        // 添加自己的过滤器并且取名为jwt
+        Map<String, Filter> jwtFilterMap = new HashMap<>();
+        jwtFilterMap.put("jwt", new JWTFilter());
+        shiroFilterFactoryBean.setFilters(jwtFilterMap);
 
         /**
          *      Shiro inside filter :execute the filter about roles
@@ -40,6 +47,9 @@ public class ShiroConfig {
          *              roles：该资源必须得到角色权限才可以访问
          */
         Map<String,String> filterMap = new LinkedHashMap<String,String>();
+
+        ///-----------------jwt
+        filterMap.put("/user-role.html", "jwt");
 
         //-----------------anon
         filterMap.put("/toLogin", "anon");
@@ -58,7 +68,7 @@ public class ShiroConfig {
         //modify login page
         shiroFilterFactoryBean.setLoginUrl("/toLogin");
         //set unauthorized page
-        shiroFilterFactoryBean.setUnauthorizedUrl("/index.html");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/toLogin");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
 
@@ -80,14 +90,14 @@ public class ShiroConfig {
      * create realm
      */
     @Bean("shiroRealm")
-    public ShiroRealm getShiroRealm(@Qualifier("hashedCredentialsMatcher") HashedCredentialsMatcher hashedCredentialsMatcher){
+    public ShiroRealm getShiroRealm(/*@Qualifier("hashedCredentialsMatcher") HashedCredentialsMatcher hashedCredentialsMatcher*/){
         ShiroRealm shiroRealm = new ShiroRealm();
-        shiroRealm.setCredentialsMatcher(hashedCredentialsMatcher);
+        /*shiroRealm.setCredentialsMatcher(hashedCredentialsMatcher);*/
         return shiroRealm;
     }
 
     /**
-     * set ShiroDialect for mix thymeleaf and shiro to use
+     * set ShiRoDialect for mix thymeleaf and shiro to use
      */
     @Bean
     public ShiroDialect getShiroDialect(){
