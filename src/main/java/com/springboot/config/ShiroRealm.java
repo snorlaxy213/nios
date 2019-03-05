@@ -11,10 +11,8 @@ import org.apache.log4j.Logger;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -42,12 +40,8 @@ public class ShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        //https://blog.csdn.net/q89757316/article/details/80693942
         String userID = JWTUtil.getUsername(principalCollection.toString());
 
-//        Subject subject = SecurityUtils.getSubject();
-//        UserDto userDto = (UserDto) subject.getPrincipal();
-//        String userID = userDto.getId();
         UserDto user = userService.findById(userID);
         Collection<String> rolesCollection = new HashSet<>();
 
@@ -68,7 +62,6 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String token = (String) authenticationToken.getCredentials();
-//        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         String username = JWTUtil.getUsername(token);
         if (username == null) {
             throw new AuthenticationException("token invalid");
@@ -76,21 +69,13 @@ public class ShiroRealm extends AuthorizingRealm {
 
         UserDto userDto  = userService.findById(username);
         if (userDto == null) {
-            throw new AuthenticationException("User didn't existed!");
+            throw new UnknownAccountException("User didn't existed!");
         }
 
-//        if (! JWTUtil.verify(token, username, userDto.getPassword())) {
-//            throw new AuthenticationException("Username or password error");
-//        }
-        Object principal = userDto;
+        if (! JWTUtil.verify(token, username, userDto.getPassword())) {
+            throw new IncorrectCredentialsException("Username or password error");
+        }
 
-        Object credentials = userDto.getPassword();
-        String realmName = getName();
-        ByteSource credentialsSalt = ByteSource.Util.bytes(userDto.getId());//Use account ID as salt value
-
-        Object result = new SimpleHash("MD5", "123456", credentialsSalt, 1024);
-
-//        return new SimpleAuthenticationInfo(principal,credentials,credentialsSalt,realmName);
         return new SimpleAuthenticationInfo(token, token, "my_realm");
     }
 }

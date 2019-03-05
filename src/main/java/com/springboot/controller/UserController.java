@@ -5,6 +5,7 @@ import com.springboot.dto.Message;
 import com.springboot.dto.UserDto;
 import com.springboot.service.UserService;
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -37,6 +38,7 @@ public class UserController {
 
     @ResponseBody
     @GetMapping("/user")
+    @RequiresAuthentication
     public Message getUser(@RequestParam(value = "pageNumber", defaultValue = "0")Integer pageNumber) {
         Map<String, Object> users = userService.findAllWithPage(pageNumber, PageUtils.PAGE_SIZE);
         return Message.success("success",users);
@@ -44,6 +46,7 @@ public class UserController {
 
     @ResponseBody
     @GetMapping("/user/{id}")
+    @RequiresAuthentication
     public Message getUserById(@PathVariable(value = "id")String id) {
         UserDto userDto = userService.findById(id);
         return Message.success("success").add("user",userDto);
@@ -51,6 +54,7 @@ public class UserController {
 
     @ResponseBody
     @PostMapping(value = "/user")
+    @RequiresAuthentication
     public Message save(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) {
         try {
             if (bindingResult.hasErrors()) {
@@ -72,6 +76,7 @@ public class UserController {
 
     @ResponseBody
     @DeleteMapping("/user/{userIds}")
+    @RequiresAuthentication
     public Message delete(@PathVariable String userIds) {
         try {
             List<String> userList = Arrays.asList(userIds.split("-"));

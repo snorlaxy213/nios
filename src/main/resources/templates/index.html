@@ -208,6 +208,7 @@
                                                 <i class="fa fa-refresh"></i> load more..
                                             </li>
                                         </a>
+
                                     </ul>
                                 </div>
                             </div>
@@ -219,6 +220,7 @@
         <footer class="app-footer">
             <div class="wrapper">
                 <span class="pull-right">2.1 <a href="#"><i class="fa fa-long-arrow-up"></i></a></span> © 2015 Copyright. More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
+                <p id="token" style="color: red" th:text="${token}" th:if="${not #strings.isEmpty(token)}"></p>
             </div>
         </footer>
         <div>
@@ -235,10 +237,17 @@
             <script type="text/javascript" th:src="@{/lib/js/ace/ace.js}" src="/lib/js/ace/ace.js"></script>
             <script type="text/javascript" th:src="@{/lib/js/ace/mode-html.js}" src="/lib/js/ace/mode-html.js"></script>
             <script type="text/javascript" th:src="@{/lib/js/ace/theme-github.js}" src="/lib/js/ace/theme-github.js"></script>
+            <script type="text/javascript" th:src="@{/lib/js/jquery.cookie.js}" src="/lib/js/ace/theme-github.js"></script>
             <!-- Javascript -->
             <script type="text/javascript" th:src="@{/js/app.js}" src="/js/app.js"></script>
             <script type="text/javascript" th:src="@{/js/index.js}" src="/js/index.js"></script>
         </div>
+        <script type="text/javascript">
+            $(function () {
+                $.cookie('token', $("#token").text(), { path: '/' , secure:false });
+                alert($("#token").text());
+            });
+        </script>
     </div>
 </body>
 

@@ -79,7 +79,7 @@ public class UserRole implements Serializable {
     @ManyToMany(
             mappedBy = "userRoles",
             targetEntity = User.class,
-            fetch = FetchType.LAZY
+            fetch = FetchType.EAGER
     )
     public List<User> getUsers() {
         return users;

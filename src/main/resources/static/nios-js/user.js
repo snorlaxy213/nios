@@ -177,7 +177,7 @@ function getUser(id) {
 
 function getUserRole() {
     $.ajax({
-        url: "/nios/UserRole/UserRole",
+        url: "/nios/userRole/userRole",
         type: "GET",
         success: function (result) {
             let userRoles = result.content.list;

@@ -144,11 +144,18 @@
         <script type="text/javascript" th:src="@{/lib/js/ace/ace.js}" src="/lib/js/ace/ace.js"></script>
         <script type="text/javascript" th:src="@{/lib/js/ace/mode-html.js}" src="/lib/js/ace/mode-html.js"></script>
         <script type="text/javascript" th:src="@{/lib/js/ace/theme-github.js}" src="/lib/js/ace/theme-github.js"></script>
+        <script type="text/javascript" th:src="@{/lib/js/jquery.cookie.js}" src="/lib/js/ace/theme-github.js"></script>
         <!-- Javascript -->
         <script type="text/javascript" th:src="@{/js/app.js}" src="/js/app.js"></script>
 
         <!--  Javascript for Nios  -->
         <script type="text/javascript" th:src="@{/nios-js/user-role.js}"></script>
+
+        <script type="text/javascript">
+            $(function () {
+                let token = $.cookie('token');
+            });
+        </script>
     </div>
 </div>
 </body>
