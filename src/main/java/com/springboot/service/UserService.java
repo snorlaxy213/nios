@@ -17,4 +17,6 @@ public interface UserService {
     UserDto findById(String id);
 
     void delete(List<String> userIdList);
+
+    List<UserDto> findByDoctor();
 }

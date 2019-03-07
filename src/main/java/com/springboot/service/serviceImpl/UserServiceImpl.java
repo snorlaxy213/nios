@@ -28,7 +28,9 @@ public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
 
-    private static final String DEFAULTPASSWOD = "123456";
+    private static final String DEFAULT_PASSWORD = "123456";
+
+    private static final String DOCTOR_ROLE_ID = "ROL0002";
     
     @Autowired
     @Qualifier("userRepository")
@@ -120,7 +122,7 @@ public class UserServiceImpl implements UserService {
 
                 //Password encryption
                 String hashAlgorithmName = "MD5";//Encryption
-                Object credentials = DEFAULTPASSWOD;//Unencrypted password
+                Object credentials = DEFAULT_PASSWORD;//Unencrypted password
                 Object salt = ByteSource.Util.bytes(userDto.getId());//salt
                 int hashIterations = 1024;//Encrypted 1024 times
                 Object result = new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations);
@@ -144,6 +146,23 @@ public class UserServiceImpl implements UserService {
             LOGGER.error("delete fail",ex);
             throw ex;
         }
+    }
+
+    @Override
+    public List<UserDto> findByDoctor() {
+
+        List<User> users = userRepository.findAll();
+
+        List<UserDto> userDtoList = new ArrayList<>();
+        users.forEach(user -> {
+            UserRole userRole = user.getUserRoles().get(0);
+            if (DOCTOR_ROLE_ID.equals(userRole.getId())) {
+                UserDto userDto = mapper.map(user, UserDto.class);
+                userDtoList.add(userDto);
+            }
+        });
+
+        return userDtoList;
     }
 
     private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID, Integer ClinicCode) {

@@ -88,4 +88,17 @@ public class UserController {
         }
     }
 
+    @ResponseBody
+    @GetMapping("/userByDoctor")
+    @RequiresAuthentication
+    public Message findByDoctor() {
+        try {
+            List<UserDto> byDoctor = userService.findByDoctor();
+            return Message.success().add("list",byDoctor);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(),e.getCause());
+            throw e;
+        }
+    }
+
 }
