@@ -6,6 +6,7 @@ public class GlobalException extends RuntimeException  {
 
     private String msgCode;
     private String content;
+    private String errorMessage;
     private List<ErrorField> errorFields;
 
     public GlobalException() {
@@ -14,6 +15,12 @@ public class GlobalException extends RuntimeException  {
     public GlobalException(String msgCode, String content) {
         this.msgCode = msgCode;
         this.content = content;
+    }
+
+    public GlobalException(String msgCode, String content, String errorMessage) {
+        this.msgCode = msgCode;
+        this.content = content;
+        this.errorMessage = errorMessage;
     }
 
     public GlobalException(String msgCode, String content, List<ErrorField> errorFields) {
@@ -44,5 +51,13 @@ public class GlobalException extends RuntimeException  {
 
     public void setErrorFields(List<ErrorField> errorFields) {
         this.errorFields = errorFields;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }

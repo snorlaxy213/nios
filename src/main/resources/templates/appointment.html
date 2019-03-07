@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>User-Role</title>
+    <title>Appointment</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400' rel='stylesheet' type='text/css'>
@@ -25,47 +25,14 @@
 <div class="app-container">
     <div class="row content-container">
         <!-- insert topvar -->
-        <div th:replace="~{commons/bar::topnav(activeUri='user-role.html')}"></div>
+        <div th:replace="~{commons/bar::topnav(activeUri='appointment.html')}"></div>
         <!-- insert sidebar -->
-        <div th:replace="~{commons/bar::sidebar(activeUri='user-role.html')}"></div>
+        <div th:replace="~{commons/bar::sidebar(activeUri='appointment.html')}"></div>
         <!-- Main Content -->
         <div class="container-fluid">
             <div class="side-body">
                 <div class="page-title">
-                    <span class="title">User Role</span>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-title">
-                                    <!-- Button trigger modal -->
-                                    <button type="button"
-                                            class="btn btn-primary btn-info" data-toggle="modal"
-                                            data-target="#UserAddModal">Add
-                                    </button>
-                                    <button id="delete_all_btn" type="button" class="btn btn-danger">Batch
-                                        Delete
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <table id="userRoles_table" class="table table-hover" cellspacing="0" width="100%">
-                                    <thead>
-                                    <tr>
-                                        <th><input type="checkbox" id="check_all"></th>
-                                        <th>UserRole-id</th>
-                                        <th>UserRole</th>
-                                        <th>Status</th>
-                                        <th>Operate</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                    <span class="title">Appointment</span>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
@@ -73,49 +40,47 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <div class="title">
-                                        User Role Save
+                                        User Appointment
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form id="UserRole_Form" class="form-horizontal">
+                                <form id="Appointment_Form" class="form-horizontal">
                                     <div class="form-group">
-                                        <label for="UserRoleID" class="col-sm-2 control-label">UserRole-id</label>
+                                        <label for="Doctors" class="col-sm-2 control-label">Doctor</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="id" class="form-control" id="UserRoleID"
-                                                   placeholder="UserID">
-                                            <span class="help-block"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="UserRoleName" class="col-sm-2 control-label">UserRole</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" name="name" class="form-control" id="UserRoleName"
-                                                   placeholder="UserRole">
-                                            <span class="help-block"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">Status</label>
-                                        <div class="col-sm-10">
-                                            <div class="radio3 radio-check radio-success radio-inline">
-                                                <input type="radio" id="radioY" name="Status" value="Y">
-                                                <label for="radioY">
-                                                    <p>Effective</p>
-                                                </label>
-                                            </div>
-                                            <div class="radio3 radio-check radio-warning radio-inline">
-                                                <input type="radio" id="radioN" name="Status" value="N">
-                                                <label for="radioN">
-                                                    <p>unEffective</p>
-                                                </label>
-                                            </div>
-                                        </div>
+                                            <select name="Doctors" id="Doctors" class="form-control">
 
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="AppointmentTime" class="col-sm-2 control-label">AppointmentTime</label>
+                                        <div class="col-sm-10">
+                                            <input type="date" name="AppointmentTime" class="form-control" id="AppointmentTime">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Duration" class="col-sm-2 control-label">Duration</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="Duration" class="form-control" id="Duration"
+                                                   placeholder="Duration">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Description" class="col-sm-2 control-label">Description</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="Description" class="form-control" id="Description"
+                                                   placeholder="Description">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="reset" class="btn btn-default" data-dismiss="modal">Reset
-                                            </button>
-                                            <button id="userRole_save_btn" type="button" class="btn btn-info">Save</button>
+                                            <button type="reset" class="btn btn-default" data-dismiss="modal">Reset</button>
+                                            <button id="user_save_btn" type="button" class="btn btn-info">Save</button>
                                         </div>
                                     </div>
                                 </form>
