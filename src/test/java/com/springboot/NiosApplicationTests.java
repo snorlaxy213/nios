@@ -1,5 +1,6 @@
 package com.springboot;
 
+import com.springboot.dto.UserDto;
 import com.springboot.mapper.UserMapper;
 import com.springboot.service.UserRoleService;
 import com.springboot.service.UserService;
@@ -12,9 +13,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-
-import java.util.List;
-import java.util.Map;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -36,15 +34,11 @@ public class NiosApplicationTests {
     @Qualifier("userMapper")
     private UserMapper userMapper;
 
-    @Test
-    public void contextLoads() {
-        Map<String,Object> users = userService.findAllWithPage(0,1);
-        System.out.println(users);
-    }
 
     @Test
     public void testMapper() {
-        List<String> user = userMapper.usertest1();
-        System.out.println(user);
+//        List<UserDto> users = userMapper.findUser();
+        UserDto userDto = userMapper.findUserByID("USR0001");
+        System.out.println(userDto);
     }
 }

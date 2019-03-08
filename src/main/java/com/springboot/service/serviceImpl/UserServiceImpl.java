@@ -1,5 +1,6 @@
 package com.springboot.service.serviceImpl;
 
+import com.springboot.commons.PageUtils;
 import com.springboot.dto.UserDto;
 import com.springboot.dto.UserRoleDto;
 import com.springboot.entity.BasicInformation;
@@ -59,7 +60,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map<String, Object> findAllWithPage(Integer pageNumber, Integer pageSize) {
         Sort sort = new Sort(Sort.Direction.ASC, "id");
-//        Pageable pageable = new PageRequest(pageNumber, pageSize, sort);
         Page<User> userPages = userRepository.findAll(PageRequest.of(pageNumber,pageSize,sort));
         List<User> users = userPages.getContent();
 
@@ -69,6 +69,7 @@ public class UserServiceImpl implements UserService {
             userDtos.add(userDto);
         });
 
+        PageUtils pageUtils = new PageUtils(userPages.getTotalElements(), userPages.getTotalPages(), pageNumber, userDtos);
         Map<String, Object> map = new HashMap<>();
         map.put("totalPage",userPages.getTotalPages());
         map.put("totalElement",userPages.getTotalElements());
@@ -78,6 +79,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Transactional
     public UserDto findById(String id) {
         Optional<User> userOptional = userRepository.findById(id);
 

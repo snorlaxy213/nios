@@ -2,19 +2,27 @@ package com.springboot.commons;
 
 import java.util.List;
 
-public class PageUtils {
+public class PageUtils<T> {
 
     public static final Integer PAGE_SIZE = 5;
 
-    private Integer totalSize;
+    private Long totalSize;
+    private Integer totalPage;
     private Integer currentPage;
-    private List<Object> contents;
+    private List<T> contents;
 
-    public Integer getTotalSize() {
+    public PageUtils(Long totalSize, Integer totalPage, Integer currentPage, List<T> contents) {
+        this.totalSize = totalSize;
+        this.totalPage = totalPage;
+        this.currentPage = currentPage;
+        this.contents = contents;
+    }
+
+    public Long getTotalSize() {
         return totalSize;
     }
 
-    public void setTotalSize(Integer totalSize) {
+    public void setTotalSize(Long totalSize) {
         this.totalSize = totalSize;
     }
 
@@ -26,11 +34,19 @@ public class PageUtils {
         this.currentPage = currentPage;
     }
 
-    public List<Object> getContents() {
+    public List<T> getContents() {
         return contents;
     }
 
-    public void setContents(List<Object> contents) {
+    public void setContents(List<T> contents) {
         this.contents = contents;
+    }
+
+    public Integer getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(Integer totalPage) {
+        this.totalPage = totalPage;
     }
 }

@@ -20,9 +20,10 @@ spring:
     hibernate:
       ddl-auto: update
 
+
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.springboot.entity
+  type-aliases-package: com.springboot.dto
 
 logging:
   config: src\main\resources\log4j.properties

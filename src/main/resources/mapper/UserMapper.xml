@@ -2,8 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.springboot.mapper.UserMapper">
 
-    <select id="usertest" resultType="java.lang.String">
-        SELECT user_id FROM user;
+    <resultMap id="user" type="com.springboot.dto.UserDto">
+        <result property="id" column="user_id"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="mobile" column="mobile"/>
+        <collection property="userRoles" ofType="com.springboot.dto.UserRoleDto">
+            <result property="id" column="user_role_id"/>
+            <result property="name" column="user_role_name"/>
+            <result property="status" column="status"/>
+        </collection>
+    </resultMap>
+
+    <select id="findUser" resultMap="user">
+        SELECT profile.*,role.* FROM user_profile profile,user_role role,user_user_role uur
+        where profile.user_id = uur.user_id and role.user_role_id = uur.user_role_id
+    </select>
+
+    <select id="findUserByID" parameterType="String" resultMap="user">
+        SELECT profile.*,role.* FROM user_profile profile,user_role role,user_user_role uur
+        where profile.user_id = uur.user_id and role.user_role_id = uur.user_role_id and uur.user_id = #{userID}
     </select>
 
 </mapper>

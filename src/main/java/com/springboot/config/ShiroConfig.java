@@ -50,7 +50,7 @@ public class ShiroConfig {
         filterMap.put("/login.html", "anon");
 
         //-------------------role
-//        filterMap.put("/user.html", "roles[ROL0001]");
+        filterMap.put("/user.html", "roles[ROL0001]");
         filterMap.put("/user-role.html", "roles[ROL0001]");
 
         //------------------logout

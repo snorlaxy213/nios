@@ -4,6 +4,7 @@ import com.springboot.commons.JWTToken;
 import com.springboot.commons.JWTUtil;
 import com.springboot.dto.UserDto;
 import com.springboot.dto.User_UserRole;
+import com.springboot.mapper.UserMapper;
 import com.springboot.service.UserRoleService;
 import com.springboot.service.UserService;
 import org.apache.log4j.LogManager;
@@ -33,6 +34,10 @@ public class ShiroRealm extends AuthorizingRealm {
     @Qualifier("userRoleServiceImpl")
     UserRoleService userRoleService;
 
+    @Autowired
+    @Qualifier("userMapper")
+    private UserMapper userMapper;
+
     @Override
     public boolean supports(AuthenticationToken token) {
         return token instanceof JWTToken;
@@ -42,7 +47,8 @@ public class ShiroRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String userID = JWTUtil.getUsername(principalCollection.toString());
 
-        UserDto user = userService.findById(userID);
+//        UserDto user = userService.findById(userID);
+        UserDto user = userMapper.findUserByID(userID);
         Collection<String> rolesCollection = new HashSet<>();
 
         if (user != null) {

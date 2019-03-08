@@ -1,15 +1,14 @@
 package com.springboot.mapper;
 
-import org.apache.ibatis.annotations.Select;
+import com.springboot.dto.UserDto;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component("userMapper")
 public interface UserMapper {
-    List<String> usertest();
+    List<UserDto> findUser();
 
-    @Select(value = "SELECT user_id FROM user_profile")
-    List<String> usertest1();
-
+    UserDto findUserByID(@Param("userID") String userID);
 }

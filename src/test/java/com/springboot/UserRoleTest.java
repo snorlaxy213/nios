@@ -3,6 +3,7 @@ package com.springboot;
 import com.springboot.dto.UserRoleDto;
 import com.springboot.dto.User_UserRole;
 import com.springboot.entity.BasicInformation;
+import com.springboot.mapper.UserRoleMapper;
 import com.springboot.service.UserRoleService;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -26,6 +27,10 @@ public class UserRoleTest {
     @Qualifier("userRoleServiceImpl")
     UserRoleService userRoleService;
 
+    @Autowired
+    @Qualifier("userRoleMapper")
+    UserRoleMapper userRoleMapper;
+
     @Test
     public void testUserRole() {
         List<User_UserRole> message = userRoleService.findUser_Role("USR0001");
@@ -41,6 +46,13 @@ public class UserRoleTest {
         userRoleDto.setBasicInformation(new BasicInformation());
 
         userRoleService.save(userRoleDto);
+    }
+
+    @Test
+    public void findUserRoleMapper() {
+        List<UserRoleDto> userRoleDtos = userRoleMapper.findUserRole();
+
+        System.out.println(userRoleDtos);
     }
 
 
