@@ -27,6 +27,8 @@ public class User implements Serializable {
 
     private List<UserRole> userRoles;
 
+    private List<Appointment> appointments;
+
     public User() {
     }
 
@@ -105,5 +107,14 @@ public class User implements Serializable {
 
     public void setUserRoles(List<UserRole> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
     }
 }

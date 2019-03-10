@@ -1,5 +1,6 @@
 package com.springboot.dto;
 
+import com.springboot.entity.Appointment;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
@@ -33,6 +34,8 @@ public class UserDto extends BasicRowInfo implements Serializable {
     private Timestamp timestamp;
 
     private List<UserRoleDto> userRoles;
+
+    private List<Appointment> appointments;
 
     public UserDto() {
     }
@@ -91,5 +94,13 @@ public class UserDto extends BasicRowInfo implements Serializable {
 
     public void setUserRoles(List<UserRoleDto> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
     }
 }

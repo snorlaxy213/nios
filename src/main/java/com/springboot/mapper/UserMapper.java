@@ -8,7 +8,7 @@ import java.util.List;
 
 @Component("userMapper")
 public interface UserMapper {
-    List<UserDto> findUser();
+    List<UserDto> findAll();
 
     UserDto findUserByID(@Param("userID") String userID);
 }

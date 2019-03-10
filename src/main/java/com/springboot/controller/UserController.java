@@ -39,17 +39,27 @@ public class UserController {
     @ResponseBody
     @GetMapping("/user")
     @RequiresAuthentication
-    public Message getUser(@RequestParam(value = "pageNumber", defaultValue = "0")Integer pageNumber) {
-        Map<String, Object> users = userService.findAllWithPage(pageNumber, PageUtils.PAGE_SIZE);
-        return Message.success("success",users);
+    public Message findAll(@RequestParam(value = "pageNumber", defaultValue = "0")Integer pageNumber) {
+        try {
+            Map<String, Object> users = userService.findAllWithPage(pageNumber, PageUtils.PAGE_SIZE);
+            return Message.success("success",users);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(),e.getCause());
+            throw e;
+        }
     }
 
     @ResponseBody
     @GetMapping("/user/{id}")
     @RequiresAuthentication
     public Message getUserById(@PathVariable(value = "id")String id) {
-        UserDto userDto = userService.findById(id);
-        return Message.success("success").add("user",userDto);
+        try {
+            UserDto userDto = userService.findById(id);
+            return Message.success("success").add("user",userDto);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(),e.getCause());
+            throw e;
+        }
     }
 
     @ResponseBody

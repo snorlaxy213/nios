@@ -5,58 +5,15 @@
     <mapping>
         <class-a>com.springboot.entity.User</class-a>
         <class-b>com.springboot.dto.UserDto</class-b>
-        <field>
-            <a>basicInformation.createBy</a>
-            <b>createBy</b>
-        </field>
-        <field>
-            <a>basicInformation.createDtm</a>
-            <b>createDtm</b>
-        </field>
-        <field>
-            <a>basicInformation.createClinic</a>
-            <b>createClinic</b>
-        </field>
-        <field>
-            <a>basicInformation.updateBy</a>
-            <b>updateBy</b>
-        </field>
-        <field>
-            <a>basicInformation.updateDtm</a>
-            <b>updateDtm</b>
-        </field>
-        <field>
-            <a>basicInformation.updateClinic</a>
-            <b>updateClinic</b>
-        </field>
     </mapping>
 
     <mapping>
         <class-a>com.springboot.entity.UserRole</class-a>
         <class-b>com.springboot.dto.UserRoleDto</class-b>
-        <field>
-            <a>basicInformation.createBy</a>
-            <b>createBy</b>
-        </field>
-        <field>
-            <a>basicInformation.createDtm</a>
-            <b>createDtm</b>
-        </field>
-        <field>
-            <a>basicInformation.createClinic</a>
-            <b>createClinic</b>
-        </field>
-        <field>
-            <a>basicInformation.updateBy</a>
-            <b>updateBy</b>
-        </field>
-        <field>
-            <a>basicInformation.updateDtm</a>
-            <b>updateDtm</b>
-        </field>
-        <field>
-            <a>basicInformation.updateClinic</a>
-            <b>updateClinic</b>
-        </field>
+    </mapping>
+
+    <mapping>
+        <class-a>com.springboot.entity.Appointment</class-a>
+        <class-b>com.springboot.dto.AppointmentDto</class-b>
     </mapping>
 </mappings>

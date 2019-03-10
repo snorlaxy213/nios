@@ -14,7 +14,7 @@
         </collection>
     </resultMap>
 
-    <select id="findUser" resultMap="user">
+    <select id="findAll" resultMap="user">
         SELECT profile.*,role.* FROM user_profile profile,user_role role,user_user_role uur
         where profile.user_id = uur.user_id and role.user_role_id = uur.user_role_id
     </select>

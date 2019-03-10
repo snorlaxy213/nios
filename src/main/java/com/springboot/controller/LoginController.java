@@ -31,19 +31,19 @@ public class LoginController {
         Subject currentUser = SecurityUtils.getSubject();
 
         if (!currentUser.isAuthenticated()) {
-            try {
-                UserDto userDto  = userService.findById(username);
-                if (userDto == null) {
-                    throw new UnknownAccountException("User didn't existed!");
-                }
-                ByteSource credentialsSalt = ByteSource.Util.bytes(userDto.getId());//Use account ID as salt value
-                Object result = new SimpleHash("MD5", password, credentialsSalt, 1024);
+                    try {
+                        UserDto userDto  = userService.findById(username);
+                        if (userDto == null) {
+                            throw new UnknownAccountException("User didn't existed!");
+                        }
+                        ByteSource credentialsSalt = ByteSource.Util.bytes(userDto.getId());//Use account ID as salt value
+                        Object result = new SimpleHash("MD5", password, credentialsSalt, 1024);
 
-                String authorization = JWTUtil.sign(username, result.toString());
-                JWTToken token = new JWTToken(authorization);
-                currentUser.login(token);
-                model.addAttribute("token", authorization);
-                return "index";
+                        String authorization = JWTUtil.sign(username, result.toString());
+                        JWTToken token = new JWTToken(authorization);
+                        currentUser.login(token);
+                        model.addAttribute("token", authorization);
+                        return "index";
             } catch (UnknownAccountException e) {
                 model.addAttribute("msg", "user is not exist");
                 return "login";
