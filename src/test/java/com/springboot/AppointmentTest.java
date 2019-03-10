@@ -30,7 +30,7 @@ public class AppointmentTest {
 
     @Test
     public void findAll() {
-        List<AppointmentDto> appointmentDtos = appointmentMapper.findAll();
+        List<AppointmentDto> appointmentDtos = appointmentService.findAll();
 
         LOGGER.info(appointmentDtos);
     }

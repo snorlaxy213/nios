@@ -1,7 +1,6 @@
 package com.springboot.dto;
 
 import com.springboot.entity.BasicInformation;
-import com.springboot.entity.User;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -17,7 +16,7 @@ public class UserRoleDto extends BasicRowInfo implements Serializable {
 
     private String status;
 
-    private List<User> users;
+    private List<UserDto> userDtos;
 
     private BasicInformation basicInformation;
 
@@ -50,12 +49,12 @@ public class UserRoleDto extends BasicRowInfo implements Serializable {
         this.status = status;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<UserDto> getUserDtos() {
+        return userDtos;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setUserDtos(List<UserDto> userDtos) {
+        this.userDtos = userDtos;
     }
 
     public BasicInformation getBasicInformation() {

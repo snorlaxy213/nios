@@ -16,7 +16,7 @@ public class AppointmentDto extends BasicRowInfo implements Serializable {
 
     private String description;
 
-    private UserDto user;
+    private UserDto userDto;
 
     public AppointmentDto() {
     }
@@ -61,11 +61,11 @@ public class AppointmentDto extends BasicRowInfo implements Serializable {
         this.description = description;
     }
 
-    public UserDto getUser() {
-        return user;
+    public UserDto getUserDto() {
+        return userDto;
     }
 
-    public void setUser(UserDto user) {
-        this.user = user;
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
     }
 }

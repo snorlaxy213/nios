@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String save(UserDto userDto) {
         try {
-            List<UserRoleDto> userRoleDtos = userDto.getUserRoles();
+            List<UserRoleDto> userRoleDtos = userDto.getUserRoleDtos();
             List<UserRole> temp = new ArrayList<>();
             userRoleDtos.forEach(userRoleDto -> {
                 String id = userRoleDto.getId();

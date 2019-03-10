@@ -5,15 +5,31 @@
     <mapping>
         <class-a>com.springboot.entity.User</class-a>
         <class-b>com.springboot.dto.UserDto</class-b>
+        <field-exclude>
+            <a>userRoles</a>
+            <b>userRoleDtos</b>
+        </field-exclude>
+        <field-exclude>
+            <a>appointments</a>
+            <b>appointmentDtos</b>
+        </field-exclude>
     </mapping>
 
     <mapping>
         <class-a>com.springboot.entity.UserRole</class-a>
         <class-b>com.springboot.dto.UserRoleDto</class-b>
+        <field-exclude>
+            <a>users</a>
+            <b>userDtos</b>
+        </field-exclude>
     </mapping>
 
     <mapping>
         <class-a>com.springboot.entity.Appointment</class-a>
         <class-b>com.springboot.dto.AppointmentDto</class-b>
+        <field-exclude>
+            <a>user</a>
+            <b>userDto</b>
+        </field-exclude>
     </mapping>
 </mappings>

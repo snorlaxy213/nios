@@ -30,9 +30,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         if (appointments.size() > 0) {
             List<AppointmentDto> appointmentDtos = new ArrayList<>();
-            appointments.forEach(appointment -> {
-                appointmentDtos.add(mapper.map(appointment, AppointmentDto.class));
-            });
+            appointments.forEach(appointment -> appointmentDtos.add(mapper.map(appointment, AppointmentDto.class)));
             return appointmentDtos;
         } else return null;
     }
