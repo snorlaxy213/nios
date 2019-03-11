@@ -31,5 +31,18 @@
             <a>user</a>
             <b>userDto</b>
         </field-exclude>
+        <field-exclude>
+            <a>patient</a>
+            <b>patientDto</b>
+        </field-exclude>
+    </mapping>
+
+    <mapping>
+        <class-a>com.springboot.entity.Patient</class-a>
+        <class-b>com.springboot.dto.PatientDto</class-b>
+        <field-exclude>
+            <a>appointments</a>
+            <b>appointmentDtos</b>
+        </field-exclude>
     </mapping>
 </mappings>

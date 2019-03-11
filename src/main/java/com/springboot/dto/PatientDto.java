@@ -1,15 +1,14 @@
-package com.springboot.entity;
+package com.springboot.dto;
 
-import javax.persistence.*;
+import com.springboot.entity.BasicInformation;
+
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
-@Entity
-@Table(name = "patient")
-public class Patient implements Serializable {
+public class PatientDto implements Serializable {
 
-    private static final long serialVersionUID = 7719654454916269472L;
+    private static final long serialVersionUID = -2284174034487559691L;
 
     private String id;
 
@@ -27,13 +26,8 @@ public class Patient implements Serializable {
 
     private Timestamp timestamp;
 
-    private List<Appointment> appointments;
+    private List<AppointmentDto> appointmentDtos;
 
-    public Patient() {
-    }
-
-    @Id
-    @Column(name = "patient_key", length = 12)
     public String getId() {
         return id;
     }
@@ -42,7 +36,6 @@ public class Patient implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "name", length = 20)
     public String getName() {
         return name;
     }
@@ -51,7 +44,6 @@ public class Patient implements Serializable {
         this.name = name;
     }
 
-    @Column(name = "age", length = 3)
     public Long getAge() {
         return age;
     }
@@ -60,7 +52,6 @@ public class Patient implements Serializable {
         this.age = age;
     }
 
-    @Column(name = "gender", length = 2)
     public String getGender() {
         return gender;
     }
@@ -69,7 +60,6 @@ public class Patient implements Serializable {
         this.gender = gender;
     }
 
-    @Column(name = "email", length = 20)
     public String getEmail() {
         return email;
     }
@@ -78,7 +68,6 @@ public class Patient implements Serializable {
         this.email = email;
     }
 
-    @Column(name = "mobile", length = 20)
     public String getMobile() {
         return mobile;
     }
@@ -87,7 +76,6 @@ public class Patient implements Serializable {
         this.mobile = mobile;
     }
 
-    @Embedded
     public BasicInformation getBasicInformation() {
         return basicInformation;
     }
@@ -96,8 +84,6 @@ public class Patient implements Serializable {
         this.basicInformation = basicInformation;
     }
 
-    @Version
-    @Column(name = "Timestamp")
     public Timestamp getTimestamp() {
         return timestamp;
     }
@@ -106,12 +92,11 @@ public class Patient implements Serializable {
         this.timestamp = timestamp;
     }
 
-    @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public List<Appointment> getAppointments() {
-        return appointments;
+    public List<AppointmentDto> getAppointmentDtos() {
+        return appointmentDtos;
     }
 
-    public void setAppointments(List<Appointment> appointments) {
-        this.appointments = appointments;
+    public void setAppointmentDtos(List<AppointmentDto> appointmentDtos) {
+        this.appointmentDtos = appointmentDtos;
     }
 }

@@ -1,12 +1,15 @@
 package com.springboot.service.serviceImpl;
 
 import com.springboot.dto.AppointmentDto;
+import com.springboot.dto.PatientDto;
 import com.springboot.dto.UserDto;
 import com.springboot.entity.Appointment;
 import com.springboot.entity.BasicInformation;
+import com.springboot.entity.Patient;
 import com.springboot.entity.User;
 import com.springboot.repository.AppointmentRepository;
 import com.springboot.service.AppointmentService;
+import com.springboot.service.PatientService;
 import com.springboot.service.UserService;
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;
@@ -38,6 +41,10 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Qualifier("userServiceImpl")
     UserService userService;
 
+    @Autowired
+    @Qualifier("patientServiceImpl")
+    PatientService patientService;
+
     @Override
     public List<AppointmentDto> findAll() {
         List<Appointment> appointments = appointmentRepository.findAll();
@@ -62,9 +69,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public void save(AppointmentDto appointmentDto) {
         try {
-//            User user = mapper.map(appointmentDto.getUserDto(),User.class);
-
             Long count = appointmentRepository.countById(appointmentDto.getId());
+
             if (count > 0) {
                 Optional<Appointment> appointmentOptional = appointmentRepository.findById(appointmentDto.getId());
 
@@ -76,6 +82,10 @@ public class AppointmentServiceImpl implements AppointmentService {
                 UserDto userDto = userService.findById(appointmentDto.getUserDto().getId());
                 User user = mapper.map(userDto, User.class);
                 appointment.setUser(user);
+
+                PatientDto patientDto = patientService.findById(appointmentDto.getPatientDto().getId());
+                Patient patient = mapper.map(patientDto,Patient.class);
+                appointment.setPatient(patient);
                 this.getModifiedInfo(user.getBasicInformation(), "1", 1);
 
                 appointmentRepository.save(appointment);

@@ -16,6 +16,8 @@ public class AppointmentDto extends BasicRowInfo implements Serializable {
 
     private UserDto userDto;
 
+    private PatientDto patientDto;
+
     public AppointmentDto() {
     }
 
@@ -57,5 +59,13 @@ public class AppointmentDto extends BasicRowInfo implements Serializable {
 
     public void setUserDto(UserDto userDto) {
         this.userDto = userDto;
+    }
+
+    public PatientDto getPatientDto() {
+        return patientDto;
+    }
+
+    public void setPatientDto(PatientDto patientDto) {
+        this.patientDto = patientDto;
     }
 }
