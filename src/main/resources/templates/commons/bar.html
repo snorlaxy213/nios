@@ -104,6 +104,21 @@
                         <span class="icon fa fa-tachometer"></span><span class="title">Dashboard</span>
                     </a>
                 </li>
+                <li class="active" th:class="${activeUri=='registration.html'?'active':''}">
+                    <a th:href="@{/registration.html}" href="registration.html">
+                        <span class="icon glyphicon glyphicon-plus"></span><span class="title">Registration</span>
+                    </a>
+                </li>
+                <li class="active" th:class="${activeUri=='appointment.html'?'active':''}">
+                    <a th:href="@{/appointment.html}">
+                        <span class="icon glyphicon glyphicon-pencil"></span><span class="title">Appointment</span>
+                    </a>
+                </li>
+                <li class="active" th:class="${activeUri=='diagnosis.html'?'active':''}">
+                    <a th:href="@{/diagnosis.html}" href="diagnosis.html">
+                        <span class="icon glyphicon glyphicon-erase"></span><span class="title">Diagnosis</span>
+                    </a>
+                </li>
                 <shiro:hasRole name="ROL0001">
                 <li class="active" th:class="${activeUri=='user.html'?'active':''}">
                     <a th:href="@{/user.html}">
@@ -111,11 +126,6 @@
                     </a>
                 </li>
                 </shiro:hasRole>
-                <li class="active" th:class="${activeUri=='appointment.html'?'active':''}">
-                    <a th:href="@{/appointment.html}">
-                        <span class="icon glyphicon glyphicon-user"></span><span class="title">Appointment</span>
-                    </a>
-                </li>
                 <shiro:hasRole name="ROL0001">
                 <li class="panel panel-default dropdown active" th:class="${activeUri=='user-role.html'?'panel panel-default dropdown active':'panel panel-default dropdown'}">
                     <a data-toggle="collapse" href="#dropdown-element">

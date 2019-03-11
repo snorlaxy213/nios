@@ -6,9 +6,7 @@ import java.util.Date;
 public class AppointmentDto extends BasicRowInfo implements Serializable {
     private static final long serialVersionUID = 7996614077112855355L;
 
-    private String appointmentID;
-
-    private String doctor;
+    private String id;
 
     private Date appointmentTime;
 
@@ -21,20 +19,12 @@ public class AppointmentDto extends BasicRowInfo implements Serializable {
     public AppointmentDto() {
     }
 
-    public String getAppointmentID() {
-        return appointmentID;
+    public String getId() {
+        return id;
     }
 
-    public void setAppointmentID(String appointmentID) {
-        this.appointmentID = appointmentID;
-    }
-
-    public String getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(String doctor) {
-        this.doctor = doctor;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Date getAppointmentTime() {

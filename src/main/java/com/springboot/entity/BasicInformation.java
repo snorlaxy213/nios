@@ -56,7 +56,7 @@ public class BasicInformation implements Serializable {
         this.createClinic = createClinic;
     }
 
-    @Column(name = "Update_By",length = 100, nullable = true)
+    @Column(name = "Update_By",length = 100, nullable = false)
     public String getUpdateBy() {
         return updateBy;
     }
@@ -65,7 +65,7 @@ public class BasicInformation implements Serializable {
         this.updateBy = updateBy;
     }
 
-    @Column(name = "Update_Dtm",nullable = true)
+    @Column(name = "Update_Dtm",nullable = false)
     public Date getUpdateDtm() {
         return updateDtm;
     }
@@ -74,7 +74,7 @@ public class BasicInformation implements Serializable {
         this.updateDtm = updateDtm;
     }
 
-    @Column(name = "Update_Clinic",length = 1,nullable = true)
+    @Column(name = "Update_Clinic",length = 1,nullable = false)
     public Integer getUpdateClinic() {
         return updateClinic;
     }

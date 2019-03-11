@@ -2,6 +2,7 @@ package com.springboot.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -10,9 +11,7 @@ public class Appointment implements Serializable {
 
     private static final long serialVersionUID = 144423704187676901L;
 
-    private String appointmentID;
-
-    private String doctor;
+    private String id;
 
     private Date appointmentTime;
 
@@ -22,26 +21,23 @@ public class Appointment implements Serializable {
 
     private User user;
 
+    private Patient patient;
+
+    private BasicInformation basicInformation;
+
+    private Timestamp timestamp;
+
     public Appointment() {
     }
 
     @Id
     @Column(name = "appointment_id", length = 12)
-    public String getAppointmentID() {
-        return appointmentID;
+    public String getId() {
+        return id;
     }
 
-    public void setAppointmentID(String appointmentID) {
-        this.appointmentID = appointmentID;
-    }
-
-    @Column(name = "doctor", length = 50, nullable = false)
-    public String getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(String doctor) {
-        this.doctor = doctor;
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Column(name = "appointment_time", nullable = false)
@@ -80,5 +76,35 @@ public class Appointment implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "Patient_Key")
+    @Basic(fetch = FetchType.LAZY)
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    @Embedded
+    public BasicInformation getBasicInformation() {
+        return basicInformation;
+    }
+
+    public void setBasicInformation(BasicInformation basicInformation) {
+        this.basicInformation = basicInformation;
+    }
+
+    @Version
+    @Column(name = "Timestamp")
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 }

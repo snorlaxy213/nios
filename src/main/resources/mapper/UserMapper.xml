@@ -7,7 +7,7 @@
         <result property="name" column="name"/>
         <result property="email" column="email"/>
         <result property="mobile" column="mobile"/>
-        <collection property="userRoles" ofType="com.springboot.dto.UserRoleDto">
+        <collection property="userRoleDtos" ofType="com.springboot.dto.UserRoleDto">
             <result property="id" column="user_role_id"/>
             <result property="name" column="user_role_name"/>
             <result property="status" column="status"/>

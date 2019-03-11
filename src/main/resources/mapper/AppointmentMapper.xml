@@ -8,7 +8,7 @@
         <result property="description" column="description"/>
         <result property="doctor" column="doctor"/>
         <result property="duration" column="duration"/>
-        <association property="user" javaType="com.springboot.dto.UserDto">
+        <association property="userDto" javaType="com.springboot.dto.UserDto">
             <result property="id" column="user_id"/>
             <result property="name" column="name"/>
             <result property="email" column="email"/>
@@ -19,6 +19,11 @@
     <select id="findAll" resultMap="appointment">
         SELECT appointment.*,profile.* FROM appointment appointment,user_profile profile
         where appointment.user_id = profile.user_id
+    </select>
+
+    <select id="findById" parameterType="String" resultMap="appointment">
+        SELECT appointment.*,profile.* FROM appointment appointment,user_profile profile
+        where appointment.user_id = profile.user_id and appointment.appointment_id = #{Id}
     </select>
 
 </mapper>
