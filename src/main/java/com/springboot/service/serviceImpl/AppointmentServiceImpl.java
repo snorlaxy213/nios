@@ -57,8 +57,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public AppointmentDto findByID(String Id) {
-        Optional<Appointment> appointment = appointmentRepository.findById(Id);
+    public AppointmentDto findByID(String id) {
+        Optional<Appointment> appointment = appointmentRepository.findById(id);
 
         if (appointment.isPresent()) {
             Appointment temp = appointment.get();

@@ -29,6 +29,8 @@ public class Patient implements Serializable {
 
     private List<Appointment> appointments;
 
+    private List<Diagnosis> diagnoses;
+
     public Patient() {
     }
 
@@ -113,5 +115,14 @@ public class Patient implements Serializable {
 
     public void setAppointments(List<Appointment> appointments) {
         this.appointments = appointments;
+    }
+
+    @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Diagnosis> getDiagnoses() {
+        return diagnoses;
+    }
+
+    public void setDiagnoses(List<Diagnosis> diagnoses) {
+        this.diagnoses = diagnoses;
     }
 }

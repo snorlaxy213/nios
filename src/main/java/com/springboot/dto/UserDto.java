@@ -36,6 +36,8 @@ public class UserDto extends BasicRowInfo implements Serializable {
 
     private List<AppointmentDto> appointmentDtos;
 
+    private List<DiagnosisDto> diagnosisDtos;
+
     public UserDto() {
     }
 
@@ -101,5 +103,13 @@ public class UserDto extends BasicRowInfo implements Serializable {
 
     public void setAppointmentDtos(List<AppointmentDto> appointmentDtos) {
         this.appointmentDtos = appointmentDtos;
+    }
+
+    public List<DiagnosisDto> getDiagnosisDtos() {
+        return diagnosisDtos;
+    }
+
+    public void setDiagnosisDtos(List<DiagnosisDto> diagnosisDtos) {
+        this.diagnosisDtos = diagnosisDtos;
     }
 }

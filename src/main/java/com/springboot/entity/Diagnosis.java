@@ -3,19 +3,14 @@ package com.springboot.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Entity
-@Table(name = "appointment")
-public class Appointment implements Serializable {
+@Table(name = "diagnosis")
+public class Diagnosis implements Serializable {
 
-    private static final long serialVersionUID = 144423704187676901L;
+    private static final long serialVersionUID = -1750778873743954413L;
 
     private String id;
-
-    private Date appointmentTime;
-
-    private String duration;
 
     private String description;
 
@@ -23,17 +18,17 @@ public class Appointment implements Serializable {
 
     private Patient patient;
 
-    private Diagnosis diagnosis;
+    private Appointment appointment;
 
     private BasicInformation basicInformation;
 
     private Timestamp timestamp;
 
-    public Appointment() {
+    public Diagnosis() {
     }
 
     @Id
-    @Column(name = "appointment_id", length = 12)
+    @Column(name = "diagnosis_id", length = 12)
     public String getId() {
         return id;
     }
@@ -42,25 +37,7 @@ public class Appointment implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "appointment_time", nullable = false)
-    public Date getAppointmentTime() {
-        return appointmentTime;
-    }
-
-    public void setAppointmentTime(Date appointmentTime) {
-        this.appointmentTime = appointmentTime;
-    }
-
-    @Column(name = "duration", length = 12, nullable = false)
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
-    @Column(name = "description", length = 200)
+    @Column(name = "description", length = 500)
     public String getDescription() {
         return description;
     }
@@ -69,7 +46,7 @@ public class Appointment implements Serializable {
         this.description = description;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "User_ID")
     @Basic(fetch = FetchType.LAZY)
     public User getUser() {
@@ -80,7 +57,7 @@ public class Appointment implements Serializable {
         this.user = user;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "Patient_Key")
     @Basic(fetch = FetchType.LAZY)
     public Patient getPatient() {
@@ -91,13 +68,15 @@ public class Appointment implements Serializable {
         this.patient = patient;
     }
 
-    @OneToOne(mappedBy = "appointment",cascade = CascadeType.ALL)
-    public Diagnosis getDiagnosis() {
-        return diagnosis;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "appointment_id")
+    @Basic(fetch = FetchType.LAZY)
+    public Appointment getAppointment() {
+        return appointment;
     }
 
-    public void setDiagnosis(Diagnosis diagnosis) {
-        this.diagnosis = diagnosis;
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
     }
 
     @Embedded

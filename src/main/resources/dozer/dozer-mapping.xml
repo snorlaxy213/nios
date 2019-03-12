@@ -45,4 +45,21 @@
             <b>appointmentDtos</b>
         </field-exclude>
     </mapping>
+
+    <mapping>
+        <class-a>com.springboot.entity.Diagnosis</class-a>
+        <class-b>com.springboot.dto.DiagnosisDto</class-b>
+        <field-exclude>
+            <a>user</a>
+            <b>userDto</b>
+        </field-exclude>
+        <field-exclude>
+            <a>patient</a>
+            <b>patientDto</b>
+        </field-exclude>
+        <field-exclude>
+            <a>appointment</a>
+            <b>appointmentDto</b>
+        </field-exclude>
+    </mapping>
 </mappings>

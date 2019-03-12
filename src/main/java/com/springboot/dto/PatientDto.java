@@ -28,6 +28,8 @@ public class PatientDto implements Serializable {
 
     private List<AppointmentDto> appointmentDtos;
 
+    private List<DiagnosisDto> diagnosisDtos;
+
     public String getId() {
         return id;
     }
@@ -98,5 +100,13 @@ public class PatientDto implements Serializable {
 
     public void setAppointmentDtos(List<AppointmentDto> appointmentDtos) {
         this.appointmentDtos = appointmentDtos;
+    }
+
+    public List<DiagnosisDto> getDiagnosisDtos() {
+        return diagnosisDtos;
+    }
+
+    public void setDiagnosisDtos(List<DiagnosisDto> diagnosisDtos) {
+        this.diagnosisDtos = diagnosisDtos;
     }
 }
