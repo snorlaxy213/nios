@@ -55,7 +55,7 @@ public class AppointmentTest {
     }
 
     @Test
-    public void save() {
+    public void save() throws Exception {
         AppointmentDto appointmentDto = new AppointmentDto();
         appointmentDto.setId("APP002");
         appointmentDto.setAppointmentTime(new Date());

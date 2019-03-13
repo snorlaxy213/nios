@@ -13,6 +13,10 @@
             <a>appointments</a>
             <b>appointmentDtos</b>
         </field-exclude>
+        <field-exclude>
+            <a>diagnoses</a>
+            <b>diagnosisDtos</b>
+        </field-exclude>
     </mapping>
 
     <mapping>
@@ -35,6 +39,10 @@
             <a>patient</a>
             <b>patientDto</b>
         </field-exclude>
+        <field-exclude>
+            <a>diagnosis</a>
+            <b>diagnosisDto</b>
+        </field-exclude>
     </mapping>
 
     <mapping>
@@ -43,6 +51,10 @@
         <field-exclude>
             <a>appointments</a>
             <b>appointmentDtos</b>
+        </field-exclude>
+        <field-exclude>
+            <a>diagnoses</a>
+            <b>diagnosisDtos</b>
         </field-exclude>
     </mapping>
 
@@ -61,5 +73,10 @@
             <a>appointment</a>
             <b>appointmentDto</b>
         </field-exclude>
+    </mapping>
+
+    <mapping>
+        <class-a>com.springboot.entity.DrugProfile</class-a>
+        <class-b>com.springboot.dto.DrugProfileDto</class-b>
     </mapping>
 </mappings>

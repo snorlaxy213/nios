@@ -34,10 +34,8 @@ public class NiosApplicationTests {
     @Qualifier("userMapper")
     private UserMapper userMapper;
 
-
     @Test
     public void testMapper() {
-//        List<UserDto> users = userMapper.findUser();
         UserDto userDto = userMapper.findUserByID("USR0001");
         System.out.println(userDto);
     }

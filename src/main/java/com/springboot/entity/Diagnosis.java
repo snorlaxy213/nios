@@ -46,7 +46,7 @@ public class Diagnosis implements Serializable {
         this.description = description;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "User_ID")
     @Basic(fetch = FetchType.LAZY)
     public User getUser() {
@@ -57,7 +57,7 @@ public class Diagnosis implements Serializable {
         this.user = user;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "Patient_Key")
     @Basic(fetch = FetchType.LAZY)
     public Patient getPatient() {
@@ -68,7 +68,7 @@ public class Diagnosis implements Serializable {
         this.patient = patient;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "appointment_id")
     @Basic(fetch = FetchType.LAZY)
     public Appointment getAppointment() {

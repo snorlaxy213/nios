@@ -2,7 +2,7 @@ package com.springboot.dto;
 
 import java.io.Serializable;
 
-public class DiagnosisDto implements Serializable {
+public class DiagnosisDto extends BasicRowInfo implements Serializable {
 
     private static final long serialVersionUID = -8115212120508315367L;
 

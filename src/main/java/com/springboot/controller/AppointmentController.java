@@ -6,10 +6,9 @@ import com.springboot.service.AppointmentService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,5 +33,20 @@ public class AppointmentController {
             throw e;
         }
     }
+
+    @ResponseBody
+    @PostMapping("appointment")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Message save(@RequestBody AppointmentDto appointmentDto) throws Exception {
+        try {
+            appointmentService.save(appointmentDto);
+            return null;
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            throw e;
+        }
+    }
+
+
 
 }

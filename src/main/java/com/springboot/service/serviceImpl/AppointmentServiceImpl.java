@@ -67,7 +67,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public void save(AppointmentDto appointmentDto) {
+    public void save(AppointmentDto appointmentDto) throws Exception {
         try {
             Long count = appointmentRepository.countById(appointmentDto.getId());
 
@@ -101,6 +101,7 @@ public class AppointmentServiceImpl implements AppointmentService {
             }
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
+            throw e;
         }
     }
 

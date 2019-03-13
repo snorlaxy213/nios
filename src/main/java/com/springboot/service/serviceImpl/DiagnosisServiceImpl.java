@@ -5,6 +5,7 @@ import com.springboot.dto.DiagnosisDto;
 import com.springboot.dto.PatientDto;
 import com.springboot.dto.UserDto;
 import com.springboot.entity.*;
+import com.springboot.exception.GlobalException;
 import com.springboot.repository.DiagnosisRepository;
 import com.springboot.service.AppointmentService;
 import com.springboot.service.DiagnosisService;
@@ -66,6 +67,14 @@ public class DiagnosisServiceImpl implements DiagnosisService {
 
     @Override
     public void save(DiagnosisDto diagnosisDto) {
+        if (diagnosisDto.getUserDto() == null) {
+            throw new GlobalException("400","user is null");
+        } else if (diagnosisDto.getPatientDto() == null) {
+            throw new GlobalException("400","patient is null");
+        } else if (diagnosisDto.getAppointmentDto() == null) {
+            throw new GlobalException("400","appointment is null");
+        }
+
         Diagnosis diagnosis = mapper.map(diagnosisDto,Diagnosis.class);
 
         UserDto userDto = userService.findById(diagnosisDto.getUserDto().getId());

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class PatientDto implements Serializable {
+public class PatientDto extends BasicRowInfo implements Serializable {
 
     private static final long serialVersionUID = -2284174034487559691L;
 

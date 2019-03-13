@@ -111,7 +111,7 @@ public class User implements Serializable {
         this.userRoles = userRoles;
     }
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     public List<Appointment> getAppointments() {
         return appointments;
     }
@@ -120,7 +120,7 @@ public class User implements Serializable {
         this.appointments = appointments;
     }
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     public List<Diagnosis> getDiagnoses() {
         return diagnoses;
     }

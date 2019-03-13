@@ -59,7 +59,7 @@ public class DiagnosisTest {
     public void save() {
         DiagnosisDto diagnosisDto = new DiagnosisDto();
 
-        diagnosisDto.setId("DIA0001");
+        diagnosisDto.setId("DIA0002");
         diagnosisDto.setDescription("test");
 
         UserDto userDto = userService.findById("USR0001");

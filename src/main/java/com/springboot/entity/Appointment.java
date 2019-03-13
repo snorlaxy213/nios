@@ -91,7 +91,7 @@ public class Appointment implements Serializable {
         this.patient = patient;
     }
 
-    @OneToOne(mappedBy = "appointment",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "appointment")
     public Diagnosis getDiagnosis() {
         return diagnosis;
     }

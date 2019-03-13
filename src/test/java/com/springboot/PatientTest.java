@@ -1,7 +1,9 @@
 package com.springboot;
 
+import com.springboot.commons.CommonTableUtils;
 import com.springboot.dto.PatientDto;
 import com.springboot.service.PatientService;
+import com.springboot.service.SqeNoService;
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;
 import org.junit.Test;
@@ -28,6 +30,10 @@ public class PatientTest {
     @Qualifier("patientServiceImpl")
     PatientService patientService;
 
+    @Autowired
+    @Qualifier("sqeNoServiceImpl")
+    SqeNoService sqeNoService;
+
     @Test
     public void findAllTest() {
         List<PatientDto> patientDtos = patientService.findAll();
@@ -46,7 +52,7 @@ public class PatientTest {
     public void saveTest() {
 
         PatientDto patientDto = new PatientDto();
-        patientDto.setId("PAT0001");
+        patientDto.setId(sqeNoService.getSeqNo(CommonTableUtils.PATIENT));
         patientDto.setName("chan");
         patientDto.setAge(20L);
         patientDto.setEmail("1658895307@qq.com");

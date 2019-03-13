@@ -1,6 +1,7 @@
 package com.springboot.dto;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class AppointmentDto extends BasicRowInfo implements Serializable {
@@ -19,6 +20,8 @@ public class AppointmentDto extends BasicRowInfo implements Serializable {
     private PatientDto patientDto;
 
     private DiagnosisDto diagnosisDto;
+
+    private Timestamp timestamp;
 
     public AppointmentDto() {
     }
@@ -77,5 +80,13 @@ public class AppointmentDto extends BasicRowInfo implements Serializable {
 
     public void setDiagnosisDto(DiagnosisDto diagnosisDto) {
         this.diagnosisDto = diagnosisDto;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 }
