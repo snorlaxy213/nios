@@ -5,8 +5,8 @@
     <title>Diagnosis</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+    <!--<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400' rel='stylesheet' type='text/css'>-->
+    <!--<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>-->
     <!-- CSS Libs -->
     <link rel="stylesheet" type="text/css" th:href="@{/lib/css/bootstrap.min.css}" th href="/lib/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/lib/css/font-awesome.min.css}" href="/lib/css/font-awesome.min.css">
@@ -32,7 +32,7 @@
         <div class="container-fluid">
             <div class="side-body">
                 <div class="page-title">
-                    <span class="title">Diagnosis</span>
+                    <span class="title">Registration</span>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
@@ -40,17 +40,18 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <div class="title">
-                                        Appointment List
+                                        Registration List
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <table id="appointment_table" class="table table-hover" cellspacing="0" width="100%">
+                                <table id="registration_table" class="table  table-bordered table-hover" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
-                                        <th><input type="checkbox" id="check_all"></th>
-                                        <th>UserID</th>
-                                        <th>Username</th>
+                                        <th>PatientID</th>
+                                        <th>Name</th>
+                                        <th>Age</th>
+                                        <th>Gender</th>
                                         <th>Mobile</th>
                                         <th>Email</th>
                                         <th>Operate</th>
@@ -75,42 +76,51 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form id="Appointment_Form" class="form-horizontal">
+                                <form id="Registration_Form" class="form-horizontal">
                                     <div class="form-group">
-                                        <label for="Doctors" class="col-sm-2 control-label">Doctor</label>
+                                        <label for="Name" class="col-sm-2 control-label">Name</label>
                                         <div class="col-sm-10">
-                                            <select name="Doctors" id="Doctors" class="form-control">
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="AppointmentTime" class="col-sm-2 control-label">AppointmentTime</label>
-                                        <div class="col-sm-10">
-                                            <input type="date" name="AppointmentTime" class="form-control" id="AppointmentTime">
+                                            <input type="text" name="Name" class="form-control" id="Name"
+                                                   placeholder="Name">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Duration" class="col-sm-2 control-label">Duration</label>
+                                        <label for="Age" class="col-sm-2 control-label">Age</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="Duration" class="form-control" id="Duration"
-                                                   placeholder="Duration">
+                                            <input type="text" name="Age" class="form-control" id="Age"
+                                                   placeholder="Age">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Description" class="col-sm-2 control-label">Description</label>
+                                        <label for="Gender" class="col-sm-2 control-label">Gender</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="Description" class="form-control" id="Description"
-                                                   placeholder="Description">
+                                            <input type="text" name="Gender" class="form-control" id="Gender"
+                                                   placeholder="Gender">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Mobile" class="col-sm-2 control-label">Mobile</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="Mobile" class="form-control" id="Mobile"
+                                                   placeholder="Mobile">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Email" class="col-sm-2 control-label">Email</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="Email" class="form-control" id="Email"
+                                                   placeholder="Email">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button type="reset" class="btn btn-default" data-dismiss="modal">Reset</button>
-                                            <button id="user_save_btn" type="button" class="btn btn-info">Save</button>
+                                            <button id="patient_save_btn" type="button" class="btn btn-info">Save</button>
                                         </div>
                                     </div>
                                 </form>
@@ -144,13 +154,7 @@
         <script type="text/javascript" th:src="@{/js/app.js}" src="/js/app.js"></script>
 
         <!--  Javascript for Nios  -->
-        <script type="text/javascript" th:src="@{/nios-js/user-role.js}"></script>
-
-        <script type="text/javascript">
-            $(function () {
-                let token = $.cookie('token');
-            });
-        </script>
+        <script type="text/javascript" th:src="@{/nios-js/registration.js}"></script>
     </div>
 </div>
 </body>

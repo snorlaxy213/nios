@@ -1,10 +1,12 @@
 package com.springboot.service.serviceImpl;
 
+import com.springboot.commons.CommonTableUtils;
 import com.springboot.dto.PatientDto;
 import com.springboot.entity.BasicInformation;
 import com.springboot.entity.Patient;
 import com.springboot.repository.PatientRepository;
 import com.springboot.service.PatientService;
+import com.springboot.service.SqeNoService;
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,10 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     @Qualifier("patientRepository")
     PatientRepository patientRepository;
+
+    @Autowired
+    @Qualifier("sqeNoServiceImpl")
+    SqeNoService sqeNoService;
 
     @Override
     public List<PatientDto> findAll() {
@@ -56,29 +62,14 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public void save(PatientDto patientDto) {
         try {
-            Long count = patientRepository.countById(patientDto.getId());
+            Patient patient = mapper.map(patientDto,Patient.class);
+            String id = sqeNoService.getSeqNo(CommonTableUtils.PATIENT);
+            patient.setId(id);
 
-            if (count > 0) {
-                Optional<Patient> patientOptional = patientRepository.findById(patientDto.getId());
+            patient.setBasicInformation(new BasicInformation());
+            this.getModifiedInfo(patient.getBasicInformation(),"1",1);
 
-                Patient patient = patientOptional.get();
-                patient.setName(patientDto.getName());
-                patient.setAge(patientDto.getAge());
-                patient.setGender(patientDto.getGender());
-                patient.setMobile(patientDto.getMobile());
-                patient.setEmail(patientDto.getEmail());
-
-                this.getModifiedInfo(patient.getBasicInformation(), "1", 1);
-
-                patientRepository.save(patient);
-            } else {
-                Patient patient = mapper.map(patientDto,Patient.class);
-
-                patient.setBasicInformation(new BasicInformation());
-                this.getModifiedInfo(patient.getBasicInformation(),"1",1);
-
-                patientRepository.save(patient);
-            }
+            patientRepository.save(patient);
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
         }
