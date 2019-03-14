@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50640
 File Encoding         : 65001
 
-Date: 2019-03-13 17:55:30
+Date: 2019-03-14 18:05:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -150,6 +150,7 @@ CREATE TABLE `patient` (
 -- Records of patient
 -- ----------------------------
 INSERT INTO `patient` VALUES ('PAT0001', '20', '1', '1', '2019-03-13 16:22:57', '1', '1', '2019-03-13 16:22:57', '1658895307@qq.com', 'M', '1658895307', 'chan', '2019-03-13 16:22:57');
+INSERT INTO `patient` VALUES ('PAT0002', '20', '1', '1', '2019-03-14 18:03:59', '1', '1', '2019-03-14 18:03:59', '1658895307@qq.com', 'M', '1658895307', 'chan', '2019-03-14 18:03:59');
 
 -- ----------------------------
 -- Table structure for table_identity
@@ -171,7 +172,7 @@ INSERT INTO `table_identity` VALUES ('USER_ROLE', 'ROL', '4', '1');
 INSERT INTO `table_identity` VALUES ('APPOINTMENT', 'APP', '4', '1');
 INSERT INTO `table_identity` VALUES ('DIAGNOSIS', 'DIA', '4', '1');
 INSERT INTO `table_identity` VALUES ('DRUG', 'CCM', '4', '2');
-INSERT INTO `table_identity` VALUES ('PATIENT', 'PAT', '4', '1');
+INSERT INTO `table_identity` VALUES ('PATIENT', 'PAT', '4', '3');
 
 -- ----------------------------
 -- Table structure for user_profile
