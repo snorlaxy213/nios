@@ -10,4 +10,6 @@ public interface PatientService {
     PatientDto findById(String id);
 
     void save(PatientDto patientDto);
+
+    void delete(String id);
 }

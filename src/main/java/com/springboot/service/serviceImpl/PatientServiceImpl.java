@@ -75,6 +75,24 @@ public class PatientServiceImpl implements PatientService {
         }
     }
 
+    @Override
+    public void delete(String id) {
+        try {
+            Optional<Patient> patientOptional = patientRepository.findById(id);
+
+            if (patientOptional.isPresent()) {
+                Patient patient = patientOptional.get();
+                patient.setStatus("N");
+                patient.setBasicInformation(new BasicInformation());
+                this.getModifiedInfo(patient.getBasicInformation(),"1",1);
+
+                patientRepository.save(patient);
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+    }
+
     private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID, Integer ClinicCode) {
         if (basicInformation.getCreateBy() != null) {
             basicInformation.setUpdateBy(userID);

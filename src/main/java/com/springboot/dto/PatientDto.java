@@ -22,6 +22,8 @@ public class PatientDto extends BasicRowInfo implements Serializable {
 
     private String mobile;
 
+    private String status;
+
     private BasicInformation basicInformation;
 
     private Timestamp timestamp;
@@ -76,6 +78,14 @@ public class PatientDto extends BasicRowInfo implements Serializable {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public BasicInformation getBasicInformation() {

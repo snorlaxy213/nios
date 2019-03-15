@@ -60,4 +60,12 @@ public class RegistrationController {
             throw e;
         }
     }
+
+    @ResponseBody
+    @DeleteMapping("/registration/{id}")
+    public Message delete(@PathVariable(value = "id") String id) {
+        patientService.delete(id);
+
+        return Message.success();
+    }
 }

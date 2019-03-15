@@ -23,6 +23,8 @@ public class Patient implements Serializable {
 
     private String mobile;
 
+    private String status;
+
     private BasicInformation basicInformation;
 
     private Timestamp timestamp;
@@ -87,6 +89,15 @@ public class Patient implements Serializable {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    @Column(name = "status",length = 1)
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Embedded
