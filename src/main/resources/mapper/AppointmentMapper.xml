@@ -3,10 +3,9 @@
 <mapper namespace="com.springboot.mapper.AppointmentMapper">
 
     <resultMap id="appointment" type="com.springboot.dto.AppointmentDto">
-        <result property="appointmentID" column="appointment_id"/>
+        <result property="id" column="appointment_id"/>
         <result property="appointmentTime" column="appointment_time"/>
         <result property="description" column="description"/>
-        <result property="doctor" column="doctor"/>
         <result property="duration" column="duration"/>
         <association property="userDto" javaType="com.springboot.dto.UserDto">
             <result property="id" column="user_id"/>
@@ -14,11 +13,15 @@
             <result property="email" column="email"/>
             <result property="mobile" column="mobile"/>
         </association>
+        <association property="patientDto" javaType="com.springboot.dto.PatientDto">
+            <result property="id" column="patient_key"/>
+            <result property="name" column="p_name"/>
+        </association>
     </resultMap>
 
     <select id="findAll" resultMap="appointment">
-        SELECT appointment.*,profile.* FROM appointment appointment,user_profile profile
-        where appointment.user_id = profile.user_id
+        SELECT appointment.*,profile.*,patient.* FROM appointment appointment,user_profile profile,patient patient
+        where appointment.user_id = profile.user_id and appointment.patient_key = patient.patient_key
     </select>
 
     <select id="findById" parameterType="String" resultMap="appointment">

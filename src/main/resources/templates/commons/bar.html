@@ -123,6 +123,11 @@
                     </a>
                 </li>
                 </shiro:hasRole>
+                <li class="active" th:class="${activeUri=='drug.html'?'active':''}">
+                    <a th:href="@{/drug.html}">
+                        <span class="icon glyphicon glyphicon-leaf"></span><span class="title">Drug</span>
+                    </a>
+                </li>
                 <shiro:hasRole name="ROL0001">
                 <li class="panel panel-default dropdown active" th:class="${activeUri=='user-role.html'?'panel panel-default dropdown active':'panel panel-default dropdown'}">
                     <a data-toggle="collapse" href="#dropdown-element">

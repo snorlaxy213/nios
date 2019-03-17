@@ -46,7 +46,7 @@ public class Patient implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "name", length = 20)
+    @Column(name = "p_name", length = 20)
     public String getName() {
         return name;
     }
@@ -55,7 +55,7 @@ public class Patient implements Serializable {
         this.name = name;
     }
 
-    @Column(name = "age", length = 3)
+    @Column(name = "p_age", length = 3)
     public Long getAge() {
         return age;
     }
@@ -64,7 +64,7 @@ public class Patient implements Serializable {
         this.age = age;
     }
 
-    @Column(name = "gender", length = 2)
+    @Column(name = "p_gender", length = 2)
     public String getGender() {
         return gender;
     }
@@ -73,7 +73,7 @@ public class Patient implements Serializable {
         this.gender = gender;
     }
 
-    @Column(name = "email", length = 20)
+    @Column(name = "p_email", length = 20)
     public String getEmail() {
         return email;
     }
@@ -82,7 +82,7 @@ public class Patient implements Serializable {
         this.email = email;
     }
 
-    @Column(name = "mobile", length = 20)
+    @Column(name = "p_mobile", length = 20)
     public String getMobile() {
         return mobile;
     }
@@ -91,7 +91,7 @@ public class Patient implements Serializable {
         this.mobile = mobile;
     }
 
-    @Column(name = "status",length = 1)
+    @Column(name = "p_status",length = 1)
     public String getStatus() {
         return status;
     }

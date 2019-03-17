@@ -41,7 +41,8 @@ public class AppointmentTest {
 
     @Test
     public void findAll() {
-        List<AppointmentDto> appointmentDtos = appointmentService.findAll();
+//        List<AppointmentDto> appointmentDtos = appointmentService.findAll();
+        List<AppointmentDto> appointmentDtos = appointmentMapper.findAll();
 
         LOGGER.info(appointmentDtos);
     }

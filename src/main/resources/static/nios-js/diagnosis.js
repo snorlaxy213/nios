@@ -4,7 +4,7 @@ $(function () {
 
 function to_page(pn) {
     $.ajax({
-        url: "/nios/user/user",
+        url: "/nios/appointment/appointment",
         data: "pn=" + pn,
         type: "GET",
         success: function (result) {
@@ -14,25 +14,20 @@ function to_page(pn) {
 }
 
 function build_users_table(result) {
-    $("#users_table tbody").empty();
+    $("#appointment_table tbody").empty();
     let userInfo = result.content.list;
     $.each(userInfo, function (index, item) {
         let checkBoxTD = $("<td><input type='checkbox' class='check_item'/></td>");
-        let userIdTd = $("<td></td>").append(item.id);
-        let userNameTd = $("<td></td>").append(item.name);
-        let MobileTd = $("<td></td>").append(item.mobile);
-        let EmailTd = $("<td></td>").append(item.email);
-        let editBtn = $("<button></button>").addClass("btn btn-primary  btn-sm edit_btn").append($("<span></span>").addClass(
-            "glyphicon glyphicon-pencil")).append("update");
-        editBtn.attr("edit-id", item.id);
-        let delBth = $("<button></button>").addClass(
-            "btn btn-danger  btn-sm delete_btn").append(
-            $("<span></span>")
-                .addClass("glyphicon glyphicon-trash")).append(
-            "delete");
-        delBth.attr("del-id", item.id);
-        let btnTd = $("<td></td>").append(editBtn).append(" ").append(
-            delBth);
-        $("<tr></tr>").append(checkBoxTD).append(userIdTd).append(userNameTd).append(MobileTd).append(EmailTd).append(btnTd).appendTo("#users_table tbody");
+        let patientTd = $("<td></td>").append(item.patientDto.name);
+        let doctorTd = $("<td></td>").append(item.userDto.name);
+        let appointmentIdTd = $("<td></td>").append(item.id);
+        let appointmentTimeTd = $("<td></td>").append(item.appointmentTime);
+        let durationTd = $("<td></td>").append(item.duration);
+        let descriptionTd = $("<td></td>").append(item.description);
+        let diagnosisBtn = $("<button></button>").addClass("btn btn-primary  btn-sm edit_btn").append($("<span></span>").addClass(
+            "glyphicon glyphicon-pencil")).append("diagnosis");
+        diagnosisBtn.attr("edit-id", item.id);
+        let btnTd = $("<td></td>").append(diagnosisBtn);
+        $("<tr></tr>").append(checkBoxTD).append(patientTd).append(doctorTd).append(appointmentIdTd).append(appointmentTimeTd).append(durationTd).append(descriptionTd).append(btnTd).appendTo("#appointment_table tbody");
     });
 }

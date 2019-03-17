@@ -2,6 +2,7 @@ package com.springboot.controller;
 
 import com.springboot.dto.AppointmentDto;
 import com.springboot.dto.Message;
+import com.springboot.mapper.AppointmentMapper;
 import com.springboot.service.AppointmentService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,15 @@ public class AppointmentController {
     @Qualifier("appointmentServiceImpl")
     AppointmentService appointmentService;
 
+    @Autowired
+    @Qualifier("appointmentMapper")
+    AppointmentMapper appointmentMapper;
+
     @ResponseBody
     @GetMapping("appointment")
     public Message findAll() {
         try {
-            List<AppointmentDto> appointmentDtos = appointmentService.findAll();
+            List<AppointmentDto> appointmentDtos = appointmentMapper.findAll();
 
             return Message.success().add("list",appointmentDtos);
         } catch (Exception e) {
