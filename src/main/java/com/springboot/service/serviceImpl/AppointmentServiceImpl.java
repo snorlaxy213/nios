@@ -1,5 +1,6 @@
 package com.springboot.service.serviceImpl;
 
+import com.springboot.commons.CommonTableUtils;
 import com.springboot.dto.AppointmentDto;
 import com.springboot.dto.PatientDto;
 import com.springboot.dto.UserDto;
@@ -10,6 +11,7 @@ import com.springboot.entity.User;
 import com.springboot.repository.AppointmentRepository;
 import com.springboot.service.AppointmentService;
 import com.springboot.service.PatientService;
+import com.springboot.service.SqeNoService;
 import com.springboot.service.UserService;
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;
@@ -44,6 +46,10 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     @Qualifier("patientServiceImpl")
     PatientService patientService;
+
+    @Autowired
+    @Qualifier("sqeNoServiceImpl")
+    SqeNoService sqeNoService;
 
     @Override
     public List<AppointmentDto> findAll() {
@@ -91,9 +97,13 @@ public class AppointmentServiceImpl implements AppointmentService {
                 appointmentRepository.save(appointment);
             } else {
                 Appointment appointment = mapper.map(appointmentDto,Appointment.class);
+                appointment.setId(sqeNoService.getSeqNo(CommonTableUtils.APPOINTMENT));
                 UserDto userDto = userService.findById(appointmentDto.getUserDto().getId());
                 User user = mapper.map(userDto, User.class);
                 appointment.setUser(user);
+                PatientDto patientDto = patientService.findById(appointmentDto.getPatientDto().getId());
+                Patient  patient = mapper.map(patientDto,Patient.class);
+                appointment.setPatient(patient);
                 appointment.setBasicInformation(new BasicInformation());
                 this.getModifiedInfo(appointment.getBasicInformation(),"1",1);
 

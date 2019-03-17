@@ -211,7 +211,7 @@ function getJson() {
         params.push(obj);
     })
 
-    object['userRoles'] = params;
+    object['userRoleDtos'] = params;
 
     let json = JSON.stringify(object);
     return json
