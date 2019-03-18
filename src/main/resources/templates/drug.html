@@ -2,11 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Diagnosis</title>
+    <title>Drug</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Fonts -->
-    <!--<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400' rel='stylesheet' type='text/css'>-->
-    <!--<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>-->
     <!-- CSS Libs -->
     <link rel="stylesheet" type="text/css" th:href="@{/lib/css/bootstrap.min.css}" th href="/lib/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/lib/css/font-awesome.min.css}" href="/lib/css/font-awesome.min.css">
@@ -45,15 +42,16 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <table id="appointment_table" class="table table-hover" cellspacing="0" width="100%">
+                                <table id="drugs_table" class="table table-hover" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
                                         <th><input type="checkbox" id="check_all"></th>
-                                        <th>Patient</th>
-                                        <th>Doctor</th>
-                                        <th>ID</th>
-                                        <th>Duration</th>
+                                        <th>DrugId</th>
+                                        <th>DrugName</th>
+                                        <th>DrugType</th>
                                         <th>Description</th>
+                                        <th>Unit</th>
+                                        <th>Status</th>
                                         <th>Operate</th>
                                     </tr>
                                     </thead>
@@ -149,7 +147,7 @@
         <script type="text/javascript" th:src="@{/js/app.js}" src="/js/app.js"></script>
 
         <!--  Javascript for Nios  -->
-        <script type="text/javascript" th:src="@{/nios-js/diagnosis.js}"></script>
+        <script type="text/javascript" th:src="@{/nios-js/drug.js}"></script>
 
         <script type="text/javascript">
             $(function () {
