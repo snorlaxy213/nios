@@ -1,10 +1,12 @@
 package com.springboot.service.serviceImpl;
 
+import com.springboot.commons.CommonTableUtils;
 import com.springboot.dto.DrugProfileDto;
 import com.springboot.entity.BasicInformation;
 import com.springboot.entity.DrugProfile;
 import com.springboot.repository.DrugProfileRepository;
 import com.springboot.service.DrugProfileService;
+import com.springboot.service.SqeNoService;
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,10 @@ public class DrugProfileServiceImpl implements DrugProfileService {
     @Autowired
     @Qualifier("mapper")
     Mapper mapper;
+
+    @Autowired
+    @Qualifier("sqeNoServiceImpl")
+    SqeNoService sqeNoService;
 
     @Override
     public List<DrugProfileDto> findAll() {
@@ -67,6 +73,7 @@ public class DrugProfileServiceImpl implements DrugProfileService {
                 drugProfileRepository.save(drugProfile);
             } else {
                 DrugProfile drugProfile = mapper.map(drugProfileDto,DrugProfile.class);
+                drugProfile.setId(sqeNoService.getSeqNo(CommonTableUtils.DRUG));
 
                 drugProfile.setBasicInformation(new BasicInformation());
                 this.getModifiedInfo(drugProfile.getBasicInformation(), "1", 1);
@@ -76,6 +83,16 @@ public class DrugProfileServiceImpl implements DrugProfileService {
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             throw e;
+        }
+    }
+
+    @Override
+    public void delete(List<String> drugIdList) {
+        try {
+            drugIdList.forEach(userId -> drugProfileRepository.deleteById(userId));
+        } catch (Exception ex) {
+            LOGGER.error("delete fail",ex);
+            throw ex;
         }
     }
 

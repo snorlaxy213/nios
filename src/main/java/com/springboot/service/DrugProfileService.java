@@ -10,4 +10,6 @@ public interface DrugProfileService {
     DrugProfileDto findById(String id);
 
     void save(DrugProfileDto drugProfileDto);
+
+    void delete(List<String> drugIdList);
 }

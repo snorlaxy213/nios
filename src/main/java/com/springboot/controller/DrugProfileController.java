@@ -8,11 +8,9 @@ import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -43,7 +41,7 @@ public class DrugProfileController {
     }
 
     @ResponseBody
-    @GetMapping("drugProfile/{id}")
+    @GetMapping("/drugProfile/{id}")
     public Message findById(@PathVariable(value = "id") String id) {
         try {
             DrugProfileDto drugProfileDto = drugProfileService.findById(id);
@@ -53,6 +51,32 @@ public class DrugProfileController {
             throw e;
         }
 
+    }
+
+    @ResponseBody
+    @PostMapping("/drugProfile")
+    public Message save(@RequestBody DrugProfileDto drugProfileDto) {
+        try {
+            drugProfileService.save(drugProfileDto);
+
+            return Message.success();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(),e.getCause());
+            throw e;
+        }
+    }
+
+    @ResponseBody
+    @DeleteMapping("/drugProfile/{drugIds}")
+    public Message delete(@PathVariable(value = "drugIds") String drugIds) {
+        try {
+            List<String> userList = Arrays.asList(drugIds.split("-"));
+            drugProfileService.delete(userList);
+            return Message.success();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(),e.getCause());
+            throw e;
+        }
     }
 
 }

@@ -22,9 +22,9 @@
 <div class="app-container">
     <div class="row content-container">
         <!-- insert topvar -->
-        <div th:replace="~{commons/bar::topnav(activeUri='diagnosis.html')}"></div>
+        <div th:replace="~{commons/bar::topnav(activeUri='drug.html')}"></div>
         <!-- insert sidebar -->
-        <div th:replace="~{commons/bar::sidebar(activeUri='diagnosis.html')}"></div>
+        <div th:replace="~{commons/bar::sidebar(activeUri='drug.html')}"></div>
         <!-- Main Content -->
         <div class="container-fluid">
             <div class="side-body">
@@ -37,7 +37,9 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <div class="title">
-                                        Appointment List
+                                        <button id="delete_all_btn" type="button" class="btn btn-danger">Batch
+                                            Delete
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -74,20 +76,38 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <form id="Appointment_Form" class="form-horizontal">
+                                <form id="DrugProfile_Form" class="form-horizontal">
                                     <div class="form-group">
-                                        <label for="PatientId" class="col-sm-2 control-label">PatientId</label>
+                                        <label for="DrugId" class="col-sm-2 control-label">DrugId</label>
                                         <div class="col-sm-10">
-                                            <input disabled type="text" name="PatientId" class="form-control" id="PatientId">
+                                            <input disabled type="text" name="DrugId" class="form-control" id="DrugId"
+                                                   placeholder="DrugId">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="PatientName" class="col-sm-2 control-label">PatientName</label>
+                                        <label for="DrugName" class="col-sm-2 control-label">DrugName</label>
                                         <div class="col-sm-10">
-                                            <input disabled type="text" name="PatientName" class="form-control" id="PatientName"
-                                                   placeholder="PatientName">
+                                            <input type="text" name="DrugName" class="form-control" id="DrugName"
+                                                   placeholder="DrugName">
                                             <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">DrugType</label>
+                                        <div class="col-sm-10">
+                                            <div class="radio3 radio-check radio-inline">
+                                                <input type="radio" id="DrugType_1" name="DrugType" value="Sheet">
+                                                <label for="DrugType_1">
+                                                    Sheet
+                                                </label>
+                                            </div>
+                                            <div class="radio3 radio-check radio-success radio-inline">
+                                                <input type="radio" id="DrugType_2" name="DrugType" value="Granule">
+                                                <label for="DrugType_2">
+                                                    Granule
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -99,21 +119,35 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Drugs" class="col-sm-2 control-label">Drugs</label>
+                                        <label for="Unit" class="col-sm-2 control-label">Unit</label>
                                         <div class="col-sm-10">
-                                            <select name="Drugs" id="Drugs" class="form-control" multiple>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
+                                            <select name="Unit" id="Unit" class="form-control">
+                                                <option value="Jra">jin</option>
+                                                <option value="Gra">ke</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Status</label>
+                                        <div class="col-sm-10">
+                                            <div class="radio3 radio-check radio-inline">
+                                                <input type="radio" id="Status_Y" name="Status" value="Y">
+                                                <label for="Status_Y">
+                                                    生效
+                                                </label>
+                                            </div>
+                                            <div class="radio3 radio-check radio-success radio-inline">
+                                                <input type="radio" id="Status_N" name="Status" value="N">
+                                                <label for="Status_N">
+                                                    停用
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button type="reset" class="btn btn-default" data-dismiss="modal">Reset</button>
-                                            <button id="user_save_btn" type="button" class="btn btn-info">Save</button>
+                                            <button id="drug_save_btn" type="button" class="btn btn-info">Save</button>
                                         </div>
                                     </div>
                                 </form>
