@@ -2,6 +2,7 @@ package com.springboot.dto;
 
 import com.springboot.entity.BasicInformation;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
@@ -12,8 +13,10 @@ public class UserRoleDto extends BasicRowInfo implements Serializable {
 
     private String id;
 
+    @NotEmpty(message = "UserRoleName")
     private String name;
 
+    @NotEmpty(message = "Status")
     private String status;
 
     private List<UserDto> userDtos;

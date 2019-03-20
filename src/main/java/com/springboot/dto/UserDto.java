@@ -11,19 +11,19 @@ public class UserDto extends BasicRowInfo implements Serializable {
 
     private static final long serialVersionUID = 1711743832907074561L;
 
-    @NotEmpty(message = "id cannot be empty")
+    @NotEmpty(message = "UserID")
     @Length(max = 12)
     private String id;
 
-    @NotEmpty(message = "name cannot be empty")
+    @NotEmpty(message = "UserName")
     @Length(max = 100)
     private String name;
 
-    @NotEmpty(message = "email cannot be empty")
+    @NotEmpty(message = "Email")
     @Length(max = 50)
     private String email;
 
-    @NotEmpty(message = "mobile cannot be empty")
+    @NotEmpty(message = "Mobile")
     @Length(max = 100)
     private String mobile;
 

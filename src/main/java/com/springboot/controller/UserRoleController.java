@@ -8,8 +8,12 @@ import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,7 +40,17 @@ public class UserRoleController {
 
     @ResponseBody
     @PostMapping("/userRole")
-    public Message save(@RequestBody UserRoleDto userRoleDto) {
+    public Message save(@RequestBody @Valid UserRoleDto userRoleDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            List<ObjectError> allErrors = bindingResult.getAllErrors();
+            List<String> errorMessages = new ArrayList<>();
+            for (ObjectError error : allErrors) {
+                String defaultMessage = error.getDefaultMessage();
+                errorMessages.add(defaultMessage);
+            }
+            return Message.validation(300, errorMessages);
+        }
+
         userRoleService.save(userRoleDto);
 
         return Message.success("success");

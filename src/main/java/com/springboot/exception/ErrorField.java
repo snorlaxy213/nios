@@ -4,6 +4,14 @@ public class ErrorField {
     private String fieldName;
     private String desc;
 
+    public ErrorField() {
+    }
+
+    public ErrorField(String fieldName, String desc) {
+        this.fieldName = fieldName;
+        this.desc = desc;
+    }
+
     public String getFieldName() {
         return fieldName;
     }

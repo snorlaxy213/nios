@@ -76,6 +76,18 @@ $("#userRole_save_btn").click(function () {
             if (result.code == 100) {
                 to_page(0);
                 reset_form("#UserRole_Form");
+                alert("保存成功");
+            } else if (result.code == 300) {
+                let errorMessages = result.errorMessages;
+                let str = "";
+                for (let i = 0; i < errorMessages.length; i++) {
+                    if (i != errorMessages.length-1) {
+                        str = str + errorMessages[i] + ",";
+                    } else {
+                        str = str + errorMessages[i];
+                    }
+                }
+                alert(str+"不可以为空");
             }
         },
     });

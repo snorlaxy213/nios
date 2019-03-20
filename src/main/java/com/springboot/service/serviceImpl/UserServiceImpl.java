@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String save(UserDto userDto) {
+    public void save(UserDto userDto) {
         try {
             List<UserRoleDto> userRoleDtos = userDto.getUserRoleDtos();
             List<UserRole> temp = new ArrayList<>();
@@ -111,7 +111,6 @@ public class UserServiceImpl implements UserService {
                 this.getModifiedInfo(user.getBasicInformation(), "1", 1);
 
                 userRepository.save(user);
-                return user.getId();
             } else {
                 User user = mapper.map(userDto, User.class);
 
@@ -128,7 +127,6 @@ public class UserServiceImpl implements UserService {
                 user.setPassword(result.toString());
                 user.setUserRoles(temp);
                 userRepository.save(user);
-                return user.getId();
             }
         } catch (Exception ex) {
             LOGGER.error("delete fail",ex);

@@ -15,7 +15,10 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -74,10 +77,18 @@ public class UserController {
                     String defaultMessage = error.getDefaultMessage();
                     errorMessages.add(defaultMessage);
                 }
+                if (handleUserRoleNull(userDto) != null) {
+                    errorMessages.add(handleUserRoleNull(userDto));
+                }
+                return Message.validation(300, errorMessages);
+            } else if (handleUserRoleNull(userDto) != null){
+                List<String> errorMessages = new ArrayList<>();
+                errorMessages.add(handleUserRoleNull(userDto));
                 return Message.validation(300, errorMessages);
             }
-            String message = userService.save(userDto);
-            return Message.success(message);
+
+           userService.save(userDto);
+            return Message.success();
         } catch (Exception e) {
             LOGGER.error(e.getMessage(),e.getCause());
             throw e;
@@ -111,4 +122,9 @@ public class UserController {
         }
     }
 
+    public String handleUserRoleNull(UserDto userDto) {
+        if (userDto.getUserRoleDtos() == null) {
+            return "UserRole";
+        } else return null;
+    }
 }
