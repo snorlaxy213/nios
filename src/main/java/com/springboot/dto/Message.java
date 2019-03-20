@@ -43,6 +43,12 @@ public class Message {
         return result;
     }
 
+    public static Message fail() {
+        Message result = new Message();
+        result.setCode(200);
+        return result;
+    }
+
     public static Message fail(String msg) {
         Message result = new Message();
         result.setCode(200);

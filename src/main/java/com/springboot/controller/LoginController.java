@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class LoginController {
 
@@ -27,7 +29,7 @@ public class LoginController {
 
     @PostMapping(value = "user/login")
     public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password, Model model){
+                        @RequestParam("password") String password, Model model, HttpServletRequest request){
         Subject currentUser = SecurityUtils.getSubject();
 
         if (!currentUser.isAuthenticated()) {
@@ -42,6 +44,7 @@ public class LoginController {
                         String authorization = JWTUtil.sign(username, result.toString());
                         JWTToken token = new JWTToken(authorization);
                         currentUser.login(token);
+                        request.getSession().setAttribute("userId",username);
                         model.addAttribute("token", authorization);
                         return "index";
             } catch (UnknownAccountException e) {
