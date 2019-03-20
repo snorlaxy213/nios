@@ -23,8 +23,6 @@ public class Appointment implements Serializable {
 
     private Patient patient;
 
-    private Diagnosis diagnosis;
-
     private BasicInformation basicInformation;
 
     private Timestamp timestamp;
@@ -89,15 +87,6 @@ public class Appointment implements Serializable {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
-    }
-
-    @OneToOne(mappedBy = "appointment")
-    public Diagnosis getDiagnosis() {
-        return diagnosis;
-    }
-
-    public void setDiagnosis(Diagnosis diagnosis) {
-        this.diagnosis = diagnosis;
     }
 
     @Embedded

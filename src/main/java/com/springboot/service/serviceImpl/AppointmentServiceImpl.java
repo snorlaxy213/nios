@@ -115,6 +115,16 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
     }
 
+    @Override
+    public void delete(String Id) {
+        try {
+            appointmentRepository.deleteById(Id);
+        } catch (Exception ex) {
+            LOGGER.error("delete fail",ex);
+            throw ex;
+        }
+    }
+
     private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID, Integer ClinicCode) {
         if (basicInformation.getCreateBy() != null) {
             basicInformation.setUpdateBy(userID);

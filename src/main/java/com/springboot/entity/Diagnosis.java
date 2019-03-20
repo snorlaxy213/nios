@@ -18,8 +18,6 @@ public class Diagnosis implements Serializable {
 
     private Patient patient;
 
-    private Appointment appointment;
-
     private BasicInformation basicInformation;
 
     private Timestamp timestamp;
@@ -66,17 +64,6 @@ public class Diagnosis implements Serializable {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
-    }
-
-    @OneToOne
-    @JoinColumn(name = "appointment_id")
-    @Basic(fetch = FetchType.LAZY)
-    public Appointment getAppointment() {
-        return appointment;
-    }
-
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
     }
 
     @Embedded

@@ -27,7 +27,7 @@ public class AppointmentController {
     AppointmentMapper appointmentMapper;
 
     @ResponseBody
-    @GetMapping("appointment")
+    @GetMapping("/appointment")
     public Message findAll() {
         try {
             List<AppointmentDto> appointmentDtos = appointmentMapper.findAll();
@@ -40,7 +40,19 @@ public class AppointmentController {
     }
 
     @ResponseBody
-    @PostMapping("appointment")
+    @GetMapping("/appointment/{id}")
+    public Message findById(@PathVariable(value = "id") String id) {
+        try {
+            AppointmentDto appointmentDto = appointmentMapper.findById(id);
+            return Message.success("success").add("appointment",appointmentDto);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(),e.getCause());
+            throw e;
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/appointment")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Message save(@RequestBody AppointmentDto appointmentDto) throws Exception {
         try {

@@ -1,16 +1,16 @@
 package com.springboot.service.serviceImpl;
 
-import com.springboot.dto.AppointmentDto;
+import com.springboot.commons.CommonTableUtils;
 import com.springboot.dto.DiagnosisDto;
 import com.springboot.dto.PatientDto;
 import com.springboot.dto.UserDto;
-import com.springboot.entity.*;
+import com.springboot.entity.BasicInformation;
+import com.springboot.entity.Diagnosis;
+import com.springboot.entity.Patient;
+import com.springboot.entity.User;
 import com.springboot.exception.GlobalException;
 import com.springboot.repository.DiagnosisRepository;
-import com.springboot.service.AppointmentService;
-import com.springboot.service.DiagnosisService;
-import com.springboot.service.PatientService;
-import com.springboot.service.UserService;
+import com.springboot.service.*;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -46,6 +46,10 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     @Qualifier("appointmentServiceImpl")
     AppointmentService appointmentService;
 
+    @Autowired
+    @Qualifier("sqeNoServiceImpl")
+    SqeNoService sqeNoService;
+
     @Override
     public List<DiagnosisDto> findAll() {
         List<Diagnosis> diagnoses = diagnosisRepository.findAll();
@@ -71,8 +75,6 @@ public class DiagnosisServiceImpl implements DiagnosisService {
             throw new GlobalException("400","user is null");
         } else if (diagnosisDto.getPatientDto() == null) {
             throw new GlobalException("400","patient is null");
-        } else if (diagnosisDto.getAppointmentDto() == null) {
-            throw new GlobalException("400","appointment is null");
         }
 
         Diagnosis diagnosis = mapper.map(diagnosisDto,Diagnosis.class);
@@ -83,13 +85,12 @@ public class DiagnosisServiceImpl implements DiagnosisService {
         PatientDto patientDto = patientService.findById(diagnosisDto.getPatientDto().getId());
         diagnosis.setPatient(mapper.map(patientDto, Patient.class));
 
-        AppointmentDto appointmentDto = appointmentService.findByID(diagnosisDto.getAppointmentDto().getId());
-        diagnosis.setAppointment(mapper.map(appointmentDto, Appointment.class));
-
+        diagnosis.setId(sqeNoService.getSeqNo(CommonTableUtils.DIAGNOSIS));
         diagnosis.setBasicInformation(new BasicInformation());
         this.getModifiedInfo(diagnosis.getBasicInformation(), "1", 1);
 
         diagnosisRepository.save(diagnosis);
+        appointmentService.delete(diagnosisDto.getAppointmentDto().getId());
 
     }
 

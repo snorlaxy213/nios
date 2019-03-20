@@ -52,6 +52,7 @@
                                         <th>Patient</th>
                                         <th>Doctor</th>
                                         <th>ID</th>
+                                        <th>AppointmentTime</th>
                                         <th>Duration</th>
                                         <th>Description</th>
                                         <th>Operate</th>
@@ -78,6 +79,13 @@
                             <div class="card-body">
                                 <form id="Appointment_Form" class="form-horizontal">
                                     <div class="form-group">
+                                        <label for="id" class="col-sm-2 control-label">id</label>
+                                        <div class="col-sm-10">
+                                            <input disabled type="text" name="id" class="form-control" id="id">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="PatientId" class="col-sm-2 control-label">PatientId</label>
                                         <div class="col-sm-10">
                                             <input disabled type="text" name="PatientId" class="form-control" id="PatientId">
@@ -85,10 +93,24 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="PatientName" class="col-sm-2 control-label">PatientName</label>
+                                        <label for="DoctorId" class="col-sm-2 control-label">DoctorId</label>
                                         <div class="col-sm-10">
-                                            <input disabled type="text" name="PatientName" class="form-control" id="PatientName"
-                                                   placeholder="PatientName">
+                                            <input disabled type="text" name="DoctorId" class="form-control" id="DoctorId">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="PatientName" class="col-sm-2 control-label">Patient</label>
+                                        <div class="col-sm-10">
+                                            <input disabled type="text" name="PatientName" class="form-control" id="PatientName">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="DoctorName" class="col-sm-2 control-label">Doctor</label>
+                                        <div class="col-sm-10">
+                                            <input disabled type="text" name="DoctorName" class="form-control" id="DoctorName"
+                                                   placeholder="Doctor">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -101,21 +123,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Drugs" class="col-sm-2 control-label">Drugs</label>
-                                        <div class="col-sm-10">
-                                            <select name="Drugs" id="Drugs" class="form-control" multiple>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button type="reset" class="btn btn-default" data-dismiss="modal">Reset</button>
-                                            <button id="user_save_btn" type="button" class="btn btn-info">Save</button>
+                                            <button id="diagnosis_save_btn" type="button" class="btn btn-info">Save</button>
                                         </div>
                                     </div>
                                 </form>

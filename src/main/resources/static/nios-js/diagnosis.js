@@ -26,19 +26,16 @@ function build_appointment_table(result) {
         let descriptionTd = $("<td></td>").append(item.description);
         let diagnosisBtn = $("<button></button>").addClass("btn btn-primary  btn-sm edit_btn").append($("<span></span>").addClass(
             "glyphicon glyphicon-pencil")).append("diagnosis");
-        diagnosisBtn.attr("edit-id", item.patientDto.id);
+        diagnosisBtn.attr("edit-id", item.id);
         let btnTd = $("<td></td>").append(diagnosisBtn);
         $("<tr></tr>").append(checkBoxTD).append(patientTd).append(doctorTd).append(appointmentIdTd).append(appointmentTimeTd).append(durationTd).append(descriptionTd).append(btnTd).appendTo("#appointment_table tbody");
     });
 }
 
-$("#user_save_btn").click(function () {
-    if (!validate_add_form()) {
-        return false;
-    }
+$("#diagnosis_save_btn").click(function () {
     let json = getJson();
     $.ajax({
-        url: "/nios/user/user",
+        url: "/nios/diagnosis/diagnosis",
         type: "POST",
         async: false,
         dataType: "json",
@@ -47,20 +44,58 @@ $("#user_save_btn").click(function () {
         success: function (result) {
             if (result.code == 100) {
                 to_page(0);
-                reset_form("#User_Form");
-            } else if (result.code == 300) {
-                let errorMessages = result.errorMessages;
-                let str = "";
-                for (let i = 0; i < errorMessages.length; i++) {
-                    if (i != errorMessages.length) {
-                        str = str + errorMessages[i] + "\n";
-                    } else {
-                        str = str + errorMessages[i];
-                    }
-                }
-                alert(str);
+                reset_form("#Appointment_Form");
             }
         },
 
     });
 });
+
+function reset_form(ele) {
+    $(ele)[0].reset();
+    $(ele).find("*").removeClass("has-error has-success");
+    $(ele).find(".help_block").text("");
+}
+
+
+$(document).on("click", ".edit_btn", function () {
+    getDiagnosis($(this).attr("edit-id"));
+    $("#diagnosis_save_btn").attr("edit-id", $(this).attr("edit-id"));
+});
+
+function getDiagnosis(id) {
+    $.ajax({
+        url: "/nios/appointment/appointment/" + id,
+        type: "GET",
+        success: function (result) {
+            let data = result.content.appointment;
+            $("#id").val(data.id);
+            $("#PatientId").val(data.patientDto.id);
+            $("#DoctorId").val(data.userDto.id);
+            $("#PatientName").val(data.patientDto.name);
+            $("#DoctorName").val(data.userDto.name);
+        }
+    });
+}
+
+function getJson() {
+    let object = {};
+
+    object['description'] = $("#Description").val();
+    let userObj = {};
+    userObj["id"] = $("#DoctorId").val();
+    userObj["name"] = $("#DoctorName").val();
+    object['userDto'] = userObj;
+
+    let patientObj = {};
+    patientObj["id"] = $("#PatientId").val();
+    patientObj["name"] = $("#PatientName").val();
+    object['patientDto'] = patientObj;
+
+    let appointmentObj = {};
+    appointmentObj["id"] = $("#id").val();
+    object['appointmentDto'] = appointmentObj;
+
+    let json = JSON.stringify(object);
+    return json
+}
