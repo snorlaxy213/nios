@@ -23,6 +23,7 @@ function build_users_table(result) {
         let userNameTd = $("<td></td>").append(item.name);
         let MobileTd = $("<td></td>").append(item.mobile);
         let EmailTd = $("<td></td>").append(item.email);
+        let OfficeTd = $("<td></td>").append(item.office);
         let editBtn = $("<button></button>").addClass("btn btn-primary  btn-sm edit_btn").append($("<span></span>").addClass(
             "glyphicon glyphicon-pencil")).append("update");
         editBtn.attr("edit-id", item.id);
@@ -34,7 +35,7 @@ function build_users_table(result) {
         delBth.attr("del-id", item.id);
         let btnTd = $("<td></td>").append(editBtn).append(" ").append(
             delBth);
-        $("<tr></tr>").append(checkBoxTD).append(userIdTd).append(userNameTd).append(MobileTd).append(EmailTd).append(btnTd).appendTo("#users_table tbody");
+        $("<tr></tr>").append(checkBoxTD).append(userIdTd).append(userNameTd).append(MobileTd).append(EmailTd).append(OfficeTd).append(btnTd).appendTo("#users_table tbody");
     });
 }
 
@@ -170,6 +171,7 @@ function getUser(id) {
             $("#UserName").val(data.name);
             $("#Email").val(data.email);
             $("#Mobile").val(data.mobile);
+            $("#Office").val(data.office);
             $("#UserRoles").val(userRoles[0].id);
         }
     });
@@ -203,6 +205,7 @@ function getJson() {
     object['name'] = $("#UserName").val();
     object['email'] = $("#Email").val();
     object['mobile'] = $("#Mobile").val();
+    object['office'] = $("#Office").val();
 
     $("#UserRoles option:selected").each(function () {
         let value = $(this).val();

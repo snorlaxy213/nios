@@ -22,13 +22,12 @@ function build_appointment_table(result) {
         let doctorTd = $("<td></td>").append(item.userDto.name);
         let appointmentIdTd = $("<td></td>").append(item.id);
         let appointmentTimeTd = $("<td></td>").append(item.appointmentTime);
-        let durationTd = $("<td></td>").append(item.duration);
         let descriptionTd = $("<td></td>").append(item.description);
         let diagnosisBtn = $("<button></button>").addClass("btn btn-primary  btn-sm edit_btn").append($("<span></span>").addClass(
             "glyphicon glyphicon-pencil")).append("diagnosis");
         diagnosisBtn.attr("edit-id", item.id);
         let btnTd = $("<td></td>").append(diagnosisBtn);
-        $("<tr></tr>").append(checkBoxTD).append(patientTd).append(doctorTd).append(appointmentIdTd).append(appointmentTimeTd).append(durationTd).append(descriptionTd).append(btnTd).appendTo("#appointment_table tbody");
+        $("<tr></tr>").append(checkBoxTD).append(patientTd).append(doctorTd).append(appointmentIdTd).append(appointmentTimeTd).append(descriptionTd).append(btnTd).appendTo("#appointment_table tbody");
     });
 }
 

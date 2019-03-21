@@ -11,9 +11,9 @@ public class AppointmentDto extends BasicRowInfo implements Serializable {
 
     private Date appointmentTime;
 
-    private String duration;
-
     private String description;
+
+    private Integer sequence;
 
     private UserDto userDto;
 
@@ -42,20 +42,20 @@ public class AppointmentDto extends BasicRowInfo implements Serializable {
         this.appointmentTime = appointmentTime;
     }
 
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
     }
 
     public UserDto getUserDto() {
@@ -89,4 +89,6 @@ public class AppointmentDto extends BasicRowInfo implements Serializable {
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
+
+
 }

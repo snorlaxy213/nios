@@ -15,9 +15,11 @@ public class Appointment implements Serializable {
 
     private Date appointmentTime;
 
-    private String duration;
-
     private String description;
+
+    private Integer sequence;
+
+    private String status;
 
     private User user;
 
@@ -49,15 +51,6 @@ public class Appointment implements Serializable {
         this.appointmentTime = appointmentTime;
     }
 
-    @Column(name = "duration", length = 12, nullable = false)
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
     @Column(name = "description", length = 200)
     public String getDescription() {
         return description;
@@ -65,6 +58,24 @@ public class Appointment implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Column(name = "sequence",nullable = false)
+    public Integer getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
+    }
+
+    @Column(name = "status",nullable = false)
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @ManyToOne

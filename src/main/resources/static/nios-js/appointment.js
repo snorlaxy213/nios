@@ -64,7 +64,6 @@ function getJson() {
     let object = {};
 
     object['appointmentTime'] = $("#AppointmentTime").val();
-    object['duration'] = $("#Duration").val();
     object['description'] = $("#Description").val();
 
     $("#Doctors option:selected").each(function () {

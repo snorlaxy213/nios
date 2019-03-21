@@ -21,6 +21,12 @@ public class User implements Serializable {
 
     private String password;
 
+    private String office;
+
+    private Integer orderNum;
+
+    private Integer currentNum;
+
     private BasicInformation basicInformation;
 
     private Timestamp timestamp;
@@ -78,6 +84,33 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Column(name = "office",length = 200,nullable = false)
+    public String getOffice() {
+        return office;
+    }
+
+    public void setOffice(String office) {
+        this.office = office;
+    }
+
+    @Column(name = "orderNum",length = 200)
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    @Column(name = "currentNum",length = 200)
+    public Integer getCurrentNum() {
+        return currentNum;
+    }
+
+    public void setCurrentNum(Integer currentNum) {
+        this.currentNum = currentNum;
     }
 
     @Embedded

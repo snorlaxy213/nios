@@ -6,7 +6,7 @@
         <result property="id" column="appointment_id"/>
         <result property="appointmentTime" column="appointment_time"/>
         <result property="description" column="description"/>
-        <result property="duration" column="duration"/>
+        <result property="sequence" column="sequence"/>
         <association property="userDto" javaType="com.springboot.dto.UserDto">
             <result property="id" column="user_id"/>
             <result property="name" column="name"/>
@@ -21,7 +21,7 @@
 
     <select id="findAll" resultMap="appointment">
         SELECT appointment.*,profile.*,patient.* FROM appointment appointment,user_profile profile,patient patient
-        where appointment.user_id = profile.user_id and appointment.patient_key = patient.patient_key
+        where appointment.user_id = profile.user_id and appointment.patient_key = patient.patient_key and appointment.status = #{status}
     </select>
 
     <select id="findById" parameterType="String" resultMap="appointment">

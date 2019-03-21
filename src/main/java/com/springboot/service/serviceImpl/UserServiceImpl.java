@@ -107,6 +107,7 @@ public class UserServiceImpl implements UserService {
                 user.setName(userDto.getName());
                 user.setEmail(userDto.getEmail());
                 user.setMobile(userDto.getMobile());
+                user.setOffice(userDto.getOffice());
                 if (userDto.getPassword() != null) {
                     user.setPassword(userDto.getPassword());
                 }
@@ -116,6 +117,8 @@ public class UserServiceImpl implements UserService {
                 userRepository.save(user);
             } else {
                 User user = mapper.map(userDto, User.class);
+                user.setOrderNum(10);
+                user.setCurrentNum(0);
 
                 user.setBasicInformation(new BasicInformation());
                 this.getModifiedInfo(user.getBasicInformation(), "1", 1);
@@ -162,6 +165,30 @@ public class UserServiceImpl implements UserService {
         });
 
         return userDtoList;
+    }
+
+    @Override
+    public int getCurrentNum(String id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        User user = optionalUser.get();
+        int value = user.getCurrentNum()+1;
+
+        user.setCurrentNum(value);
+        userRepository.save(user);
+        return value;
+    }
+
+    @Override
+    public void descCurrentNum(String id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        User user = optionalUser.get();
+        int value = user.getCurrentNum()==0?user.getCurrentNum()-1:0;
+
+        user.setCurrentNum(value);
+        userRepository.save(user);
+
     }
 
     private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID, Integer ClinicCode) {

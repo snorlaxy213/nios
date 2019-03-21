@@ -30,7 +30,7 @@ public class AppointmentController {
     @GetMapping("/appointment")
     public Message findAll() {
         try {
-            List<AppointmentDto> appointmentDtos = appointmentMapper.findAll();
+            List<AppointmentDto> appointmentDtos = appointmentMapper.findAll("Y");
 
             return Message.success().add("list",appointmentDtos);
         } catch (Exception e) {

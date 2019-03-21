@@ -9,10 +9,7 @@ import com.springboot.entity.BasicInformation;
 import com.springboot.entity.Patient;
 import com.springboot.entity.User;
 import com.springboot.repository.AppointmentRepository;
-import com.springboot.service.AppointmentService;
-import com.springboot.service.PatientService;
-import com.springboot.service.SqeNoService;
-import com.springboot.service.UserService;
+import com.springboot.service.*;
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +48,13 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Qualifier("sqeNoServiceImpl")
     SqeNoService sqeNoService;
 
+    @Autowired
+    @Qualifier("parameterServiceImpl")
+    ParameterService parameterService;
+
     @Override
     public List<AppointmentDto> findAll() {
-        List<Appointment> appointments = appointmentRepository.findAll();
+        List<Appointment> appointments = appointmentRepository.findAllByStatus("Y");
 
         if (appointments.size() > 0) {
             List<AppointmentDto> appointmentDtos = new ArrayList<>();
@@ -78,12 +79,12 @@ public class AppointmentServiceImpl implements AppointmentService {
             Long count = appointmentRepository.countById(appointmentDto.getId());
 
             if (count > 0) {
+                //Appointment应该没有修改，暂时保留
                 Optional<Appointment> appointmentOptional = appointmentRepository.findById(appointmentDto.getId());
 
                 Appointment appointment = appointmentOptional.get();
                 appointment.setAppointmentTime(appointmentDto.getAppointmentTime());
                 appointment.setDescription(appointmentDto.getDescription());
-                appointment.setDuration(appointmentDto.getDuration());
 
                 UserDto userDto = userService.findById(appointmentDto.getUserDto().getId());
                 User user = mapper.map(userDto, User.class);
@@ -98,12 +99,17 @@ public class AppointmentServiceImpl implements AppointmentService {
             } else {
                 Appointment appointment = mapper.map(appointmentDto,Appointment.class);
                 appointment.setId(sqeNoService.getSeqNo(CommonTableUtils.APPOINTMENT));
+                appointment.setSequence(userService.getCurrentNum(appointmentDto.getUserDto().getId()));
+                appointment.setStatus("Y");
+
                 UserDto userDto = userService.findById(appointmentDto.getUserDto().getId());
                 User user = mapper.map(userDto, User.class);
                 appointment.setUser(user);
+
                 PatientDto patientDto = patientService.findById(appointmentDto.getPatientDto().getId());
                 Patient  patient = mapper.map(patientDto,Patient.class);
                 appointment.setPatient(patient);
+
                 appointment.setBasicInformation(new BasicInformation());
                 this.getModifiedInfo(appointment.getBasicInformation(),"1",1);
 
@@ -118,7 +124,14 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public void delete(String Id) {
         try {
-            appointmentRepository.deleteById(Id);
+            Optional<Appointment> appointmentOptional = appointmentRepository.findById(Id);
+            appointmentOptional.ifPresent(appointment -> {
+                appointment.setStatus("N");
+                User user = appointment.getUser();
+                appointmentRepository.save(appointment);
+
+                userService.descCurrentNum(user.getId());
+            });
         } catch (Exception ex) {
             LOGGER.error("delete fail",ex);
             throw ex;

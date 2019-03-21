@@ -30,6 +30,12 @@ public class UserDto extends BasicRowInfo implements Serializable {
     @Length(max = 200)
     private String password;
 
+    private String office;
+
+    private Integer orderNum;
+
+    private Integer currentNum;
+
     private Timestamp timestamp;
 
     private List<UserRoleDto> userRoleDtos;
@@ -79,6 +85,30 @@ public class UserDto extends BasicRowInfo implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getOffice() {
+        return office;
+    }
+
+    public void setOffice(String office) {
+        this.office = office;
+    }
+
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
+    }
+
+    public Integer getCurrentNum() {
+        return currentNum;
+    }
+
+    public void setCurrentNum(Integer currentNum) {
+        this.currentNum = currentNum;
     }
 
     public Timestamp getTimestamp() {

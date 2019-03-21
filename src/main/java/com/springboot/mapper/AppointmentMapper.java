@@ -8,7 +8,7 @@ import java.util.List;
 
 @Component("appointmentMapper")
 public interface AppointmentMapper {
-    List<AppointmentDto> findAll();
+    List<AppointmentDto> findAll(@Param("status") String status);
 
     AppointmentDto findById(@Param("Id") String Id);
 }

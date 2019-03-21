@@ -42,7 +42,7 @@ public class AppointmentTest {
     @Test
     public void findAll() {
 //        List<AppointmentDto> appointmentDtos = appointmentService.findAll();
-        List<AppointmentDto> appointmentDtos = appointmentMapper.findAll();
+        List<AppointmentDto> appointmentDtos = appointmentMapper.findAll("Y");
 
         LOGGER.info(appointmentDtos);
     }
@@ -61,7 +61,6 @@ public class AppointmentTest {
         appointmentDto.setId("APP002");
         appointmentDto.setAppointmentTime(new Date());
         appointmentDto.setDescription("test");
-        appointmentDto.setDuration("30");
         appointmentDto.setUserDto(userService.findById("USR0001"));
 
         appointmentService.save(appointmentDto);
