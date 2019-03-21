@@ -52,6 +52,7 @@ $("#password_save_btn").click(function () {
         success: function (result) {
             if (result.code == 100) {
                 alert("修改成功");
+                reset_form("#ChangePassword_Form");
             } else {
                 alert("修改失败");
             }
