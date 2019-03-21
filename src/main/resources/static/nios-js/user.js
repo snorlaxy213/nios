@@ -166,13 +166,15 @@ function getUser(id) {
         type: "GET",
         success: function (result) {
             let data = result.content.user;
-            let userRoles = data.userRoles;
+            let userRoles = data.userRoleDtos;
             $("#UserID").val(data.id);
             $("#UserName").val(data.name);
             $("#Email").val(data.email);
             $("#Mobile").val(data.mobile);
             $("#Office").val(data.office);
-            $("#UserRoles").val(userRoles[0].id);
+            // $("#UserRoles").val(userRoles[0].id).select2();
+            // $("#UserRoles").val(userRoles[0].id);
+            alert(userRoles);
         }
     });
 }
@@ -191,8 +193,8 @@ function getUserRole() {
                     let optionEle = $("<option></option>").append(item.name).attr("value", item.id);
                     optionEle.appendTo("#UserRoles");
                 }
-
             })
+
         }
     });
 }
