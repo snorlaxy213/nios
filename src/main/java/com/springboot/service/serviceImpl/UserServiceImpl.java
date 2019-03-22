@@ -1,11 +1,13 @@
 package com.springboot.service.serviceImpl;
 
-import com.springboot.commons.PageUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.springboot.dto.UserDto;
 import com.springboot.dto.UserRoleDto;
 import com.springboot.entity.BasicInformation;
 import com.springboot.entity.User;
 import com.springboot.entity.UserRole;
+import com.springboot.mapper.UserMapper;
 import com.springboot.repository.UserRepository;
 import com.springboot.service.UserRoleService;
 import com.springboot.service.UserService;
@@ -15,9 +17,6 @@ import org.apache.shiro.util.ByteSource;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -45,6 +44,10 @@ public class UserServiceImpl implements UserService {
     @Qualifier("mapper")
     Mapper mapper;
 
+    @Autowired
+    @Qualifier("userMapper")
+    UserMapper userMapper;
+
     @Override
     public List<UserDto> findAll() {
         List<User> users = userRepository.findAll();
@@ -58,33 +61,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object> findAllWithPage(Integer pageNumber, Integer pageSize) {
-        Sort sort = new Sort(Sort.Direction.ASC, "id");
-        Page<User> userPages = userRepository.findAll(PageRequest.of(pageNumber,pageSize,sort));
-        List<User> users = userPages.getContent();
+    public PageInfo findAllWithPage(Integer pageNumber, Integer pageSize) {
+//        Sort sort = new Sort(Sort.Direction.ASC, "id");
+//        Page<User> userPages = userRepository.findAll(PageRequest.of(pageNumber,pageSize,sort));
+//        List<User> users = userPages.getContent();
+//        List<UserDto> userDtos = new ArrayList<>();
+//        users.forEach(user -> {
+//            UserDto userDto = mapper.map(user, UserDto.class);
+//            userDtos.add(userDto);
+//        });
+        PageHelper.startPage(pageNumber, pageSize);
+        List<UserDto> userDtos = userMapper.findAll();
+        PageInfo<UserDto> userDtoPageInfo = new PageInfo<>(userDtos);
 
-        List<UserDto> userDtos = new ArrayList<>();
-        users.forEach(user -> {
-            UserDto userDto = mapper.map(user, UserDto.class);
-            userDtos.add(userDto);
-        });
-
-        PageUtils pageUtils = new PageUtils(userPages.getTotalElements(), userPages.getTotalPages(), pageNumber, userDtos);
-        Map<String, Object> map = new HashMap<>();
-        map.put("totalPage",userPages.getTotalPages());
-        map.put("totalElement",userPages.getTotalElements());
-        map.put("list", userDtos);
-        return map;
+        return userDtoPageInfo;
     }
 
 
     @Override
     public UserDto findById(String id) {
         Optional<User> userOptional = userRepository.findById(id);
-
         if (userOptional.isPresent()) {
             return mapper.map(userOptional.get(), UserDto.class);
         } else return null;
+    }
+
+    @Override
+    public UserDto findByIdWithMapper(String id) {
+        UserDto userDto = userMapper.findUserByID(id);
+        return userDto;
     }
 
     @Override

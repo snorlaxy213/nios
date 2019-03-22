@@ -1,20 +1,22 @@
 package com.springboot.service;
 
+import com.github.pagehelper.PageInfo;
 import com.springboot.dto.UserDto;
 
 import java.util.List;
-import java.util.Map;
 
 
 public interface UserService {
 
     List<UserDto> findAll();
 
-    Map<String, Object> findAllWithPage(Integer pageNumber, Integer pageSize);
+    PageInfo findAllWithPage(Integer pageNumber, Integer pageSize);
 
     void save(UserDto userDto);
 
     UserDto findById(String id);
+
+    UserDto findByIdWithMapper(String id);
 
     void delete(List<String> userIdList);
 

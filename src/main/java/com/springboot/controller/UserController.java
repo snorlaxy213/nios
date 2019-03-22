@@ -7,6 +7,7 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
+import com.github.pagehelper.PageInfo;
 import com.springboot.commons.PageUtils;
 import com.springboot.commons.PhoneRandomUtils;
 import com.springboot.dto.Message;
@@ -32,7 +33,6 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -62,8 +62,8 @@ public class UserController {
     @RequiresAuthentication
     public Message findAll(@RequestParam(value = "pageNumber", defaultValue = "0")Integer pageNumber) {
         try {
-            Map<String, Object> users = userService.findAllWithPage(pageNumber, PageUtils.PAGE_SIZE);
-            return Message.success("success",users);
+            PageInfo pageInfo = userService.findAllWithPage(pageNumber, PageUtils.PAGE_SIZE);
+            return Message.success().add("pageInfo",pageInfo);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(),e.getCause());
             throw e;
@@ -75,7 +75,7 @@ public class UserController {
     @RequiresAuthentication
     public Message getUserById(@PathVariable(value = "id")String id) {
         try {
-            UserDto userDto = userService.findById(id);
+            UserDto userDto = userService.findByIdWithMapper(id);
             return Message.success("success").add("user",userDto);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(),e.getCause());
