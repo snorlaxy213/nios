@@ -1,22 +1,23 @@
 $(function () {
     let token = $.cookie('token');
-    to_page(0);
+    to_page(1);
 });
 
 function to_page(pn) {
     $.ajax({
         url: "/nios/registration/registration",
-        data: "pn=" + pn,
+        data: "pageNumber=" + pn,
         type: "GET",
         success: function (result) {
             build_registration_table(result);
+            build_page_nav(result);
         }
     });
 }
 
 function build_registration_table(result) {
     $("#registration_table tbody").empty();
-    let appointmentInfo = result.content.list;
+    let appointmentInfo = result.content.pageInfo.list;
     $.each(appointmentInfo, function (index, item) {
         let gender;
         if (item.gender == "M") {
@@ -131,7 +132,7 @@ function build_page_nav(result) {
         $("<a></a>").append("首页").attr("href", "#"));
     var prePageli = $("<li></li>").append(
         $("<a></a>").append("&laquo;"));
-    if (result.extend.pageInfo.hasPreviousPage == false) {
+    if (result.content.pageInfo.hasPreviousPage == false) {
         firstPageli.addClass("disabled");
         prePageli.addClass("disabled");
     } else {
@@ -143,7 +144,7 @@ function build_page_nav(result) {
         });
         prePageli.click(function() {
             //当前页面减一
-            to_page(result.extend.pageInfo.pageNum - 1);
+            to_page(result.content.pageInfo.pageNum - 1);
 
         });
 
@@ -153,18 +154,18 @@ function build_page_nav(result) {
         $("<a></a>").append("&raquo;"));
     var lastPageli = $("<li></li>").append(
         $("<a></a>").append("末页").attr("href", "#"));
-    if (result.extend.pageInfo.hasNextPage == false) {
+    if (result.content.pageInfo.hasNextPage == false) {
         nextPageli.addClass("disabled");
         lastPageli.addClass("disabled");
     } else {
         nextPageli.click(function() {
             //当前页面减一
-            to_page(result.extend.pageInfo.pageNum + 1);
+            to_page(result.content.pageInfo.pageNum + 1);
 
         });
         lastPageli.click(function() {
             //当前页面减一
-            to_page(result.extend.pageInfo.pages);
+            to_page(result.content.pageInfo.pages);
 
         });
 
@@ -174,10 +175,10 @@ function build_page_nav(result) {
     ul.append(firstPageli).append(prePageli);
 
     //遍历页码号1,2,3,4,5
-    $.each(result.extend.pageInfo.navigatepageNums, function(index,
+    $.each(result.content.pageInfo.navigatepageNums, function(index,
                                                              item) {
         var numLi = $("<li></li>").append($("<a></a>").append(item));
-        if (result.extend.pageInfo.pageNum == item) {
+        if (result.content.pageInfo.pageNum == item) {
             //让当前页面高亮
             numLi.addClass("active");
         }

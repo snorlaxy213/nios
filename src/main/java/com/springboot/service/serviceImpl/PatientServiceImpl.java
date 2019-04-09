@@ -60,7 +60,7 @@ public class PatientServiceImpl implements PatientService {
     public PageInfo findAllByMybatis(Integer pageNumber, Integer pageSize) {
         PageHelper.startPage(pageNumber, pageSize);
         List<PatientDto> patientDtos = registrationMapper.findAll();
-        PageInfo<PatientDto> patientDtoPageInfo = new PageInfo<>(patientDtos);
+        PageInfo<PatientDto> patientDtoPageInfo = new PageInfo<>(patientDtos,5);
 
         return patientDtoPageInfo;
     }

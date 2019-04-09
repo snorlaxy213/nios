@@ -1,5 +1,6 @@
 package com.springboot;
 
+import com.github.pagehelper.PageInfo;
 import com.springboot.commons.CommonTableUtils;
 import com.springboot.dto.PatientDto;
 import com.springboot.service.PatientService;
@@ -62,6 +63,14 @@ public class PatientTest {
         patientService.save(patientDto,"USR0001");
 
         LOGGER.info(patientDto);
+    }
+
+    @Test
+    public void findAllMybatisTest() {
+
+        PageInfo pageInfo = patientService.findAllByMybatis(0, 5);
+
+        LOGGER.info(pageInfo);
     }
 
 }

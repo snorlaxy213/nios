@@ -1,5 +1,7 @@
 package com.springboot.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.springboot.commons.PageUtils;
 import com.springboot.dto.Message;
 import com.springboot.dto.PatientDto;
 import com.springboot.service.PatientService;
@@ -11,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 @RequestMapping("/registration")
@@ -28,10 +29,11 @@ public class RegistrationController {
 
     @ResponseBody
     @GetMapping("/registration")
-    public Message findAll() {
+    public Message findAll(@RequestParam(value = "pageNumber", defaultValue = "1")Integer pageNumber) {
         try {
-            List<PatientDto> patientDtos = patientService.findAll();
-            return Message.success().add("list",patientDtos);
+//            List<PatientDto> patientDtos = patientService.findAll();
+            PageInfo pageInfo = patientService.findAllByMybatis(pageNumber, PageUtils.PAGE_SIZE);
+            return Message.success().add("pageInfo",pageInfo);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(),e.getCause());
             throw e;
