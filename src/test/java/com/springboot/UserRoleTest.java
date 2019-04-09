@@ -45,7 +45,7 @@ public class UserRoleTest {
         userRoleDto.setStatus("Y");
         userRoleDto.setBasicInformation(new BasicInformation());
 
-        userRoleService.save(userRoleDto);
+        userRoleService.save(userRoleDto,"USR0001");
     }
 
     @Test

@@ -9,7 +9,7 @@ public interface AppointmentService {
 
     AppointmentDto findByID(String Id);
 
-    void save(AppointmentDto appointmentDto) throws Exception;
+    void save(AppointmentDto appointmentDto, String userId) throws Exception;
 
     void delete(String Id);
 }

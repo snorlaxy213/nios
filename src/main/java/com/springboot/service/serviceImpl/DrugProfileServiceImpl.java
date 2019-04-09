@@ -56,7 +56,7 @@ public class DrugProfileServiceImpl implements DrugProfileService {
     }
 
     @Override
-    public void save(DrugProfileDto drugProfileDto) {
+    public void save(DrugProfileDto drugProfileDto, String userId) {
         try {
             Long count = drugProfileRepository.countById(drugProfileDto.getId());
             if (count > 0) {
@@ -68,7 +68,7 @@ public class DrugProfileServiceImpl implements DrugProfileService {
                 drugProfile.setDescription(drugProfileDto.getDescription());
                 drugProfile.setUnit(drugProfileDto.getUnit());
                 drugProfile.setStatus(drugProfileDto.getStatus());
-                this.getModifiedInfo(drugProfile.getBasicInformation(), "1", 1);
+                this.getModifiedInfo(drugProfile.getBasicInformation(), userId);
 
                 drugProfileRepository.save(drugProfile);
             } else {
@@ -76,7 +76,7 @@ public class DrugProfileServiceImpl implements DrugProfileService {
                 drugProfile.setId(sqeNoService.getSeqNo(CommonTableUtils.DRUG));
 
                 drugProfile.setBasicInformation(new BasicInformation());
-                this.getModifiedInfo(drugProfile.getBasicInformation(), "1", 1);
+                this.getModifiedInfo(drugProfile.getBasicInformation(), userId);
 
                 drugProfileRepository.save(drugProfile);
             }
@@ -96,18 +96,15 @@ public class DrugProfileServiceImpl implements DrugProfileService {
         }
     }
 
-    private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID, Integer ClinicCode) {
+    private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID) {
         if (basicInformation.getCreateBy() != null) {
             basicInformation.setUpdateBy(userID);
             basicInformation.setUpdateDtm(new Date());
-            basicInformation.setUpdateClinic(ClinicCode);
         }else {
             basicInformation.setCreateBy(userID);
             basicInformation.setCreateDtm(new Date());
-            basicInformation.setCreateClinic(ClinicCode);
             basicInformation.setUpdateBy(userID);
             basicInformation.setUpdateDtm(new Date());
-            basicInformation.setUpdateClinic(ClinicCode);
         }
 
         return basicInformation;

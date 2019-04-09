@@ -1,7 +1,5 @@
 package com.springboot.entity;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
@@ -14,17 +12,11 @@ public class BasicInformation implements Serializable {
 
     String createBy;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    Date createDtm;
-
-    private Integer createClinic;
-
     String updateBy;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    Date updateDtm;
+    Date createDtm;
 
-    private Integer updateClinic;
+    Date updateDtm;
 
     public BasicInformation() {
     }
@@ -47,15 +39,6 @@ public class BasicInformation implements Serializable {
         this.createDtm = createDtm;
     }
 
-    @Column(name = "Create_Clinic",length = 1,nullable = false,updatable = false)
-    public Integer getCreateClinic() {
-        return createClinic;
-    }
-
-    public void setCreateClinic(Integer createClinic) {
-        this.createClinic = createClinic;
-    }
-
     @Column(name = "Update_By",length = 100, nullable = false)
     public String getUpdateBy() {
         return updateBy;
@@ -74,12 +57,4 @@ public class BasicInformation implements Serializable {
         this.updateDtm = updateDtm;
     }
 
-    @Column(name = "Update_Clinic",length = 1,nullable = false)
-    public Integer getUpdateClinic() {
-        return updateClinic;
-    }
-
-    public void setUpdateClinic(Integer updateClinic) {
-        this.updateClinic = updateClinic;
-    }
 }

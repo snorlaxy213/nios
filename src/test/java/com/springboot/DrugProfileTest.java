@@ -39,7 +39,7 @@ public class DrugProfileTest {
         drugProfileDto.setUnit("Gra");
         drugProfileDto.setStatus("A");
 
-        drugProfileService.save(drugProfileDto);
+        drugProfileService.save(drugProfileDto,"USR0001");
     }
 
     @Test

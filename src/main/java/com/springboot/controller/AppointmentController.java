@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -54,9 +55,10 @@ public class AppointmentController {
     @ResponseBody
     @PostMapping("/appointment")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Message save(@RequestBody AppointmentDto appointmentDto) throws Exception {
+    public Message save(@RequestBody AppointmentDto appointmentDto, HttpServletRequest request) throws Exception {
         try {
-            appointmentService.save(appointmentDto);
+            String userId = (String) request.getSession().getAttribute("userId");
+            appointmentService.save(appointmentDto, userId);
             return null;
         } catch (Exception e) {
             LOGGER.error(e.getMessage());

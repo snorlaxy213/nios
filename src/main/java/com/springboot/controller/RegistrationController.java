@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -51,9 +52,10 @@ public class RegistrationController {
 
     @ResponseBody
     @PostMapping("/registration")
-    public Message save(@RequestBody PatientDto patientDto) {
+    public Message save(@RequestBody PatientDto patientDto, HttpServletRequest request) {
         try {
-            patientService.save(patientDto);
+            String userId = (String) request.getSession().getAttribute("userId");
+            patientService.save(patientDto,userId);
             return Message.success();
         } catch (Exception e) {
             LOGGER.error(e.getMessage(),e.getCause());
@@ -63,8 +65,9 @@ public class RegistrationController {
 
     @ResponseBody
     @DeleteMapping("/registration/{id}")
-    public Message delete(@PathVariable(value = "id") String id) {
-        patientService.delete(id);
+    public Message delete(@PathVariable(value = "id") String id, HttpServletRequest request) {
+        String userId = (String) request.getSession().getAttribute("userId");
+        patientService.delete(id, userId);
 
         return Message.success();
     }

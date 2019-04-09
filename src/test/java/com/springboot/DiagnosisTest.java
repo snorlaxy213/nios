@@ -69,6 +69,6 @@ public class DiagnosisTest {
         AppointmentDto appointmentDto = appointmentService.findByID("APP0001");
         diagnosisDto.setAppointmentDto(appointmentDto);
 
-        diagnosisService.save(diagnosisDto);
+        diagnosisService.save(diagnosisDto,"USR0001");
     }
 }

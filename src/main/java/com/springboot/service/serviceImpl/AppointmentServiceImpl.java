@@ -74,7 +74,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public void save(AppointmentDto appointmentDto) throws Exception {
+    public void save(AppointmentDto appointmentDto, String userId) throws Exception {
         try {
             Long count = appointmentRepository.countById(appointmentDto.getId());
 
@@ -93,7 +93,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 PatientDto patientDto = patientService.findById(appointmentDto.getPatientDto().getId());
                 Patient patient = mapper.map(patientDto,Patient.class);
                 appointment.setPatient(patient);
-                this.getModifiedInfo(user.getBasicInformation(), "1", 1);
+                this.getModifiedInfo(user.getBasicInformation(), userId);
 
                 appointmentRepository.save(appointment);
             } else {
@@ -111,7 +111,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 appointment.setPatient(patient);
 
                 appointment.setBasicInformation(new BasicInformation());
-                this.getModifiedInfo(appointment.getBasicInformation(),"1",1);
+                this.getModifiedInfo(appointment.getBasicInformation(),userId);
 
                 appointmentRepository.save(appointment);
             }
@@ -138,18 +138,15 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
     }
 
-    private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID, Integer ClinicCode) {
+    private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID) {
         if (basicInformation.getCreateBy() != null) {
             basicInformation.setUpdateBy(userID);
             basicInformation.setUpdateDtm(new Date());
-            basicInformation.setUpdateClinic(ClinicCode);
         }else {
             basicInformation.setCreateBy(userID);
             basicInformation.setCreateDtm(new Date());
-            basicInformation.setCreateClinic(ClinicCode);
             basicInformation.setUpdateBy(userID);
             basicInformation.setUpdateDtm(new Date());
-            basicInformation.setUpdateClinic(ClinicCode);
         }
 
         return basicInformation;

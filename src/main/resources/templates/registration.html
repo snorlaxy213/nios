@@ -48,20 +48,41 @@
                                 <table id="registration_table" class="table  table-bordered table-hover" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
-                                        <th>PatientID</th>
-                                        <th>Name</th>
-                                        <th>Age</th>
-                                        <th>Gender</th>
-                                        <th>Mobile</th>
-                                        <th>Email</th>
-                                        <th>Status</th>
-                                        <th>Operate</th>
+                                        <th>求诊编号</th>
+                                        <th>姓名</th>
+                                        <th>年龄</th>
+                                        <th>性别</th>
+                                        <th>移动号码</th>
+                                        <th>邮箱</th>
+                                        <th>当前状态</th>
+                                        <th>操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
 
                                     </tbody>
                                 </table>
+                                <div id="page_nav_area">
+                                    <nav>
+                                        <ul class="pagination">
+                                            <li>
+                                                <a href="#" aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            <li><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#">4</a></li>
+                                            <li><a href="#">5</a></li>
+                                            <li>
+                                                <a href="#" aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -78,8 +99,16 @@
                             </div>
                             <div class="card-body">
                                 <form id="Registration_Form" class="form-horizontal">
+                                    <div class="form-group hidden">
+                                        <label for="id" class="col-sm-2 control-label">编号</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="id" class="form-control" id="id"
+                                                   placeholder="id">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
-                                        <label for="Name" class="col-sm-2 control-label">Name</label>
+                                        <label for="Name" class="col-sm-2 control-label">姓名</label>
                                         <div class="col-sm-10">
                                             <input type="text" name="Name" class="form-control" id="Name"
                                                    placeholder="Name">
@@ -87,7 +116,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Age" class="col-sm-2 control-label">Age</label>
+                                        <label for="Age" class="col-sm-2 control-label">年龄</label>
                                         <div class="col-sm-10">
                                             <input type="text" name="Age" class="form-control" id="Age"
                                                    placeholder="Age">
@@ -95,15 +124,27 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Gender" class="col-sm-2 control-label">Gender</label>
+                                        <label class="col-sm-2 control-label">性别</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="Gender" class="form-control" id="Gender"
-                                                   placeholder="Gender">
+                                            <div>
+                                                <div class="radio3 radio-check radio-success radio-inline">
+                                                    <input type="radio" id="male" name="radio2" value="M">
+                                                    <label for="male">
+                                                        男性
+                                                    </label>
+                                                </div>
+                                                <div class="radio3 radio-check radio-inline">
+                                                    <input type="radio" id="female" name="radio2" value="F">
+                                                    <label for="female">
+                                                        女性
+                                                    </label>
+                                                </div>
+                                            </div>
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Mobile" class="col-sm-2 control-label">Mobile</label>
+                                        <label for="Mobile" class="col-sm-2 control-label">移动号码</label>
                                         <div class="col-sm-10">
                                             <input type="text" name="Mobile" class="form-control" id="Mobile"
                                                    placeholder="Mobile">
@@ -111,10 +152,30 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Email" class="col-sm-2 control-label">Email</label>
+                                        <label for="Email" class="col-sm-2 control-label">邮箱</label>
                                         <div class="col-sm-10">
                                             <input type="text" name="Email" class="form-control" id="Email"
                                                    placeholder="Email">
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">状态</label>
+                                        <div class="col-sm-10">
+                                            <div>
+                                                <div class="radio3 radio-check radio-success radio-inline">
+                                                    <input type="radio" id="statusY" name="status" value="Y">
+                                                    <label for="statusY">
+                                                        启用
+                                                    </label>
+                                                </div>
+                                                <div class="radio3 radio-check radio-inline">
+                                                    <input type="radio" id="statusN" name="status" value="N">
+                                                    <label for="statusN">
+                                                        停用
+                                                    </label>
+                                                </div>
+                                            </div>
                                             <span class="help-block"></span>
                                         </div>
                                     </div>

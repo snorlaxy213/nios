@@ -70,7 +70,7 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     }
 
     @Override
-    public void save(DiagnosisDto diagnosisDto) {
+    public void save(DiagnosisDto diagnosisDto, String userId) {
         if (diagnosisDto.getUserDto() == null) {
             throw new GlobalException("400","user is null");
         } else if (diagnosisDto.getPatientDto() == null) {
@@ -87,25 +87,22 @@ public class DiagnosisServiceImpl implements DiagnosisService {
 
         diagnosis.setId(sqeNoService.getSeqNo(CommonTableUtils.DIAGNOSIS));
         diagnosis.setBasicInformation(new BasicInformation());
-        this.getModifiedInfo(diagnosis.getBasicInformation(), "1", 1);
+        this.getModifiedInfo(diagnosis.getBasicInformation(), userId);
 
         diagnosisRepository.save(diagnosis);
         appointmentService.delete(diagnosisDto.getAppointmentDto().getId());
 
     }
 
-    private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID, Integer ClinicCode) {
+    private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID) {
         if (basicInformation.getCreateBy() != null) {
             basicInformation.setUpdateBy(userID);
             basicInformation.setUpdateDtm(new Date());
-            basicInformation.setUpdateClinic(ClinicCode);
         }else {
             basicInformation.setCreateBy(userID);
             basicInformation.setCreateDtm(new Date());
-            basicInformation.setCreateClinic(ClinicCode);
             basicInformation.setUpdateBy(userID);
             basicInformation.setUpdateDtm(new Date());
-            basicInformation.setUpdateClinic(ClinicCode);
         }
 
         return basicInformation;

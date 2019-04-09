@@ -9,7 +9,7 @@ public interface DrugProfileService {
 
     DrugProfileDto findById(String id);
 
-    void save(DrugProfileDto drugProfileDto);
+    void save(DrugProfileDto drugProfileDto, String userId);
 
     void delete(List<String> drugIdList);
 }

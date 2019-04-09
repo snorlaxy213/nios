@@ -37,17 +37,6 @@ public class UserRoleServiceImpl implements UserRoleService {
     SqeNoService sqeNoService;
 
     @Override
-    public UserRoleDto findUserRoleById(String id) {
-        Optional<UserRole> optional = userRoleRepository.findById(id);
-
-        UserRoleDto userRoleDto = null;
-        if (optional.isPresent()) {
-            userRoleDto = mapper.map(optional.get(), UserRoleDto.class);
-        }
-        return userRoleDto;
-    }
-
-    @Override
     public List<UserRoleDto> findAll() {
         List<UserRole> userRoles = userRoleRepository.findAll();
 
@@ -95,7 +84,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public String save(UserRoleDto userRoleDto) {
+    public String save(UserRoleDto userRoleDto, String userId) {
         Long count = userRoleRepository.countById(userRoleDto.getId());
 
         if (count > 0) {
@@ -106,7 +95,7 @@ public class UserRoleServiceImpl implements UserRoleService {
                 userRole.setName(userRoleDto.getName());
                 userRole.setStatus(userRoleDto.getStatus());
 
-                this.getModifiedInfo(userRole.getBasicInformation(), "1", 1);
+                this.getModifiedInfo(userRole.getBasicInformation(), userId);
 
                 userRoleRepository.save(userRole);
 
@@ -118,7 +107,7 @@ public class UserRoleServiceImpl implements UserRoleService {
             UserRole userRole = mapper.map(userRoleDto, UserRole.class);
             userRole.setId(id);
             userRole.setBasicInformation(new BasicInformation());
-            this.getModifiedInfo(userRole.getBasicInformation(), "1", 1);
+            this.getModifiedInfo(userRole.getBasicInformation(), userId);
             userRoleRepository.save(userRole);
 
             return userRoleDto.getId();
@@ -126,18 +115,15 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     }
 
-    private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID, Integer ClinicCode) {
+    private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID) {
         if (basicInformation.getCreateBy() != null) {
             basicInformation.setUpdateBy(userID);
             basicInformation.setUpdateDtm(new Date());
-            basicInformation.setUpdateClinic(ClinicCode);
         }else {
             basicInformation.setCreateBy(userID);
             basicInformation.setCreateDtm(new Date());
-            basicInformation.setCreateClinic(ClinicCode);
             basicInformation.setUpdateBy(userID);
             basicInformation.setUpdateDtm(new Date());
-            basicInformation.setUpdateClinic(ClinicCode);
         }
 
         return basicInformation;

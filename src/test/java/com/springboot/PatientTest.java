@@ -59,7 +59,7 @@ public class PatientTest {
         patientDto.setGender("M");
         patientDto.setMobile("1658895307");
 
-        patientService.save(patientDto);
+        patientService.save(patientDto,"USR0001");
 
         LOGGER.info(patientDto);
     }

@@ -9,5 +9,5 @@ public interface DiagnosisService {
 
     DiagnosisDto findById(String id);
 
-    void save(DiagnosisDto diagnosisDto);
+    void save(DiagnosisDto diagnosisDto, String userId);
 }

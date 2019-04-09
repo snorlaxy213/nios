@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,7 +41,7 @@ public class UserRoleController {
 
     @ResponseBody
     @PostMapping("/userRole")
-    public Message save(@RequestBody @Valid UserRoleDto userRoleDto, BindingResult bindingResult) {
+    public Message save(@RequestBody @Valid UserRoleDto userRoleDto, BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             List<ObjectError> allErrors = bindingResult.getAllErrors();
             List<String> errorMessages = new ArrayList<>();
@@ -50,9 +51,8 @@ public class UserRoleController {
             }
             return Message.validation(300, errorMessages);
         }
-
-        userRoleService.save(userRoleDto);
-
+        String userId = (String) request.getSession().getAttribute("userId");
+        userRoleService.save(userRoleDto, userId);
         return Message.success("success");
     }
 

@@ -1,9 +1,12 @@
 package com.springboot.service.serviceImpl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.springboot.commons.CommonTableUtils;
 import com.springboot.dto.PatientDto;
 import com.springboot.entity.BasicInformation;
 import com.springboot.entity.Patient;
+import com.springboot.mapper.RegistrationMapper;
 import com.springboot.repository.PatientRepository;
 import com.springboot.service.PatientService;
 import com.springboot.service.SqeNoService;
@@ -36,6 +39,10 @@ public class PatientServiceImpl implements PatientService {
     @Qualifier("sqeNoServiceImpl")
     SqeNoService sqeNoService;
 
+    @Autowired
+    @Qualifier("registrationMapper")
+    RegistrationMapper registrationMapper;
+
     @Override
     public List<PatientDto> findAll() {
         List<Patient> patients = patientRepository.findAll();
@@ -50,6 +57,15 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    public PageInfo findAllByMybatis(Integer pageNumber, Integer pageSize) {
+        PageHelper.startPage(pageNumber, pageSize);
+        List<PatientDto> patientDtos = registrationMapper.findAll();
+        PageInfo<PatientDto> patientDtoPageInfo = new PageInfo<>(patientDtos);
+
+        return patientDtoPageInfo;
+    }
+
+    @Override
     public PatientDto findById(String id) {
         Optional<Patient> patientOptional = patientRepository.findById(id);
 
@@ -60,31 +76,30 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public void save(PatientDto patientDto) {
+    public void save(PatientDto patientDto, String userId) {
         try {
-            Patient patient = mapper.map(patientDto,Patient.class);
-            String id = sqeNoService.getSeqNo(CommonTableUtils.PATIENT);
-            patient.setId(id);
 
-            patient.setBasicInformation(new BasicInformation());
-            this.getModifiedInfo(patient.getBasicInformation(),"1",1);
+            Long count = patientRepository.countById(patientDto.getId());
 
-            patientRepository.save(patient);
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
-        }
-    }
+            if (count > 0) {
+                Optional<Patient> optional = patientRepository.findById(patientDto.getId());
 
-    @Override
-    public void delete(String id) {
-        try {
-            Optional<Patient> patientOptional = patientRepository.findById(id);
+                Patient patient = optional.get();
+                patient.setName(patientDto.getName());
+                patient.setAge(patientDto.getAge());
+                patient.setGender(patientDto.getGender());
+                patient.setMobile(patientDto.getMobile());
+                patient.setEmail(patientDto.getEmail());
+                patient.setStatus(patientDto.getStatus());
+                this.getModifiedInfo(patient.getBasicInformation(),userId);
 
-            if (patientOptional.isPresent()) {
-                Patient patient = patientOptional.get();
-                patient.setStatus("N");
+                patientRepository.save(patient);
+            } else {
+                Patient patient = mapper.map(patientDto,Patient.class);
+                patient.setId(sqeNoService.getSeqNo(CommonTableUtils.PATIENT));
+
                 patient.setBasicInformation(new BasicInformation());
-                this.getModifiedInfo(patient.getBasicInformation(),"1",1);
+                this.getModifiedInfo(patient.getBasicInformation(),userId);
 
                 patientRepository.save(patient);
             }
@@ -93,18 +108,33 @@ public class PatientServiceImpl implements PatientService {
         }
     }
 
-    private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID, Integer ClinicCode) {
+    @Override
+    public void delete(String id, String userId) {
+        try {
+            Optional<Patient> patientOptional = patientRepository.findById(id);
+
+            if (patientOptional.isPresent()) {
+                Patient patient = patientOptional.get();
+                patient.setStatus("N");
+
+                this.getModifiedInfo(patient.getBasicInformation(),userId);
+
+                patientRepository.save(patient);
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+        }
+    }
+
+    private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID) {
         if (basicInformation.getCreateBy() != null) {
             basicInformation.setUpdateBy(userID);
             basicInformation.setUpdateDtm(new Date());
-            basicInformation.setUpdateClinic(ClinicCode);
         }else {
             basicInformation.setCreateBy(userID);
             basicInformation.setCreateDtm(new Date());
-            basicInformation.setCreateClinic(ClinicCode);
             basicInformation.setUpdateBy(userID);
             basicInformation.setUpdateDtm(new Date());
-            basicInformation.setUpdateClinic(ClinicCode);
         }
 
         return basicInformation;

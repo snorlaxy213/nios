@@ -86,7 +86,7 @@ public class UserController {
     @ResponseBody
     @PostMapping(value = "/user")
     @RequiresAuthentication
-    public Message save(@RequestBody @Valid UserDto userDto, BindingResult bindingResult) {
+    public Message save(@RequestBody @Valid UserDto userDto, BindingResult bindingResult, HttpServletRequest request) {
         try {
             if (bindingResult.hasErrors()) {
                 List<ObjectError> allErrors = bindingResult.getAllErrors();
@@ -105,7 +105,8 @@ public class UserController {
                 return Message.validation(300, errorMessages);
             }
 
-           userService.save(userDto);
+            String userId = (String) request.getSession().getAttribute("userId");
+            userService.save(userDto, userId);
             return Message.success();
         } catch (Exception e) {
             LOGGER.error(e.getMessage(),e.getCause());
@@ -176,7 +177,7 @@ public class UserController {
                 Object result = new SimpleHash("MD5", passwordRequestDto.getPassword(), credentialsSalt, 1024);
 
                 userDto.setPassword(result.toString());
-                userService.save(userDto);
+                userService.save(userDto, userId);
                 return Message.success();
             }else{
                 return Message.fail();

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -47,9 +48,10 @@ public class DiagnosisController {
 
     @ResponseBody
     @PostMapping("/diagnosis")
-    public Message save(@RequestBody DiagnosisDto diagnosisDto) {
+    public Message save(@RequestBody DiagnosisDto diagnosisDto, HttpServletRequest request) {
         try {
-            diagnosisService.save(diagnosisDto);
+            String userId = (String) request.getSession().getAttribute("userId");
+            diagnosisService.save(diagnosisDto, userId);
             return Message.success();
         } catch (Exception e) {
             LOGGER.error(e.getMessage(),e.getCause());

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,10 +56,10 @@ public class DrugProfileController {
 
     @ResponseBody
     @PostMapping("/drugProfile")
-    public Message save(@RequestBody DrugProfileDto drugProfileDto) {
+    public Message save(@RequestBody DrugProfileDto drugProfileDto, HttpServletRequest request) {
         try {
-            drugProfileService.save(drugProfileDto);
-
+            String userId = (String) request.getSession().getAttribute("userId");
+            drugProfileService.save(drugProfileDto, userId);
             return Message.success();
         } catch (Exception e) {
             LOGGER.error(e.getMessage(),e.getCause());

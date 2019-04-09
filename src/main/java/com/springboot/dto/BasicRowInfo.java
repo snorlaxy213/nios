@@ -11,13 +11,9 @@ public class BasicRowInfo implements Serializable {
 
     private Date createDtm;
 
-    private Integer createClinic;
-
     private String updateBy;
 
     private Date updateDtm;
-
-    private Integer updateClinic;
 
     public BasicRowInfo() {
     }
@@ -42,14 +38,6 @@ public class BasicRowInfo implements Serializable {
         this.createDtm = createDtm;
     }
 
-    public Integer getCreateClinic() {
-        return createClinic;
-    }
-
-    public void setCreateClinic(Integer createClinic) {
-        this.createClinic = createClinic;
-    }
-
     public String getUpdateBy() {
         return updateBy;
     }
@@ -64,13 +52,5 @@ public class BasicRowInfo implements Serializable {
 
     public void setUpdateDtm(Date updateDtm) {
         this.updateDtm = updateDtm;
-    }
-
-    public Integer getUpdateClinic() {
-        return updateClinic;
-    }
-
-    public void setUpdateClinic(Integer updateClinic) {
-        this.updateClinic = updateClinic;
     }
 }

@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(UserDto userDto) {
+    public void save(UserDto userDto, String userId) {
         try {
             List<UserRoleDto> userRoleDtos = userDto.getUserRoleDtos();
             List<UserRole> temp = new ArrayList<>();
@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
                     user.setPassword(userDto.getPassword());
                 }
                 user.setUserRoles(temp);
-                this.getModifiedInfo(user.getBasicInformation(), "1", 1);
+                this.getModifiedInfo(user.getBasicInformation(), userId);
 
                 userRepository.save(user);
             } else {
@@ -126,7 +126,7 @@ public class UserServiceImpl implements UserService {
                 user.setCurrentNum(0);
 
                 user.setBasicInformation(new BasicInformation());
-                this.getModifiedInfo(user.getBasicInformation(), "1", 1);
+                this.getModifiedInfo(user.getBasicInformation(), userId);
 
                 //Password encryption
                 String hashAlgorithmName = "MD5";//Encryption
@@ -196,18 +196,15 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID, Integer ClinicCode) {
+    private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID) {
         if (basicInformation.getCreateBy() != null) {
             basicInformation.setUpdateBy(userID);
             basicInformation.setUpdateDtm(new Date());
-            basicInformation.setUpdateClinic(ClinicCode);
         }else {
             basicInformation.setCreateBy(userID);
             basicInformation.setCreateDtm(new Date());
-            basicInformation.setCreateClinic(ClinicCode);
             basicInformation.setUpdateBy(userID);
             basicInformation.setUpdateDtm(new Date());
-            basicInformation.setUpdateClinic(ClinicCode);
         }
         
         return basicInformation;
