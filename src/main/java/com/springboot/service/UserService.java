@@ -25,4 +25,6 @@ public interface UserService {
     int getCurrentNum(String id);
 
     void descCurrentNum(String id);
+
+    List<UserDto> findByDoctorAndOffice(String office, String name);
 }

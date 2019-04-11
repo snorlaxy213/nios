@@ -193,7 +193,7 @@ function getUserRole() {
                     optionEle.appendTo("#UserRoles");
                 }
             })
-
+            $("#UserRoles").val(userRoles[0].id).select2();
         }
     });
 }

@@ -52,4 +52,10 @@ public class NiosApplicationTests {
 
         LOGGER.info(userDtoPageInfo);
     }
+
+    @Test
+    public void testFindByDoctorAndOffice() {
+        List<UserDto> userDtos = userService.findByDoctorAndOffice("骨科", null);
+        LOGGER.info(userDtos);
+    }
 }

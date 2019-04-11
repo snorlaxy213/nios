@@ -41,12 +41,12 @@ function build_registration_table(result) {
         let editBtn = $("<button></button>").addClass("btn btn-success  btn-sm edit_btn").append($("<span></span>").addClass(
             "glyphicon glyphicon-pencil")).append("update");
         editBtn.attr("edit-id", item.id);
-        let delBth = $("<button></button>").addClass(
-            "btn btn-warning  btn-sm delete_btn").append(
-            $("<span></span>")
-                .addClass("glyphicon glyphicon-trash")).append("停用");
-        delBth.attr("del-id", item.id);
-        let btnTd = $("<td></td>").append(editBtn).append(" ").append(delBth);
+        // let delBth = $("<button></button>").addClass(
+        //     "btn btn-warning  btn-sm delete_btn").append(
+        //     $("<span></span>")
+        //         .addClass("glyphicon glyphicon-trash")).append("停用");
+        // delBth.attr("del-id", item.id);
+        let btnTd = $("<td></td>").append(editBtn)/*.append(" ").append(delBth)*/;
         $("<tr></tr>").append(userIdTd).append(userNameTd).append(AgeTd).append(GenderTd).append(MobileTd).append(EmailTd).append(StatusTd).append(btnTd).appendTo("#registration_table tbody");
     });
 }

@@ -141,6 +141,18 @@ public class UserController {
         }
     }
 
+    @ResponseBody
+    @GetMapping("/userByDoctorAndOffice")
+    @RequiresAuthentication
+    public Message findByDoctorAndOffice(@RequestParam("office") String office, @RequestParam("doctor") String doctor) {
+        try {
+            List<UserDto> byDoctor = userService.findByDoctor();
+            return Message.success().add("list",byDoctor);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(),e.getCause());
+            throw e;
+        }
+    }
 
     @ResponseBody
     @PostMapping("/getVerificationCode")

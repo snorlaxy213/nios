@@ -173,6 +173,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserDto> findByDoctorAndOffice(String office, String name) {
+        List<User> userList = userRepository.findByOfficeOrName(office, name);
+        List<UserDto> userDtos = new ArrayList<>();
+        userList.forEach(user -> {
+            UserDto userDto = mapper.map(user, UserDto.class);
+            userDtos.add(userDto);
+        });
+        return userDtos;
+    }
+
+    @Override
     public int getCurrentNum(String id) {
         Optional<User> optionalUser = userRepository.findById(id);
 
