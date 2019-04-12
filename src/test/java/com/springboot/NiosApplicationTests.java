@@ -3,6 +3,7 @@ package com.springboot;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.springboot.dto.UserDto;
+import com.springboot.entity.User;
 import com.springboot.mapper.UserMapper;
 import com.springboot.service.UserRoleService;
 import com.springboot.service.UserService;
@@ -55,7 +56,11 @@ public class NiosApplicationTests {
 
     @Test
     public void testFindByDoctorAndOffice() {
-        List<UserDto> userDtos = userService.findByDoctorAndOffice("骨科", null);
+//        List<UserDto> userDtos = userService.findByDoctorAndOffice("骨科", "admin");
+        User user = new User();
+        user.setOffice("骨科");
+//        user.setName("admin");
+        List<UserDto> userDtos = userMapper.findWithExample(user);
         LOGGER.info(userDtos);
     }
 }

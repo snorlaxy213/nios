@@ -146,7 +146,7 @@ public class UserController {
     @RequiresAuthentication
     public Message findByDoctorAndOffice(@RequestParam("office") String office, @RequestParam("doctor") String doctor) {
         try {
-            List<UserDto> byDoctor = userService.findByDoctor();
+            List<UserDto> byDoctor = userService.findByDoctorAndOffice(office, doctor);
             return Message.success().add("list",byDoctor);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(),e.getCause());

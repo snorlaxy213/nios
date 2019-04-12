@@ -91,15 +91,33 @@ $("#appointment_save_btn").click(function () {
     });
 });
 
+function build_user_list(result) {
+    //page_nav_area
+    $("#user_list_area").empty();
+    $("#subTitle").removeAttr("hidden");
+    let userInfo = result.content.list;
+    let div = $("<div></div>").addClass("list-group");
+
+    $.each(userInfo, function (index, item) {
+        let a = $("<a></a>").attr("href", "#").addClass("list-group-item");
+        let content = $("<span></span>").append(item.name);
+        content.appendTo(a);
+        a.appendTo(div);
+    });
+
+    div.appendTo("#user_list_area");
+}
+
 $("#userSearch").click(function () {
     let office = $("#office").val();
     let doctor = $("#doctor").val();
     $.ajax({
-        url: "/nios/appointment/appointment",
+        url: "/nios/user/userByDoctorAndOffice",
         data: "office=" + office + "&" + "doctor=" + doctor,
         type: "GET",
         success: function (result) {
-            alert("success");
+            // alert(result.content.list);
+            build_user_list(result);
         },
 
     });

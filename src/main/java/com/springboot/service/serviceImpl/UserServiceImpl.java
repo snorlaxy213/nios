@@ -11,6 +11,7 @@ import com.springboot.mapper.UserMapper;
 import com.springboot.repository.UserRepository;
 import com.springboot.service.UserRoleService;
 import com.springboot.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
@@ -174,12 +175,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> findByDoctorAndOffice(String office, String name) {
-        List<User> userList = userRepository.findByOfficeOrName(office, name);
-        List<UserDto> userDtos = new ArrayList<>();
-        userList.forEach(user -> {
-            UserDto userDto = mapper.map(user, UserDto.class);
-            userDtos.add(userDto);
-        });
+        if (StringUtils.isEmpty(office)) {
+            office = null;
+        } else if (StringUtils.isEmpty(name)) {
+            name = null;
+        }
+        User user = new User();
+        user.setOffice(office);
+        user.setName(name);
+        List<UserDto> userDtos = userMapper.findWithExample(user);
         return userDtos;
     }
 

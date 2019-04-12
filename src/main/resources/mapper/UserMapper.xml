@@ -27,4 +27,18 @@
         where profile.user_id = uur.user_id and role.user_role_id = uur.user_role_id and uur.user_id = #{userID}
     </select>
 
+    <select id="findWithExample" resultMap="user" parameterType="com.springboot.dto.UserDto">
+        select profile.* from user_profile profile
+        <where>
+            <choose>
+                <when test="name != null">
+                    profile.name = #{name, jdbcType=VARCHAR}
+                </when>
+                <when test="office != null">
+                    profile.office = #{office, jdbcType=VARCHAR}
+                </when>
+            </choose>
+        </where>
+    </select>
+
 </mapper>
