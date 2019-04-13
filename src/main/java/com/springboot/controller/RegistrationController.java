@@ -45,7 +45,11 @@ public class RegistrationController {
     public Message findById(@PathVariable(value = "id") String id) {
         try {
             PatientDto patientDto = patientService.findById(id);
-            return Message.success().add("patient", patientDto);
+            if (patientDto != null) {
+                return Message.success().add("patient", patientDto);
+            } else {
+                return Message.fail();
+            }
         } catch (Exception e) {
             LOGGER.error(e.getMessage(),e.getCause());
             throw e;

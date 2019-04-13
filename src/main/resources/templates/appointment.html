@@ -9,12 +9,16 @@
     <!--<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>-->
     <!-- CSS Libs -->
     <link rel="stylesheet" type="text/css" th:href="@{/lib/css/bootstrap.min.css}" th href="/lib/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/lib/css/font-awesome.min.css}" href="/lib/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/css/font-awesome.min.css}"
+          href="/lib/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/lib/css/animate.min.css}" href="/lib/css/animate.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/lib/css/bootstrap-switch.min.css}" href="/lib/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/css/bootstrap-switch.min.css}"
+          href="/lib/css/bootstrap-switch.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/lib/css/checkbox3.min.css}" href="/lib/css/checkbox3.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/lib/css/jquery.dataTables.min.css}" href="/lib/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/lib/css/dataTables.bootstrap.css}" href="/lib/css/dataTables.bootstrap.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/css/jquery.dataTables.min.css}"
+          href="/lib/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/lib/css/dataTables.bootstrap.css}"
+          href="/lib/css/dataTables.bootstrap.css">
     <link rel="stylesheet" type="text/css" th:href="@{/lib/css/select2.min.css}" href="/lib/css/select2.min.css">
     <!-- CSS App -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" href="/css/style.css">
@@ -22,6 +26,61 @@
 </head>
 
 <body class="flat-blue">
+<!-- Modal -->
+<div class="modal fade modal-info" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">用户预约</h4>
+            </div>
+            <div class="modal-body">
+                <form id="Appointment_Form" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="doctorInput" class="col-sm-2 control-label">医师</label>
+                        <div class="col-sm-10">
+                        <input type="text" name="doctorInput" class="form-control"
+                                                      id="doctorInput"
+                                                      placeholder="医师" />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="patient" class="col-sm-2 control-label">求诊人</label>
+                        <div class="col-sm-10">
+                        <input type="text" name="patient" class="form-control"
+                                                      id="patient"
+                                                      placeholder="求诊人" />
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="AppointmentTime" class="col-sm-2 control-label">预约时间</label>
+                        <div class="col-sm-10">
+                            <input type="date" name="AppointmentTime" class="form-control" id="AppointmentTime">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Description" class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-10">
+                                            <textarea type="text" name="Description" class="form-control"
+                                                      id="Description"
+                                                      placeholder="Description"></textarea>
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Reset</button>
+                <button id="appointment_save_btn" type="button" class="btn btn-info">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="app-container">
     <div class="row content-container">
         <!-- insert topvar -->
@@ -37,7 +96,7 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <div class="title">
-                                        预约
+                                        医师查询
                                     </div>
                                 </div>
                             </div>
@@ -56,70 +115,8 @@
                                     <button id="userSearch" type="button" class="btn btn-default">搜寻</button>
                                 </form>
                                 <div id="subTitle" hidden="hidden" class="sub-title">医师列表</div>
-                                <div id="user_list_area">
-                                    <!--<div class="list-group">
-                                        <a href="#" class="list-group-item">
-                                            <span class="badge">USR0001</span> Cras justo odio
-                                        </a>
-                                        <a href="#" class="list-group-item">
-                                            <span class="badge">1</span> Morbi leo risus
-                                        </a>
-                                        <a href="#" class="list-group-item">
-                                            <span class="badge">2</span> Vestibulum at eros
-                                        </a>
-                                    </div>-->
-                                </div>
-                            </div>
-                        </div>
-                        &nbsp;
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-title">
-                                    <div class="title">
-                                        预约
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <form id="Appointment_Form" class="form-horizontal">
-                                    <div class="form-group">
-                                        <label for="Doctors" class="col-sm-2 control-label">医师</label>
-                                        <div class="col-sm-10">
-                                            <select name="Doctors" id="Doctors" class="form-control">
+                                <div id="user_list_area"></div>
 
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="Doctors" class="col-sm-2 control-label">求诊人</label>
-                                        <div class="col-sm-10">
-                                            <select name="Patients" id="Patients" class="form-control">
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="AppointmentTime" class="col-sm-2 control-label">预约时间</label>
-                                        <div class="col-sm-10">
-                                            <input type="date" name="AppointmentTime" class="form-control" id="AppointmentTime">
-                                            <span class="help-block"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="Description" class="col-sm-2 control-label">备注</label>
-                                        <div class="col-sm-10">
-                                            <textarea type="text" name="Description" class="form-control" id="Description"
-                                                      placeholder="Description"></textarea>
-                                            <span class="help-block"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="reset" class="btn btn-default" data-dismiss="modal">Reset</button>
-                                            <button id="appointment_save_btn" type="button" class="btn btn-info">Save</button>
-                                        </div>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -137,14 +134,20 @@
         <script type="text/javascript" th:src="@{/lib/js/jquery.min.js}" src="/lib/js/jquery.min.js"></script>
         <script type="text/javascript" th:src="@{/lib/js/bootstrap.min.js}" src="/lib/js/bootstrap.min.js"></script>
         <script type="text/javascript" th:src="@{/lib/js/Chart.min.js}" src="/lib/js/Chart.min.js"></script>
-        <script type="text/javascript" th:src="@{/lib/js/bootstrap-switch.min.js}" src="/lib/js/bootstrap-switch.min.js"></script>
-        <script type="text/javascript" th:src="@{/lib/js/jquery.matchHeight-min.js}" src="/lib/js/jquery.matchHeight-min.js"></script>
-        <script type="text/javascript" th:src="@{/lib/js/jquery.dataTables.min.js}" src="/lib/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" th:src="@{/lib/js/dataTables.bootstrap.min.js}" src="/lib/js/dataTables.bootstrap.min.js"></script>
-        <script type="text/javascript" th:src="@{/lib/js/select2.full.min.js}" src="/lib/js/select2.full.min.js"></script>
+        <script type="text/javascript" th:src="@{/lib/js/bootstrap-switch.min.js}"
+                src="/lib/js/bootstrap-switch.min.js"></script>
+        <script type="text/javascript" th:src="@{/lib/js/jquery.matchHeight-min.js}"
+                src="/lib/js/jquery.matchHeight-min.js"></script>
+        <script type="text/javascript" th:src="@{/lib/js/jquery.dataTables.min.js}"
+                src="/lib/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" th:src="@{/lib/js/dataTables.bootstrap.min.js}"
+                src="/lib/js/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" th:src="@{/lib/js/select2.full.min.js}"
+                src="/lib/js/select2.full.min.js"></script>
         <script type="text/javascript" th:src="@{/lib/js/ace/ace.js}" src="/lib/js/ace/ace.js"></script>
         <script type="text/javascript" th:src="@{/lib/js/ace/mode-html.js}" src="/lib/js/ace/mode-html.js"></script>
-        <script type="text/javascript" th:src="@{/lib/js/ace/theme-github.js}" src="/lib/js/ace/theme-github.js"></script>
+        <script type="text/javascript" th:src="@{/lib/js/ace/theme-github.js}"
+                src="/lib/js/ace/theme-github.js"></script>
         <script type="text/javascript" th:src="@{/lib/js/jquery.cookie.js}" src="/lib/js/ace/theme-github.js"></script>
         <!-- Javascript -->
         <script type="text/javascript" th:src="@{/js/app.js}" src="/js/app.js"></script>

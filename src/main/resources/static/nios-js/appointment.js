@@ -85,7 +85,8 @@ $("#appointment_save_btn").click(function () {
         contentType: "application/json; charset=utf-8",
         data: json,
         success: function (result) {
-            alert("success");
+            alert("添加成功");
+            $("#saveModal").modal("hide");
         },
 
     });
@@ -99,9 +100,12 @@ function build_user_list(result) {
     let div = $("<div></div>").addClass("list-group");
 
     $.each(userInfo, function (index, item) {
-        let a = $("<a></a>").attr("href", "#").addClass("list-group-item");
-        let content = $("<span></span>").append(item.name);
+        let a = $("<a></a>").attr("href", "#").addClass("list-group-item edit_btn");
+        let content = $("<span></span>").addClass("badge").append(item.id);
+        let content2 = $("<span></span>").append(item.name);
+        a.attr("edit-id", item.id);
         content.appendTo(a);
+        content2.appendTo(a);
         a.appendTo(div);
     });
 
@@ -123,25 +127,53 @@ $("#userSearch").click(function () {
     });
 });
 
+$(document).on("click", ".edit_btn", function () {
+    $("#doctorInput").val($(this).attr("edit-id"));
+    $("#saveModal").modal({
+        backdrop : "static"
+    });
+});
+
+$("#patient").change(function(){
+    //发送ajax请求检验用户名是否可用
+    let id = this.value;
+    $.ajax({
+        url: "/nios/registration/registration/" + id,
+        type: "GET",
+        success: function (result) {
+            if (result.code == 100) {
+                show_validate_msg("#patient", "success", "");
+            } else {
+                show_validate_msg("#patient", "error", "用户名不可用");
+            }
+        }
+    });
+
+});
+
+function show_validate_msg(ele, status, msg) {
+    $(ele).parent().removeClass("has-success has-error");
+    $(ele).next("span").text("");
+
+    if ("error" == status) {
+        $(ele).parent().addClass("has-error");
+        $(ele).next("span").text(msg);
+    }
+}
+
 function getJson() {
     let object = {};
 
+    let objUser = {};
+    objUser["id"] = $("#doctorInput").val();
+    object['userDto'] = objUser;
+
+    let objPatient = {};
+    objPatient["id"] = $("#patient").val();
+    object['patientDto'] = objPatient;
+
     object['appointmentTime'] = $("#AppointmentTime").val();
     object['description'] = $("#Description").val();
-
-    $("#Doctors option:selected").each(function () {
-        let value = $(this).val();
-        let obj = {};
-        obj["id"] = value;
-        object['userDto'] = obj;
-    })
-
-    $("#Patients option:selected").each(function () {
-        let value = $(this).val();
-        let obj = {};
-        obj["id"] = value;
-        object['patientDto'] = obj;
-    })
 
     let json = JSON.stringify(object);
     return json
