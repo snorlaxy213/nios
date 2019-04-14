@@ -32,7 +32,7 @@
         <div class="container-fluid">
             <div class="side-body">
                 <div class="page-title">
-                    <span class="title">Diagnosis</span>
+                    <span class="title">诊断</span>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
@@ -40,7 +40,7 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <div class="title">
-                                        Appointment List
+                                        预约列表
                                     </div>
                                 </div>
                             </div>
@@ -71,53 +71,59 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <div class="title">
-                                        User Diagnosis
+                                        诊断
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <form id="Appointment_Form" class="form-horizontal">
                                     <div class="form-group">
-                                        <label for="id" class="col-sm-2 control-label">id</label>
+                                        <label for="id" class="col-sm-2 control-label">预约编号</label>
                                         <div class="col-sm-10">
                                             <input disabled type="text" name="id" class="form-control" id="id">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div hidden="hidden" class="form-group">
-                                        <label for="PatientId" class="col-sm-2 control-label">PatientId</label>
+                                        <label for="PatientId" class="col-sm-2 control-label">求诊人编号</label>
                                         <div class="col-sm-10">
                                             <input disabled type="text" name="PatientId" class="form-control" id="PatientId">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div hidden="hidden" class="form-group">
-                                        <label for="DoctorId" class="col-sm-2 control-label">DoctorId</label>
+                                        <label for="DoctorId" class="col-sm-2 control-label">医师编号</label>
                                         <div class="col-sm-10">
                                             <input disabled type="text" name="DoctorId" class="form-control" id="DoctorId">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="PatientName" class="col-sm-2 control-label">Patient</label>
+                                        <label for="PatientName" class="col-sm-2 control-label">求诊人</label>
                                         <div class="col-sm-10">
                                             <input disabled type="text" name="PatientName" class="form-control" id="PatientName">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="DoctorName" class="col-sm-2 control-label">Doctor</label>
+                                        <label for="DoctorName" class="col-sm-2 control-label">医师</label>
                                         <div class="col-sm-10">
-                                            <input disabled type="text" name="DoctorName" class="form-control" id="DoctorName"
-                                                   placeholder="Doctor">
+                                            <input disabled type="text" name="DoctorName" class="form-control" id="DoctorName">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Description" class="col-sm-2 control-label">Description</label>
+                                        <label for="Drug" class="col-sm-2 control-label">药物</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="Description" class="form-control" id="Description"
-                                                   placeholder="Description">
+                                            <select multiple name="Drug" id="Drug" class="form-control">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Description" class="col-sm-2 control-label">医嘱</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="Description" class="form-control" id="Description">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>

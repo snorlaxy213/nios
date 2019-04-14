@@ -18,6 +18,8 @@ public class DrugProfile implements Serializable {
 
     String description;
 
+    int defaultQuantity;
+
     String unit;
 
     String status;
@@ -64,6 +66,15 @@ public class DrugProfile implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Column(name = "defaultQuantity", length = 5)
+    public int getDefaultQuantity() {
+        return defaultQuantity;
+    }
+
+    public void setDefaultQuantity(int defaultQuantity) {
+        this.defaultQuantity = defaultQuantity;
     }
 
     @Column(name = "Unit", length = 12)

@@ -3,6 +3,7 @@ package com.springboot.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "diagnosis")
@@ -17,6 +18,8 @@ public class Diagnosis implements Serializable {
     private User user;
 
     private Patient patient;
+
+    private List<DrugStock> drugStocks;
 
     private BasicInformation basicInformation;
 
@@ -64,6 +67,15 @@ public class Diagnosis implements Serializable {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
+    }
+
+    @OneToMany(mappedBy = "diagnosis",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<DrugStock> getDrugStocks() {
+        return drugStocks;
+    }
+
+    public void setDrugStocks(List<DrugStock> drugStocks) {
+        this.drugStocks = drugStocks;
     }
 
     @Embedded

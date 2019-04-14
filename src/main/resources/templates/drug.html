@@ -29,7 +29,7 @@
         <div class="container-fluid">
             <div class="side-body">
                 <div class="page-title">
-                    <span class="title">Diagnosis</span>
+                    <span class="title">药物信息</span>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
@@ -37,8 +37,7 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <div class="title">
-                                        <button id="delete_all_btn" type="button" class="btn btn-danger">Batch
-                                            Delete
+                                        <button id="delete_all_btn" type="button" class="btn btn-danger">批量删除
                                         </button>
                                     </div>
                                 </div>
@@ -48,13 +47,13 @@
                                     <thead>
                                         <tr>
                                             <th><input type="checkbox" id="check_all"></th>
-                                            <th>DrugId</th>
-                                            <th>DrugName</th>
-                                            <th>DrugType</th>
-                                            <th>Description</th>
-                                            <th>Unit</th>
-                                            <th>Status</th>
-                                            <th>Operate</th>
+                                            <th>药物编号</th>
+                                            <th>药物</th>
+                                            <th>药物类别</th>
+                                            <th>简介</th>
+                                            <th>单位</th>
+                                            <th>当前状态</th>
+                                            <th>操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -71,14 +70,14 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <div class="title">
-                                        User Diagnosis
+                                        药物信息
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <form id="DrugProfile_Form" class="form-horizontal">
                                     <div class="form-group">
-                                        <label for="DrugId" class="col-sm-2 control-label">DrugId</label>
+                                        <label for="DrugId" class="col-sm-2 control-label">药物编号</label>
                                         <div class="col-sm-10">
                                             <input disabled type="text" name="DrugId" class="form-control" id="DrugId"
                                                    placeholder="DrugId">
@@ -86,7 +85,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="DrugName" class="col-sm-2 control-label">DrugName</label>
+                                        <label for="DrugName" class="col-sm-2 control-label">药物</label>
                                         <div class="col-sm-10">
                                             <input type="text" name="DrugName" class="form-control" id="DrugName"
                                                    placeholder="DrugName">
@@ -94,7 +93,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">DrugType</label>
+                                        <label class="col-sm-2 control-label">药物类别</label>
                                         <div class="col-sm-10">
                                             <div class="radio3 radio-check radio-inline">
                                                 <input type="radio" id="DrugType_1" name="DrugType" value="Sheet">
@@ -111,7 +110,14 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Description" class="col-sm-2 control-label">Description</label>
+                                        <label for="DefaultAmount" class="col-sm-2 control-label">默认服用数量</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="DefaultAmount" class="form-control" id="DefaultAmount" >
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Description" class="col-sm-2 control-label">简介</label>
                                         <div class="col-sm-10">
                                             <input type="text" name="Description" class="form-control" id="Description"
                                                    placeholder="Description">
@@ -119,7 +125,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Unit" class="col-sm-2 control-label">Unit</label>
+                                        <label for="Unit" class="col-sm-2 control-label">单位</label>
                                         <div class="col-sm-10">
                                             <select name="Unit" id="Unit" class="form-control">
                                                 <option value="Jra">jin</option>
@@ -128,7 +134,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">Status</label>
+                                        <label class="col-sm-2 control-label">当前状态</label>
                                         <div class="col-sm-10">
                                             <div class="radio3 radio-check radio-inline">
                                                 <input type="radio" id="Status_Y" name="Status" value="Y">

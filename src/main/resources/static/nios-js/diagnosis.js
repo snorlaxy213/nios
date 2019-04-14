@@ -1,5 +1,6 @@
 $(function () {
     to_page(0);
+    getDrug();
 });
 
 function to_page(pn) {
@@ -46,7 +47,6 @@ $("#diagnosis_save_btn").click(function () {
                 reset_form("#Appointment_Form");
             }
         },
-
     });
 });
 
@@ -77,8 +77,29 @@ function getDiagnosis(id) {
     });
 }
 
+function getDrug() {
+    $.ajax({
+        url: "/nios/drugProfile/drugProfile",
+        type: "GET",
+        success: function (result) {
+            let drugs = result.content.list;
+            $.each(drugs, function (i, item) {
+                if (i == 0) {
+                    let optionEle = $("<option></option>").append(item.name).attr("value", item.id);
+                    optionEle.appendTo("#Drug");
+                } else {
+                    let optionEle = $("<option></option>").append(item.name).attr("value", item.id);
+                    optionEle.appendTo("#Drug");
+                }
+            })
+            // $("#Drug").val(drugs[0].id).select2();
+        }
+    });
+}
+
 function getJson() {
     let object = {};
+    let params = [];
 
     object['description'] = $("#Description").val();
     let userObj = {};
@@ -94,6 +115,15 @@ function getJson() {
     let appointmentObj = {};
     appointmentObj["id"] = $("#id").val();
     object['appointmentDto'] = appointmentObj;
+
+    $("#Drug option:selected").each(function () {
+        let value = $(this).val();
+        let obj = {};
+        obj["id"] = value;
+        params.push(obj);
+    })
+
+    object['drugProfileDtos'] = params;
 
     let json = JSON.stringify(object);
     return json

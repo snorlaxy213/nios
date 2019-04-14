@@ -79,4 +79,17 @@
         <class-a>com.springboot.entity.DrugProfile</class-a>
         <class-b>com.springboot.dto.DrugProfileDto</class-b>
     </mapping>
+
+    <mapping>
+        <class-a>com.springboot.entity.DrugStock</class-a>
+        <class-b>com.springboot.dto.DrugStockDto</class-b>
+        <field-exclude>
+            <a>drugProfile</a>
+            <b>drugProfileDto</b>
+        </field-exclude>
+        <field-exclude>
+            <a>diagnosis</a>
+            <b>diagnosisDto</b>
+        </field-exclude>
+    </mapping>
 </mappings>

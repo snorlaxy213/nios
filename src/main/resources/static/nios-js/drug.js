@@ -25,13 +25,13 @@ function build_drugs_table(result) {
         let UnitTd = $("<td></td>").append(item.unit);
         let StatusTd = $("<td></td>").append(item.status);
         let editBtn = $("<button></button>").addClass("btn btn-primary  btn-sm edit_btn").append($("<span></span>").addClass(
-            "glyphicon glyphicon-pencil")).append("update");
+            "glyphicon glyphicon-pencil")).append("编辑");
         editBtn.attr("edit-id", item.id);
         let delBth = $("<button></button>").addClass(
             "btn btn-danger  btn-sm delete_btn").append(
             $("<span></span>")
                 .addClass("glyphicon glyphicon-trash")).append(
-            "delete");
+            "删除");
         delBth.attr("del-id", item.id);
         let btnTd = $("<td></td>").append(editBtn).append(" ").append(
             delBth);
@@ -64,11 +64,11 @@ function reset_form(ele) {
 }
 
 $(document).on("click", ".edit_btn", function () {
-    getUser($(this).attr("edit-id"));
+    getDrug($(this).attr("edit-id"));
     $("#drug_save_btn").attr("edit-id", $(this).attr("edit-id"));
 });
 
-function getUser(id) {
+function getDrug(id) {
     $.ajax({
         url: "/nios/drugProfile/drugProfile/" + id,
         type: "GET",
@@ -81,6 +81,7 @@ function getUser(id) {
             } else if (data.type == "Granule") {
                 $("#DrugType_2").attr('checked', 'checked');
             }
+            $("#DefaultAmount").val(data.defaultQuantity);
             $("#Description").val(data.description);
             $("#Unit").val(data.unit);
             if (data.status == 'Y') {

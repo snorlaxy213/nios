@@ -2,12 +2,10 @@ package com.springboot.service.serviceImpl;
 
 import com.springboot.commons.CommonTableUtils;
 import com.springboot.dto.DiagnosisDto;
+import com.springboot.dto.DrugStockDto;
 import com.springboot.dto.PatientDto;
 import com.springboot.dto.UserDto;
-import com.springboot.entity.BasicInformation;
-import com.springboot.entity.Diagnosis;
-import com.springboot.entity.Patient;
-import com.springboot.entity.User;
+import com.springboot.entity.*;
 import com.springboot.exception.GlobalException;
 import com.springboot.repository.DiagnosisRepository;
 import com.springboot.service.*;
@@ -50,6 +48,10 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     @Qualifier("sqeNoServiceImpl")
     SqeNoService sqeNoService;
 
+    @Autowired
+    @Qualifier("drugStockServiceImpl")
+    DrugStockService drugStockService;
+
     @Override
     public List<DiagnosisDto> findAll() {
         List<Diagnosis> diagnoses = diagnosisRepository.findAll();
@@ -72,9 +74,9 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     @Override
     public void save(DiagnosisDto diagnosisDto, String userId) {
         if (diagnosisDto.getUserDto() == null) {
-            throw new GlobalException("400","user is null");
+            throw new GlobalException("400","用户不存在");
         } else if (diagnosisDto.getPatientDto() == null) {
-            throw new GlobalException("400","patient is null");
+            throw new GlobalException("400","求诊人没有登记");
         }
 
         Diagnosis diagnosis = mapper.map(diagnosisDto,Diagnosis.class);
@@ -89,8 +91,19 @@ public class DiagnosisServiceImpl implements DiagnosisService {
         diagnosis.setBasicInformation(new BasicInformation());
         this.getModifiedInfo(diagnosis.getBasicInformation(), userId);
 
-        diagnosisRepository.save(diagnosis);
+        diagnosisRepository.saveAndFlush(diagnosis);
         appointmentService.delete(diagnosisDto.getAppointmentDto().getId());
+
+        //save drug stock
+        diagnosisDto.getDrugProfileDtos().forEach(drugProfileDto -> {
+            DrugStockDto drugStockDto = new DrugStockDto();
+            drugStockDto.setDrugProfileDto(drugProfileDto);
+
+            DiagnosisDto diagnosisDtoTemp = mapper.map(diagnosis,DiagnosisDto.class);
+            drugStockDto.setDiagnosisDto(diagnosisDtoTemp);
+
+            drugStockService.save(drugStockDto,userId);
+        });
 
     }
 
