@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -39,14 +40,15 @@ public class NiosApplicationTests {
     @Qualifier("userMapper")
     private UserMapper userMapper;
 
+    //Mybatis
     @Test
-    public void testMapper() {
+    public void testMybatis() {
         UserDto userDto = userMapper.findUserByID("USR0001");
         System.out.println(userDto);
     }
 
     @Test
-    public void testPagehelper() {
+    public void testPageHelper() {
         PageHelper.startPage(0, 2);
         List<UserDto> userDtos = userMapper.findAll();
         PageInfo<UserDto> userDtoPageInfo = new PageInfo<>(userDtos);
@@ -55,12 +57,33 @@ public class NiosApplicationTests {
     }
 
     @Test
-    public void testFindByDoctorAndOffice() {
-//        List<UserDto> userDtos = userService.findByDoctorAndOffice("骨科", "admin");
+    public void testFindByExample() {
         User user = new User();
         user.setOffice("骨科");
-//        user.setName("admin");
+        user.setName("admin");
         List<UserDto> userDtos = userMapper.findWithExample(user);
         LOGGER.info(userDtos);
+    }
+
+    //Jpa
+    @Test
+    public void testFindAll() {
+        List<UserDto> all = userService.findAll(1,5);
+
+        LOGGER.info(all);
+    }
+
+    @Test
+    public void testSave() {
+        UserDto userDto = userService.findById("USR0010");
+        userDto.setCurrentNum(1);
+        userService.save(userDto,"USR0001");
+    }
+
+    @Test
+    public void testDelete() {
+        List<String> userids = new ArrayList<>();
+        userids.add("USR0010");
+        userService.delete(userids);
     }
 }

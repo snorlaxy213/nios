@@ -5,23 +5,43 @@
     <mapping>
         <class-a>com.springboot.entity.User</class-a>
         <class-b>com.springboot.dto.UserDto</class-b>
-        <field-exclude>
-            <a>userRoles</a>
-            <b>userRoleDtos</b>
-        </field-exclude>
-        <field-exclude>
-            <a>appointments</a>
-            <b>appointmentDtos</b>
-        </field-exclude>
-        <field-exclude>
-            <a>diagnoses</a>
-            <b>diagnosisDtos</b>
-        </field-exclude>
+        <field>
+            <a>basicInformation.createBy</a>
+            <b>createBy</b>
+        </field>
+        <field>
+            <a>basicInformation.createDtm</a>
+            <b>createDtm</b>
+        </field>
+        <field>
+            <a>basicInformation.updateBy</a>
+            <b>updateBy</b>
+        </field>
+        <field>
+            <a>basicInformation.updateDtm</a>
+            <b>updateDtm</b>
+        </field>
     </mapping>
 
     <mapping>
         <class-a>com.springboot.entity.UserRole</class-a>
         <class-b>com.springboot.dto.UserRoleDto</class-b>
+        <field>
+            <a>basicInformation.createBy</a>
+            <b>createBy</b>
+        </field>
+        <field>
+            <a>basicInformation.createDtm</a>
+            <b>createDtm</b>
+        </field>
+        <field>
+            <a>basicInformation.updateBy</a>
+            <b>updateBy</b>
+        </field>
+        <field>
+            <a>basicInformation.updateDtm</a>
+            <b>updateDtm</b>
+        </field>
         <field-exclude>
             <a>users</a>
             <b>userDtos</b>
@@ -31,6 +51,22 @@
     <mapping>
         <class-a>com.springboot.entity.Appointment</class-a>
         <class-b>com.springboot.dto.AppointmentDto</class-b>
+        <field>
+            <a>basicInformation.createBy</a>
+            <b>createBy</b>
+        </field>
+        <field>
+            <a>basicInformation.createDtm</a>
+            <b>createDtm</b>
+        </field>
+        <field>
+            <a>basicInformation.updateBy</a>
+            <b>updateBy</b>
+        </field>
+        <field>
+            <a>basicInformation.updateDtm</a>
+            <b>updateDtm</b>
+        </field>
         <field-exclude>
             <a>user</a>
             <b>userDto</b>
@@ -48,6 +84,22 @@
     <mapping>
         <class-a>com.springboot.entity.Patient</class-a>
         <class-b>com.springboot.dto.PatientDto</class-b>
+        <field>
+            <a>basicInformation.createBy</a>
+            <b>createBy</b>
+        </field>
+        <field>
+            <a>basicInformation.createDtm</a>
+            <b>createDtm</b>
+        </field>
+        <field>
+            <a>basicInformation.updateBy</a>
+            <b>updateBy</b>
+        </field>
+        <field>
+            <a>basicInformation.updateDtm</a>
+            <b>updateDtm</b>
+        </field>
         <field-exclude>
             <a>appointments</a>
             <b>appointmentDtos</b>
@@ -61,6 +113,22 @@
     <mapping>
         <class-a>com.springboot.entity.Diagnosis</class-a>
         <class-b>com.springboot.dto.DiagnosisDto</class-b>
+        <field>
+            <a>basicInformation.createBy</a>
+            <b>createBy</b>
+        </field>
+        <field>
+            <a>basicInformation.createDtm</a>
+            <b>createDtm</b>
+        </field>
+        <field>
+            <a>basicInformation.updateBy</a>
+            <b>updateBy</b>
+        </field>
+        <field>
+            <a>basicInformation.updateDtm</a>
+            <b>updateDtm</b>
+        </field>
         <field-exclude>
             <a>user</a>
             <b>userDto</b>
@@ -78,11 +146,43 @@
     <mapping>
         <class-a>com.springboot.entity.DrugProfile</class-a>
         <class-b>com.springboot.dto.DrugProfileDto</class-b>
+        <field>
+            <a>basicInformation.createBy</a>
+            <b>createBy</b>
+        </field>
+        <field>
+            <a>basicInformation.createDtm</a>
+            <b>createDtm</b>
+        </field>
+        <field>
+            <a>basicInformation.updateBy</a>
+            <b>updateBy</b>
+        </field>
+        <field>
+            <a>basicInformation.updateDtm</a>
+            <b>updateDtm</b>
+        </field>
     </mapping>
 
     <mapping>
         <class-a>com.springboot.entity.DrugStock</class-a>
         <class-b>com.springboot.dto.DrugStockDto</class-b>
+        <field>
+            <a>basicInformation.createBy</a>
+            <b>createBy</b>
+        </field>
+        <field>
+            <a>basicInformation.createDtm</a>
+            <b>createDtm</b>
+        </field>
+        <field>
+            <a>basicInformation.updateBy</a>
+            <b>updateBy</b>
+        </field>
+        <field>
+            <a>basicInformation.updateDtm</a>
+            <b>updateDtm</b>
+        </field>
         <field-exclude>
             <a>drugProfile</a>
             <b>drugProfileDto</b>

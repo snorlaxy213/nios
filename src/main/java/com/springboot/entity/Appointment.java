@@ -78,9 +78,8 @@ public class Appointment implements Serializable {
         this.status = status;
     }
 
-    @ManyToOne
+    @ManyToOne(targetEntity = User.class,fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "User_ID")
-    @Basic(fetch = FetchType.LAZY)
     public User getUser() {
         return user;
     }
@@ -89,9 +88,8 @@ public class Appointment implements Serializable {
         this.user = user;
     }
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Patient.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "Patient_Key")
-    @Basic(fetch = FetchType.LAZY)
     public Patient getPatient() {
         return patient;
     }

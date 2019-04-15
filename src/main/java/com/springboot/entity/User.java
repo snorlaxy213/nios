@@ -50,7 +50,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "Name",length = 100, nullable = false)
+    @Column(name = "Name", length = 100, nullable = false)
     public String getName() {
         return name;
     }
@@ -59,7 +59,7 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    @Column(name = "Email",length = 50, nullable = false)
+    @Column(name = "Email", length = 50, nullable = false)
     public String getEmail() {
         return email;
     }
@@ -68,7 +68,7 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    @Column(name = "Mobile",length = 100)
+    @Column(name = "Mobile", length = 100)
     public String getMobile() {
         return mobile;
     }
@@ -77,7 +77,7 @@ public class User implements Serializable {
         this.mobile = mobile;
     }
 
-    @Column(name = "Password_Hash",length = 200,nullable = false)
+    @Column(name = "Password_Hash", length = 200, nullable = false)
     public String getPassword() {
         return password;
     }
@@ -86,7 +86,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    @Column(name = "office",length = 200,nullable = false)
+    @Column(name = "office", length = 200, nullable = false)
     public String getOffice() {
         return office;
     }
@@ -95,7 +95,7 @@ public class User implements Serializable {
         this.office = office;
     }
 
-    @Column(name = "orderNum",length = 200)
+    @Column(name = "orderNum", length = 200)
     public Integer getOrderNum() {
         return orderNum;
     }
@@ -104,7 +104,7 @@ public class User implements Serializable {
         this.orderNum = orderNum;
     }
 
-    @Column(name = "currentNum",length = 200)
+    @Column(name = "currentNum", length = 200)
     public Integer getCurrentNum() {
         return currentNum;
     }
@@ -132,10 +132,10 @@ public class User implements Serializable {
         this.timestamp = timestamp;
     }
 
-    @ManyToMany(targetEntity = UserRole.class, fetch = FetchType.LAZY)
-    @JoinTable(name = "User_User_Role",
-            joinColumns = @JoinColumn(name = "User_ID"),
-            inverseJoinColumns = @JoinColumn(name = "UserRole_ID"))
+    @ManyToMany(targetEntity = UserRole.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "User_User_Role",    //用来指定中间表的名称
+            joinColumns = @JoinColumn(name = "User_ID"),    //用于指定本表在中间表的字段名称，以及中间表依赖的是本表的哪个字段
+            inverseJoinColumns = @JoinColumn(name = "UserRole_ID"))    //用于指定对方表在中间表的字段名称，以及中间表依赖的是它的哪个字段
     public List<UserRole> getUserRoles() {
         return userRoles;
     }
@@ -144,7 +144,7 @@ public class User implements Serializable {
         this.userRoles = userRoles;
     }
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<Appointment> getAppointments() {
         return appointments;
     }

@@ -7,24 +7,25 @@ import java.util.List;
 
 
 public interface UserService {
-
-    List<UserDto> findAll();
-
+    //Mybatis
     PageInfo findAllWithPage(Integer pageNumber, Integer pageSize);
 
-    void save(UserDto userDto, String userId);
-
-    UserDto findById(String id);
-
     UserDto findByIdWithMapper(String id);
+
+    List<UserDto> findByDoctorAndOffice(String office, String name);
+
+    //Jpa
+    List<UserDto> findAll(Integer pageNumber, Integer pageSize);
+
+    void save(UserDto userDto, String userId);
 
     void delete(List<String> userIdList);
 
     List<UserDto> findByDoctor();
 
+    UserDto findById(String id);
+
     int getCurrentNum(String id);
 
     void descCurrentNum(String id);
-
-    List<UserDto> findByDoctorAndOffice(String office, String name);
 }

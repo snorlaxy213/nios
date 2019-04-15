@@ -1,7 +1,5 @@
 package com.springboot.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -75,7 +73,6 @@ public class UserRole implements Serializable {
         this.timestamp = timestamp;
     }
 
-    @JsonBackReference
     @ManyToMany(
             mappedBy = "userRoles",
             targetEntity = User.class,

@@ -18,10 +18,16 @@ import org.apache.shiro.util.ByteSource;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Service("userServiceImpl")
 @Transactional
@@ -50,9 +56,10 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Override
-    public List<UserDto> findAll() {
-        List<User> users = userRepository.findAll();
-
+    public List<UserDto> findAll(Integer pageNumber, Integer pageSize) {
+        Sort sort = new Sort(Sort.Direction.ASC, "id");
+        Page<User> userPages = userRepository.findAll(PageRequest.of(pageNumber,pageSize,sort));
+        List<User> users = userPages.getContent();
         List<UserDto> userDtos = new ArrayList<>();
         users.forEach(user -> {
             UserDto userDto = mapper.map(user, UserDto.class);
@@ -63,14 +70,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public PageInfo findAllWithPage(Integer pageNumber, Integer pageSize) {
-//        Sort sort = new Sort(Sort.Direction.ASC, "id");
-//        Page<User> userPages = userRepository.findAll(PageRequest.of(pageNumber,pageSize,sort));
-//        List<User> users = userPages.getContent();
-//        List<UserDto> userDtos = new ArrayList<>();
-//        users.forEach(user -> {
-//            UserDto userDto = mapper.map(user, UserDto.class);
-//            userDtos.add(userDto);
-//        });
         PageHelper.startPage(pageNumber, pageSize);
         List<UserDto> userDtos = userMapper.findAll();
         PageInfo<UserDto> userDtoPageInfo = new PageInfo<>(userDtos);
