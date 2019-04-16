@@ -119,7 +119,7 @@ public class Patient implements Serializable {
         this.timestamp = timestamp;
     }
 
-    @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     public List<Appointment> getAppointments() {
         return appointments;
     }
@@ -128,7 +128,7 @@ public class Patient implements Serializable {
         this.appointments = appointments;
     }
 
-    @OneToMany(mappedBy = "patient",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
     public List<Diagnosis> getDiagnoses() {
         return diagnoses;
     }

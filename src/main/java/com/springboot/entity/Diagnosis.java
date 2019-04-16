@@ -69,7 +69,7 @@ public class Diagnosis implements Serializable {
         this.patient = patient;
     }
 
-    @OneToMany(mappedBy = "diagnosis",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "diagnosis", fetch = FetchType.LAZY)
     public List<DrugStock> getDrugStocks() {
         return drugStocks;
     }

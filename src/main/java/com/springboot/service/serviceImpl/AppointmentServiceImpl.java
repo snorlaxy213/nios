@@ -79,7 +79,6 @@ public class AppointmentServiceImpl implements AppointmentService {
             Long count = appointmentRepository.countById(appointmentDto.getId());
 
             if (count > 0) {
-                //Appointment应该没有修改，暂时保留
                 Optional<Appointment> appointmentOptional = appointmentRepository.findById(appointmentDto.getId());
 
                 Appointment appointment = appointmentOptional.get();

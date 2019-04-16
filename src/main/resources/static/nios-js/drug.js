@@ -20,10 +20,25 @@ function build_drugs_table(result) {
         let checkBoxTD = $("<td><input type='checkbox' class='check_item'/></td>");
         let drugIdTd = $("<td></td>").append(item.id);
         let drugNameTd = $("<td></td>").append(item.name);
-        let drugTypeTd = $("<td></td>").append(item.type);
+        let drugTypeTd;
+        if (item.type == 'Sheet') {
+            drugTypeTd = $("<td></td>").append("块状");
+        } else {
+            drugTypeTd = $("<td></td>").append("颗粒");
+        }
         let DescriptionTd = $("<td></td>").append(item.description);
-        let UnitTd = $("<td></td>").append(item.unit);
-        let StatusTd = $("<td></td>").append(item.status);
+        let UnitTd;
+        if (item.unit == 'Jra') {
+            UnitTd = $("<td></td>").append("两");
+        } else {
+            UnitTd = $("<td></td>").append("克");
+        }
+        let StatusTd;
+        if (item.status == 'Y') {
+            StatusTd = $("<td></td>").append("生效");
+        } else {
+            StatusTd = $("<td></td>").append("失效");
+        }
         let editBtn = $("<button></button>").addClass("btn btn-primary  btn-sm edit_btn").append($("<span></span>").addClass(
             "glyphicon glyphicon-pencil")).append("编辑");
         editBtn.attr("edit-id", item.id);

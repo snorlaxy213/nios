@@ -144,7 +144,7 @@ public class User implements Serializable {
         this.userRoles = userRoles;
     }
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     public List<Appointment> getAppointments() {
         return appointments;
     }

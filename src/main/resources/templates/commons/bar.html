@@ -89,7 +89,7 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">
                     <div class="icon fa fa-paper-plane"></div>
-                    <div class="title">Flat Admin V.2</div>
+                    <div class="title">Nios</div>
                 </a>
                 <button type="button" class="navbar-expand-toggle pull-right visible-xs">
                     <i class="fa fa-times icon"></i>
@@ -98,43 +98,51 @@
             <ul class="nav navbar-nav">
                 <li class="active" th:class="${activeUri=='index.html'?'active':''}">
                     <a th:href="@{/index.html}">
-                        <span class="icon fa fa-tachometer"></span><span class="title">Dashboard</span>
+                        <span class="icon fa fa-tachometer"></span><span class="title">仪板</span>
                     </a>
                 </li>
                 <li class="active" th:class="${activeUri=='registration.html'?'active':''}">
                     <a th:href="@{/registration.html}" href="registration.html">
-                        <span class="icon glyphicon glyphicon-plus"></span><span class="title">Registration</span>
+                        <span class="icon glyphicon glyphicon-plus"></span><span class="title">登记</span>
                     </a>
                 </li>
                 <li class="active" th:class="${activeUri=='appointment.html'?'active':''}">
                     <a th:href="@{/appointment.html}">
-                        <span class="icon glyphicon glyphicon-pencil"></span><span class="title">Appointment</span>
+                        <span class="icon glyphicon glyphicon-pencil"></span><span class="title">预约</span>
                     </a>
                 </li>
                 <li class="active" th:class="${activeUri=='diagnosis.html'?'active':''}">
                     <a th:href="@{/diagnosis.html}" href="diagnosis.html">
-                        <span class="icon glyphicon glyphicon-erase"></span><span class="title">Diagnosis</span>
+                        <span class="icon glyphicon glyphicon-erase"></span><span class="title">诊断</span>
                     </a>
                 </li>
-                <li class="active" th:class="${activeUri=='drug.html'?'active':''}">
-                    <a th:href="@{/drug.html}">
-                        <span class="icon glyphicon glyphicon-leaf"></span><span class="title">Drug</span>
+                <li class="panel panel-default dropdown active" th:class="${activeUri=='drug.html'?'panel panel-default dropdown active':'panel panel-default dropdown'}">
+                    <a data-toggle="collapse" href="#drug-element">
+                        <span class="icon glyphicon glyphicon-leaf"></span><span class="title">药物管理</span>
                     </a>
+                    <!-- Dropdown level 1 -->
+                    <div id="drug-element" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav navbar-nav">
+                                <li><a th:href="@{/drug.html}">药物管理</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </li>
                 <shiro:hasRole name="ROL0001">
                 <li class="panel panel-default dropdown active" th:class="${activeUri=='user-role.html'?'panel panel-default dropdown active':'panel panel-default dropdown'}">
                     <a data-toggle="collapse" href="#dropdown-element">
-                        <span class="icon fa fa-desktop"></span><span class="title">Management</span>
+                        <span class="icon fa fa-desktop"></span><span class="title">管理</span>
                     </a>
                     <!-- Dropdown level 1 -->
                     <div id="dropdown-element" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
-                                <li><a th:href="@{/user.html}">User</a>
+                                <li><a th:href="@{/user.html}">用户管理</a>
                                 </li>
-                                <li><a th:href="@{/user-role.html}" href="#">UserRole</a>
+                                <li><a th:href="@{/user-role.html}" href="#">角色管理</a>
                                 </li>
-                                <li><a th:href="@{/change-password.html}" href="#">Change Password</a>
+                                <li><a th:href="@{/change-password.html}" href="#">修改密码</a>
                                 </li>
                             </ul>
                         </div>
@@ -143,12 +151,11 @@
                 </shiro:hasRole>
                 <li class="active" th:class="${activeUri=='license.html'?'active':''}">
                     <a th:href="@{/license.html}" href="license.html">
-                        <span class="icon fa fa-thumbs-o-up"></span><span class="title">License</span>
+                        <span class="icon fa fa-thumbs-o-up"></span><span class="title">证书</span>
                     </a>
                 </li>
             </ul>
         </div>
-        <!-- /.navbar-collapse -->
     </nav>
 </div>
 </body>
