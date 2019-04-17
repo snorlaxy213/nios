@@ -17,6 +17,8 @@ public class DrugProfileDto extends BasicRowInfo implements Serializable {
 
     int defaultQuantity;
 
+    int amount;
+
     String unit;
 
     String status;
@@ -64,6 +66,14 @@ public class DrugProfileDto extends BasicRowInfo implements Serializable {
 
     public void setDefaultQuantity(int defaultQuantity) {
         this.defaultQuantity = defaultQuantity;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     public String getUnit() {

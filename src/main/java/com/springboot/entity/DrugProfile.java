@@ -20,6 +20,8 @@ public class DrugProfile implements Serializable {
 
     int defaultQuantity;
 
+    int amount;
+
     String unit;
 
     String status;
@@ -75,6 +77,15 @@ public class DrugProfile implements Serializable {
 
     public void setDefaultQuantity(int defaultQuantity) {
         this.defaultQuantity = defaultQuantity;
+    }
+
+    @Column(name = "amount", length = 10)
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     @Column(name = "Unit", length = 12)

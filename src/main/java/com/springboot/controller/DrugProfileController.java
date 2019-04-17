@@ -1,5 +1,7 @@
 package com.springboot.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.springboot.commons.PageUtils;
 import com.springboot.dto.DrugProfileDto;
 import com.springboot.dto.Message;
 import com.springboot.service.DrugProfileService;
@@ -29,11 +31,12 @@ public class DrugProfileController {
 
     @ResponseBody
     @GetMapping("/drugProfile")
-    public Message findAll() {
+    public Message findAll(@RequestParam(value = "pageNumber", defaultValue = "1")Integer pageNumber) {
         try {
-            List<DrugProfileDto> drugProfileDtos = drugProfileService.findAll();
+//            List<DrugProfileDto> drugProfileDtos = drugProfileService.findAll();
+            PageInfo pageInfo = drugProfileService.findAllByMybatis(pageNumber, PageUtils.PAGE_SIZE);
 
-            return Message.success().add("list", drugProfileDtos);
+            return Message.success().add("pageInfo", pageInfo);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(),e.getCause());
             throw e;

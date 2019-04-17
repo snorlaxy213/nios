@@ -1,9 +1,12 @@
 package com.springboot.service.serviceImpl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.springboot.commons.CommonTableUtils;
 import com.springboot.dto.DrugProfileDto;
 import com.springboot.entity.BasicInformation;
 import com.springboot.entity.DrugProfile;
+import com.springboot.mapper.DrugMapper;
 import com.springboot.repository.DrugProfileRepository;
 import com.springboot.service.DrugProfileService;
 import com.springboot.service.SqeNoService;
@@ -37,6 +40,10 @@ public class DrugProfileServiceImpl implements DrugProfileService {
     @Qualifier("sqeNoServiceImpl")
     SqeNoService sqeNoService;
 
+    @Autowired
+    @Qualifier("drugMapper")
+    DrugMapper drugMapper;
+
     @Override
     public List<DrugProfileDto> findAll() {
         List<DrugProfile> drugProfiles = drugProfileRepository.findAll();
@@ -44,6 +51,15 @@ public class DrugProfileServiceImpl implements DrugProfileService {
         List<DrugProfileDto> drugProfileDtos = new ArrayList<>();
         drugProfiles.forEach(drugProfile -> drugProfileDtos.add(mapper.map(drugProfile,DrugProfileDto.class)));
         return drugProfileDtos;
+    }
+
+    @Override
+    public PageInfo findAllByMybatis(Integer pageNumber, Integer pageSize) {
+        PageHelper.startPage(pageNumber, pageSize);
+        List<DrugProfileDto> drugProfileDtos = drugMapper.findAll();
+        PageInfo<DrugProfileDto> drugProfileDtoPageInfo = new PageInfo<>(drugProfileDtos,5);
+
+        return drugProfileDtoPageInfo;
     }
 
     @Override
@@ -65,7 +81,9 @@ public class DrugProfileServiceImpl implements DrugProfileService {
 
                 drugProfile.setName(drugProfileDto.getName());
                 drugProfile.setType(drugProfileDto.getType());
+                drugProfile.setDefaultQuantity(drugProfileDto.getDefaultQuantity());
                 drugProfile.setDescription(drugProfileDto.getDescription());
+                drugProfile.setAmount(drugProfileDto.getAmount());
                 drugProfile.setUnit(drugProfileDto.getUnit());
                 drugProfile.setStatus(drugProfileDto.getStatus());
                 this.getModifiedInfo(drugProfile.getBasicInformation(), userId);

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Drug</title>
+    <title>药物信息</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS Libs -->
     <link rel="stylesheet" type="text/css" th:href="@{/lib/css/bootstrap.min.css}" th href="/lib/css/bootstrap.min.css">
@@ -37,6 +37,8 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <div class="title">
+                                        <button id="import_all_btn" type="button" class="btn btn-info">批量导入
+                                        </button>
                                         <button id="delete_all_btn" type="button" class="btn btn-danger">批量删除
                                         </button>
                                     </div>
@@ -50,7 +52,9 @@
                                             <th>药物编号</th>
                                             <th>药物</th>
                                             <th>药物类别</th>
+                                            <th>默认服用数量</th>
                                             <th>简介</th>
+                                            <th>数量</th>
                                             <th>单位</th>
                                             <th>当前状态</th>
                                             <th>操作</th>
@@ -60,6 +64,9 @@
 
                                     </tbody>
                                 </table>
+                                <div id="page_nav_area">
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -79,16 +86,14 @@
                                     <div class="form-group">
                                         <label for="DrugId" class="col-sm-2 control-label">药物编号</label>
                                         <div class="col-sm-10">
-                                            <input disabled type="text" name="DrugId" class="form-control" id="DrugId"
-                                                   placeholder="DrugId">
+                                            <input disabled type="text" name="DrugId" class="form-control" id="DrugId" >
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="DrugName" class="col-sm-2 control-label">药物</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="DrugName" class="form-control" id="DrugName"
-                                                   placeholder="DrugName">
+                                            <input type="text" name="DrugName" class="form-control" id="DrugName">
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
@@ -119,8 +124,14 @@
                                     <div class="form-group">
                                         <label for="Description" class="col-sm-2 control-label">简介</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="Description" class="form-control" id="Description"
-                                                   placeholder="Description">
+                                            <input type="text" name="Description" class="form-control" id="Description" >
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Amount" class="col-sm-2 control-label">数量</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="Amount" class="form-control" id="Amount" >
                                             <span class="help-block"></span>
                                         </div>
                                     </div>

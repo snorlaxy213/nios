@@ -33,6 +33,13 @@ mybatis:
 logging:
   config: src\main\resources\log4j.properties
 
+#OSS配置
+oss:
+  endpoint: oss-cn-shenzhen.aliyuncs.com
+  keyid: LTAIppa2MDOi5MRS
+  keysecret: TDUKKko8qnolggFTZcAEpqKzAKgBDZ
+  bucketname: nios
+  filehost: excel-backup
 
 
 
