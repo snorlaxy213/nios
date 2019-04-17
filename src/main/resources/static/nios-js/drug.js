@@ -29,7 +29,7 @@ function build_drugs_table(result) {
         }
         let DefaultAmountTd = $("<td></td>").append(item.defaultQuantity);
         let DescriptionTd = $("<td></td>").append(item.description);
-        let AmountTd = $("<td></td>").append("0");
+        let AmountTd = $("<td></td>").append(item.amount);
         let UnitTd;
         if (item.unit == 'Jra') {
             UnitTd = $("<td></td>").append("两");
@@ -227,6 +227,25 @@ function build_page_nav(result) {
     var navEle = $("<nav></nav>").append(ul);
     navEle.appendTo("#page_nav_area");
 }
+
+$("#uploadFile").click(function(){
+    $.ajax({
+        url:"/nios/drugProfile/drugProfileUpload",
+        type:"POST",
+        data:new FormData($('#Upload_Form')[0]),
+        contentType: false,
+        processData: false,
+        success:function(result)
+        {
+            $("#modalInfo").modal('hide');
+            if (result.code == 100) {
+                alert("导入成功");
+            } else {
+                alert("导入失败");
+            }
+        }
+    });
+});
 
 function getJson() {
     let object = {};

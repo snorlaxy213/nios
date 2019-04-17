@@ -26,6 +26,8 @@ public class DrugProfile implements Serializable {
 
     String status;
 
+    String url;
+
     private BasicInformation basicInformation;
 
     private Timestamp timestamp;
@@ -104,6 +106,15 @@ public class DrugProfile implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Column(name = "Url", length = 500)
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Embedded

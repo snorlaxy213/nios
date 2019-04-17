@@ -9,6 +9,7 @@ import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
 import com.springboot.config.ConstantOSSConfig;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -21,6 +22,7 @@ public class AliyunOSSUtil {
 
     private static final Logger LOGGER = Logger.getLogger(AliyunOSSUtil.class);
 
+    @Autowired
     private ConstantOSSConfig constantOSSConfig;
 
     /** 上传文件*/
@@ -40,6 +42,7 @@ public class AliyunOSSUtil {
             return null;
         }
         OSSClient client=new OSSClient(endpoint, accessKeyId, accessKeySecret);
+        String fileUrl = "";
         try {
             // 判断容器是否存在,不存在就创建
             if (!client.doesBucketExist(bucketName)) {
@@ -49,7 +52,7 @@ public class AliyunOSSUtil {
                 client.createBucket(createBucketRequest);
             }
             // 设置文件路径和名称
-            String fileUrl = fileHost + "/" + (dateStr + "/" + UUID.randomUUID().toString().replace("-", "") + "-" + file.getName());
+            fileUrl = fileHost + "/" + (dateStr + "/" + UUID.randomUUID().toString().replace("-", "") + "-" + file.getName());
             // 上传文件
             PutObjectResult result = client.putObject(new PutObjectRequest(bucketName, fileUrl, file));
             // 设置权限(公开读)
@@ -66,7 +69,7 @@ public class AliyunOSSUtil {
                 client.shutdown();
             }
         }
-        return null;
+        return fileUrl;
     }
 
 }

@@ -2,7 +2,9 @@ package com.springboot.service.serviceImpl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.springboot.commons.AliyunOSSUtil;
 import com.springboot.commons.CommonTableUtils;
+import com.springboot.commons.ExcelUtil;
 import com.springboot.dto.DrugProfileDto;
 import com.springboot.entity.BasicInformation;
 import com.springboot.entity.DrugProfile;
@@ -10,13 +12,18 @@ import com.springboot.mapper.DrugMapper;
 import com.springboot.repository.DrugProfileRepository;
 import com.springboot.service.DrugProfileService;
 import com.springboot.service.SqeNoService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,6 +50,9 @@ public class DrugProfileServiceImpl implements DrugProfileService {
     @Autowired
     @Qualifier("drugMapper")
     DrugMapper drugMapper;
+
+    @Autowired
+    AliyunOSSUtil aliyunOSSUtil;
 
     @Override
     public List<DrugProfileDto> findAll() {
@@ -86,6 +96,42 @@ public class DrugProfileServiceImpl implements DrugProfileService {
                 drugProfile.setAmount(drugProfileDto.getAmount());
                 drugProfile.setUnit(drugProfileDto.getUnit());
                 drugProfile.setStatus(drugProfileDto.getStatus());
+                drugProfile.setUrl(null);
+                this.getModifiedInfo(drugProfile.getBasicInformation(), userId);
+
+                drugProfileRepository.save(drugProfile);
+            } else {
+                DrugProfile drugProfile = mapper.map(drugProfileDto,DrugProfile.class);
+                drugProfile.setId(sqeNoService.getSeqNo(CommonTableUtils.DRUG));
+                drugProfile.setUrl(null);
+
+                drugProfile.setBasicInformation(new BasicInformation());
+                this.getModifiedInfo(drugProfile.getBasicInformation(), userId);
+
+                drugProfileRepository.save(drugProfile);
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public void save(DrugProfileDto drugProfileDto, String userId, boolean batchSave) {
+        try {
+            Long count = drugProfileRepository.countById(drugProfileDto.getId());
+            if (count > 0) {
+                Optional<DrugProfile> drugProfileOptional = drugProfileRepository.findById(drugProfileDto.getId());
+                DrugProfile drugProfile = drugProfileOptional.get();
+
+                drugProfile.setName(drugProfileDto.getName());
+                drugProfile.setType(drugProfileDto.getType());
+                drugProfile.setDefaultQuantity(drugProfileDto.getDefaultQuantity());
+                drugProfile.setDescription(drugProfileDto.getDescription());
+                drugProfile.setAmount(drugProfileDto.getAmount());
+                drugProfile.setUnit(drugProfileDto.getUnit());
+                drugProfile.setStatus(drugProfileDto.getStatus());
+                drugProfile.setUrl(drugProfileDto.getUrl());
                 this.getModifiedInfo(drugProfile.getBasicInformation(), userId);
 
                 drugProfileRepository.save(drugProfile);
@@ -101,6 +147,32 @@ public class DrugProfileServiceImpl implements DrugProfileService {
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             throw e;
+        }
+    }
+
+    @Override
+    public void batchSave(MultipartFile file,String userId) {
+        try {
+            LOGGER.info("uploadFile start :" + file.getOriginalFilename());
+            String filename = file.getOriginalFilename();
+
+            if (file != null) {
+                if (StringUtils.isNotEmpty(filename.trim())) {
+                    File fileTemp = new File(filename);
+                    FileOutputStream os = new FileOutputStream(fileTemp);
+                    os.write(file.getBytes());
+                    os.close();
+
+                    List<DrugProfileDto> list = ExcelUtil.importExcel(fileTemp);
+                    String Url = aliyunOSSUtil.upLoad(fileTemp);
+                    list.forEach(drugProfileDto -> {
+                        drugProfileDto.setUrl(Url);
+                        save(drugProfileDto, userId, true);
+                    });
+                }
+            }
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(), e.getCause());
         }
     }
 

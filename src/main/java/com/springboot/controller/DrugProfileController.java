@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -83,4 +84,16 @@ public class DrugProfileController {
         }
     }
 
+    @ResponseBody
+    @PostMapping("/drugProfileUpload")
+    public Message uploadFile(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+        try {
+            String userId = (String) request.getSession().getAttribute("userId");
+            drugProfileService.batchSave(file,userId);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e.getCause());
+            throw e;
+        }
+        return Message.success();
+    }
 }

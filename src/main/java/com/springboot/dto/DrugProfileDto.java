@@ -23,6 +23,8 @@ public class DrugProfileDto extends BasicRowInfo implements Serializable {
 
     String status;
 
+    String url;
+
     private Timestamp timestamp;
 
     public DrugProfileDto() {
@@ -90,6 +92,14 @@ public class DrugProfileDto extends BasicRowInfo implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Timestamp getTimestamp() {

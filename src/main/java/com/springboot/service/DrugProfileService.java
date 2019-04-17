@@ -2,6 +2,7 @@ package com.springboot.service;
 
 import com.github.pagehelper.PageInfo;
 import com.springboot.dto.DrugProfileDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -14,5 +15,9 @@ public interface DrugProfileService {
 
     void save(DrugProfileDto drugProfileDto, String userId);
 
+    void save(DrugProfileDto drugProfileDto, String userId, boolean batchSave);
+
     void delete(List<String> drugIdList);
+
+    void batchSave(MultipartFile file,String userId);
 }
