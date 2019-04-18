@@ -2,6 +2,7 @@ package com.springboot.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Entity
@@ -21,6 +22,8 @@ public class DrugProfile implements Serializable {
     int defaultQuantity;
 
     int amount;
+
+    BigDecimal price;
 
     String unit;
 
@@ -88,6 +91,15 @@ public class DrugProfile implements Serializable {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    @Column(name = "price", length = 10)
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     @Column(name = "Unit", length = 12)

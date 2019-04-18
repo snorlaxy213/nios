@@ -30,6 +30,7 @@ function build_drugs_table(result) {
         let DefaultAmountTd = $("<td></td>").append(item.defaultQuantity);
         let DescriptionTd = $("<td></td>").append(item.description);
         let AmountTd = $("<td></td>").append(item.amount);
+        let PriceTd = $("<td></td>").append(item.price);
         let UnitTd;
         if (item.unit == 'Jra') {
             UnitTd = $("<td></td>").append("两");
@@ -42,6 +43,9 @@ function build_drugs_table(result) {
         } else {
             StatusTd = $("<td></td>").append("失效");
         }
+        let restockBtn = $("<button></button>").addClass("btn btn-info  btn-sm restock_btn").append($("<span></span>").addClass(
+            "glyphicon glyphicon-pencil")).append("入货");
+        restockBtn.attr("restock-id", item.id);
         let editBtn = $("<button></button>").addClass("btn btn-primary  btn-sm edit_btn").append($("<span></span>").addClass(
             "glyphicon glyphicon-pencil")).append("编辑");
         editBtn.attr("edit-id", item.id);
@@ -51,9 +55,9 @@ function build_drugs_table(result) {
                 .addClass("glyphicon glyphicon-trash")).append(
             "删除");
         delBth.attr("del-id", item.id);
-        let btnTd = $("<td></td>").append(editBtn).append(" ").append(
+        let btnTd = $("<td></td>").append(restockBtn).append(" ").append(editBtn).append(" ").append(
             delBth);
-        $("<tr></tr>").append(checkBoxTD).append(drugIdTd).append(drugNameTd).append(drugTypeTd).append(DefaultAmountTd).append(DescriptionTd).append(AmountTd).append(UnitTd).append(StatusTd).append(btnTd).appendTo("#drugs_table tbody");
+        $("<tr></tr>").append(checkBoxTD).append(drugIdTd).append(drugNameTd).append(drugTypeTd).append(DefaultAmountTd).append(DescriptionTd).append(AmountTd).append(PriceTd).append(UnitTd).append(StatusTd).append(btnTd).appendTo("#drugs_table tbody");
     });
 }
 
@@ -101,6 +105,8 @@ function getDrug(id) {
             }
             $("#DefaultAmount").val(data.defaultQuantity);
             $("#Description").val(data.description);
+            $("#Amount").val(data.amount);
+            $("#Price").val(data.price);
             $("#Unit").val(data.unit);
             if (data.status == 'Y') {
                 $("#Status_Y").attr('checked', 'checked');
@@ -121,6 +127,32 @@ $(document).on("click", ".delete_btn", function () {
                 to_page(0);
             }
         }
+    });
+});
+
+$(document).on("click", ".restock_btn", function () {
+    $("#restockBtn").attr("restock-id",$(this).attr("restock-id"));
+    $("#restock_drug_id").val($(this).attr("restock-id"));
+    $("#restock").modal({
+        backdrop : "static"
+    });
+});
+
+$("#restockBtn").click(function(){
+    let json = getRestockJson();
+    $.ajax({
+        url: "/nios/drugProfile/drugRestock",
+        type: "POST",
+        async: false,
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: json,
+        success: function (result) {
+            if (result.code == 100) {
+                to_page(0);
+                $("#restock").modal("hide");
+            }
+        },
     });
 });
 
@@ -247,6 +279,20 @@ $("#uploadFile").click(function(){
     });
 });
 
+function getRestockJson() {
+    let object = {};
+    let objDrug = {};
+    objDrug["id"] = $("#restockBtn").attr("restock-id");
+
+    object['drugProfileDto'] = objDrug;
+    object['amount'] = $("#restock_amount").val();
+    object['expiry'] = $("#restock_date").val();
+    object['remark'] = $("#restock_remark").val();
+
+    let json = JSON.stringify(object);
+    return json
+}
+
 function getJson() {
     let object = {};
 
@@ -255,6 +301,7 @@ function getJson() {
     object['type'] = $('input[name="DrugType"]:checked').val();
     object['defaultQuantity'] = $("#DefaultAmount").val();
     object['description'] = $("#Description").val();
+    object['price'] = $("#Price").val();
 
     $("#Unit option:selected").each(function () {
         let value = $(this).val();

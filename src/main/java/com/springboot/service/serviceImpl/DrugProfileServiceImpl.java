@@ -94,6 +94,7 @@ public class DrugProfileServiceImpl implements DrugProfileService {
                 drugProfile.setDefaultQuantity(drugProfileDto.getDefaultQuantity());
                 drugProfile.setDescription(drugProfileDto.getDescription());
                 drugProfile.setAmount(drugProfileDto.getAmount());
+                drugProfile.setPrice(drugProfileDto.getPrice());
                 drugProfile.setUnit(drugProfileDto.getUnit());
                 drugProfile.setStatus(drugProfileDto.getStatus());
                 drugProfile.setUrl(null);

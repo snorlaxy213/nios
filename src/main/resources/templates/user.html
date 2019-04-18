@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>User</title>
+    <title>用户管理</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--&lt;!&ndash; Fonts &ndash;&gt;-->
     <!--<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400' rel='stylesheet' type='text/css'>-->
@@ -35,7 +35,7 @@
         <div class="container-fluid">
             <div class="side-body">
                 <div class="page-title">
-                    <span class="title">User List</span>
+                    <span class="title">用户列表</span>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
@@ -43,9 +43,7 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <div class="title">
-                                        <button id="delete_all_btn" type="button" class="btn btn-danger">Batch
-                                            Delete
-                                        </button>
+                                        <button id="delete_all_btn" type="button" class="btn btn-danger">批量删除</button>
                                     </div>
                                 </div>
                             </div>
@@ -54,12 +52,12 @@
                                     <thead>
                                     <tr>
                                         <th><input type="checkbox" id="check_all"></th>
-                                        <th>UserID</th>
-                                        <th>Username</th>
-                                        <th>Mobile</th>
-                                        <th>Email</th>
-                                        <th>Office</th>
-                                        <th>Operate</th>
+                                        <th>用户编号</th>
+                                        <th>用户姓名</th>
+                                        <th>手机号码</th>
+                                        <th>邮箱</th>
+                                        <th>科室</th>
+                                        <th>操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -76,14 +74,14 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <div class="title">
-                                        User Save
+                                        用户保存
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <form id="User_Form" class="form-horizontal">
                                     <div class="form-group">
-                                        <label for="UserID" class="col-sm-2 control-label">UserID</label>
+                                        <label for="UserID" class="col-sm-2 control-label">用户编号</label>
                                         <div class="col-sm-10">
                                             <input required="required" type="text" name="id" class="form-control" id="UserID"
                                                    placeholder="UserID">
@@ -91,7 +89,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="UserName" class="col-sm-2 control-label">UserName</label>
+                                        <label for="UserName" class="col-sm-2 control-label">用户姓名</label>
                                         <div class="col-sm-10">
                                             <input required="required" type="text" name="name" class="form-control" id="UserName"
                                                    placeholder="UserName">
@@ -99,7 +97,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Mobile" class="col-sm-2 control-label">Mobile</label>
+                                        <label for="Mobile" class="col-sm-2 control-label">手机号码</label>
                                         <div class="col-sm-10">
                                             <input required="required" type="text" name="mobile" class="form-control" id="Mobile"
                                                    placeholder="Mobile">
@@ -107,7 +105,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Email" class="col-sm-2 control-label">Email</label>
+                                        <label for="Email" class="col-sm-2 control-label">邮箱</label>
                                         <div class="col-sm-10">
                                             <input required="required" type="email" name="email" class="form-control" id="Email"
                                                    placeholder="Email">
@@ -115,7 +113,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Office" class="col-sm-2 control-label">Office</label>
+                                        <label for="Office" class="col-sm-2 control-label">科室</label>
                                         <div class="col-sm-10">
                                             <select required name="Office" id="Office" class="form-control">
                                                 <option value="鼻科">鼻科</option>
@@ -125,7 +123,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="UserRoles" class="col-sm-2 control-label">Role</label>
+                                        <label for="UserRoles" class="col-sm-2 control-label">用户角色</label>
                                         <div class="col-sm-10">
                                             <select required name="userRoles" id="UserRoles" class="form-control">
 
@@ -134,8 +132,8 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="reset" class="btn btn-default" data-dismiss="modal">Reset</button>
-                                            <button id="user_save_btn" type="button" class="btn btn-info">Save</button>
+                                            <button type="reset" class="btn btn-default" data-dismiss="modal">重置</button>
+                                            <button id="user_save_btn" type="button" class="btn btn-info">保存</button>
                                         </div>
                                     </div>
                                 </form>

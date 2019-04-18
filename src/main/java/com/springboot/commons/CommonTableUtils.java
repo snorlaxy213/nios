@@ -7,6 +7,7 @@ public class CommonTableUtils {
     public static final String DIAGNOSIS = "DIAGNOSIS";
     public static final String DRUG = "DRUG";
     public static final String PATIENT = "PATIENT";
+    public static final String RESTOCK = "DRUGRESTOCK";
 
     public static final String APPOINTMENT_SEQUENCE = "AppointmentSequence";
 }

@@ -1,6 +1,7 @@
 package com.springboot.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class DrugProfileDto extends BasicRowInfo implements Serializable {
@@ -18,6 +19,8 @@ public class DrugProfileDto extends BasicRowInfo implements Serializable {
     int defaultQuantity;
 
     int amount;
+
+    BigDecimal price;
 
     String unit;
 
@@ -76,6 +79,14 @@ public class DrugProfileDto extends BasicRowInfo implements Serializable {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public String getUnit() {

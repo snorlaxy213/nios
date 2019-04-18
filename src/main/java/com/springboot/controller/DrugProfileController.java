@@ -3,8 +3,10 @@ package com.springboot.controller;
 import com.github.pagehelper.PageInfo;
 import com.springboot.commons.PageUtils;
 import com.springboot.dto.DrugProfileDto;
+import com.springboot.dto.DrugRestockDto;
 import com.springboot.dto.Message;
 import com.springboot.service.DrugProfileService;
+import com.springboot.service.DrugRestockService;
 import org.apache.log4j.Logger;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +32,14 @@ public class DrugProfileController {
     @Qualifier("mapper")
     Mapper mapper;
 
+    @Autowired
+    @Qualifier("drugRestockServiceImpl")
+    DrugRestockService drugRestockService;
+
     @ResponseBody
     @GetMapping("/drugProfile")
     public Message findAll(@RequestParam(value = "pageNumber", defaultValue = "1")Integer pageNumber) {
         try {
-//            List<DrugProfileDto> drugProfileDtos = drugProfileService.findAll();
             PageInfo pageInfo = drugProfileService.findAllByMybatis(pageNumber, PageUtils.PAGE_SIZE);
 
             return Message.success().add("pageInfo", pageInfo);
@@ -95,5 +100,18 @@ public class DrugProfileController {
             throw e;
         }
         return Message.success();
+    }
+
+    @ResponseBody
+    @PostMapping("/drugRestock")
+    public Message restock(@RequestBody DrugRestockDto drugRestockDto, HttpServletRequest request) {
+        try {
+            String userId = (String) request.getSession().getAttribute("userId");
+            drugRestockService.save(drugRestockDto, userId);
+            return Message.success();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e.getCause());
+            throw e;
+        }
     }
 }

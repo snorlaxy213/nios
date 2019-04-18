@@ -9,10 +9,6 @@ function to_page(pn) {
         type: "GET",
         success: function (result) {
             build_users_table(result);
-
-            //build_page_info(result);
-
-            //build_page_nav(result);
         }
     });
 }
@@ -24,15 +20,22 @@ function build_users_table(result) {
         let checkBoxTD = $("<td><input type='checkbox' class='check_item'/></td>");
         let userRoleIdTd = $("<td></td>").append(item.id);
         let userRoleNameTd = $("<td></td>").append(item.name);
-        let Status = $("<td></td>").append(item.status);
-        let editBtn = $("<button></button>").addClass("btn btn-primary  btn-sm edit_btn").append($("<span></span>").addClass(
-            "glyphicon glyphicon-pencil")).append("update");
+        let Status
+        if (item.status == 'Effective') {
+            Status = $("<td></td>").append("生效的");
+        }else if (item.status == 'unEffective') {
+            Status = $("<td></td>").append("非生效的");
+        } else {
+            Status = $("<td></td>").append("未知情况");
+        }
+        let editBtn = $("<button></button>").addClass("btn btn-info  btn-sm edit_btn").append($("<span></span>").addClass(
+            "glyphicon glyphicon-pencil")).append("编辑");
         editBtn.attr("edit-id", item.id);
         let delBth = $("<button></button>").addClass(
             "btn btn-danger  btn-sm delete_btn").append(
             $("<span></span>")
                 .addClass("glyphicon glyphicon-trash")).append(
-            "dalete");
+            "删除");
         delBth.attr("del-id", item.id);
         let btnTd = $("<td></td>").append(editBtn).append(" ").append(
             delBth);
@@ -93,17 +96,6 @@ $("#userRole_save_btn").click(function () {
     });
 });
 
-function getJson() {
-    let object = {};
-
-    // object['id'] = $("#UserRoleID").val();
-    object['name'] = $("#UserRoleName").val();
-    object['status'] = $("input[name='Status']:checked").val();
-
-    let json = JSON.stringify(object);
-    return json
-}
-
 function reset_form(ele) {
     $(ele)[0].reset();
     $(ele).find("*").removeClass("has-error has-success");
@@ -141,7 +133,6 @@ $("#delete_all_btn").click(function(){
     }
 });
 
-
 $(document).on("click", ".delete_btn", function () {
     let UserRoleId = $(this).attr("del-id");
     $.ajax({
@@ -154,3 +145,14 @@ $(document).on("click", ".delete_btn", function () {
         }
     });
 });
+
+function getJson() {
+    let object = {};
+
+    object['id'] = $("#UserRoleID").val();
+    object['name'] = $("#UserRoleName").val();
+    object['status'] = $("input[name='Status']:checked").val();
+
+    let json = JSON.stringify(object);
+    return json
+}

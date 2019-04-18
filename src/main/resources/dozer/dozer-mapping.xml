@@ -192,4 +192,29 @@
             <b>diagnosisDto</b>
         </field-exclude>
     </mapping>
+
+    <mapping>
+        <class-a>com.springboot.entity.DrugRestock</class-a>
+        <class-b>com.springboot.dto.DrugRestockDto</class-b>
+        <field>
+            <a>basicInformation.createBy</a>
+            <b>createBy</b>
+        </field>
+        <field>
+            <a>basicInformation.createDtm</a>
+            <b>createDtm</b>
+        </field>
+        <field>
+            <a>basicInformation.updateBy</a>
+            <b>updateBy</b>
+        </field>
+        <field>
+            <a>basicInformation.updateDtm</a>
+            <b>updateDtm</b>
+        </field>
+        <field>
+            <a>drugProfile</a>
+            <b>drugProfileDto</b>
+        </field>
+    </mapping>
 </mappings>

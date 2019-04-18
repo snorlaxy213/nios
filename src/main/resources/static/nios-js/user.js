@@ -24,7 +24,7 @@ function build_users_table(result) {
         let MobileTd = $("<td></td>").append(item.mobile);
         let EmailTd = $("<td></td>").append(item.email);
         let OfficeTd = $("<td></td>").append(item.office);
-        let editBtn = $("<button></button>").addClass("btn btn-primary  btn-sm edit_btn").append($("<span></span>").addClass(
+        let editBtn = $("<button></button>").addClass("btn btn-info  btn-sm edit_btn").append($("<span></span>").addClass(
             "glyphicon glyphicon-pencil")).append("update");
         editBtn.attr("edit-id", item.id);
         let delBth = $("<button></button>").addClass(

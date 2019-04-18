@@ -26,10 +26,12 @@ pagehelper:
   support-methods-arguments: true
   params: count=countSql
 
+#Mybatis
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.springboot.dto
 
+#LOG4J
 logging:
   config: src\main\resources\log4j.properties
 

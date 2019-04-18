@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>User-Role</title>
+    <title>角色管理</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
+    <!--<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400' rel='stylesheet' type='text/css'>-->
+    <!--<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>-->
     <!-- CSS Libs -->
     <link rel="stylesheet" type="text/css" th:href="@{/lib/css/bootstrap.min.css}" th href="/lib/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" th:href="@{/lib/css/font-awesome.min.css}" href="/lib/css/font-awesome.min.css">
@@ -32,21 +32,14 @@
         <div class="container-fluid">
             <div class="side-body">
                 <div class="page-title">
-                    <span class="title">User Role</span>
+                    <span class="title">角色管理</span>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <!-- Button trigger modal -->
-                                    <button type="button"
-                                            class="btn btn-primary btn-info" data-toggle="modal"
-                                            data-target="#UserAddModal">Add
-                                    </button>
-                                    <button id="delete_all_btn" type="button" class="btn btn-danger">Batch
-                                        Delete
-                                    </button>
+                                    <button id="delete_all_btn" type="button" class="btn btn-danger">批量删除</button>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -54,10 +47,10 @@
                                     <thead>
                                     <tr>
                                         <th><input type="checkbox" id="check_all"></th>
-                                        <th>UserRole-id</th>
-                                        <th>UserRole</th>
-                                        <th>Status</th>
-                                        <th>Operate</th>
+                                        <th>角色编号</th>
+                                        <th>角色别名</th>
+                                        <th>状态</th>
+                                        <th>操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -73,49 +66,46 @@
                             <div class="card-header">
                                 <div class="card-title">
                                     <div class="title">
-                                        User Role Save
+                                        角色保存
                                     </div>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <form id="UserRole_Form" class="form-horizontal">
                                     <div class="form-group">
-                                        <label for="UserRoleID" class="col-sm-2 control-label">UserRole-id</label>
+                                        <label for="UserRoleID" class="col-sm-2 control-label">角色编号</label>
                                         <div class="col-sm-10">
-                                            <input disabled type="text" name="id" class="form-control" id="UserRoleID"
-                                                   placeholder="UserID">
+                                            <input disabled type="text" name="id" class="form-control" id="UserRoleID" >
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="UserRoleName" class="col-sm-2 control-label">UserRole</label>
+                                        <label for="UserRoleName" class="col-sm-2 control-label">角色别名</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="name" class="form-control" id="UserRoleName"
-                                                   placeholder="UserRole">
+                                            <input type="text" name="name" class="form-control" id="UserRoleName" >
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">Status</label>
+                                        <label class="col-sm-2 control-label">状态</label>
                                         <div class="col-sm-10">
                                             <div class="radio3 radio-check radio-success radio-inline">
                                                 <input type="radio" id="radioY" name="Status" value="Y">
                                                 <label for="radioY">
-                                                    <p>Effective</p>
+                                                    <p>生效的</p>
                                                 </label>
                                             </div>
                                             <div class="radio3 radio-check radio-warning radio-inline">
                                                 <input type="radio" id="radioN" name="Status" value="N">
                                                 <label for="radioN">
-                                                    <p>unEffective</p>
+                                                    <p>非生效的</p>
                                                 </label>
                                             </div>
                                         </div>
 
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="reset" class="btn btn-default" data-dismiss="modal">Reset
-                                            </button>
-                                            <button id="userRole_save_btn" type="button" class="btn btn-info">Save</button>
+                                            <button type="reset" class="btn btn-default" data-dismiss="modal">重置</button>
+                                            <button id="userRole_save_btn" type="button" class="btn btn-info">保存</button>
                                         </div>
                                     </div>
                                 </form>

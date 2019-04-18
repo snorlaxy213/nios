@@ -44,6 +44,53 @@
     </div>
 </div>
 
+<!-- 入货模态框 -->
+<div class="modal fade modal-info" id="restock" tabindex="-1" role="dialog" aria-labelledby="restockLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="restockLabel">入货</h4>
+            </div>
+            <div class="modal-body">
+                <form id="Restock_Form" class="form-horizontal">
+                    <div hidden="hidden" class="form-group">
+                        <label for="restock_drug_id" class="col-sm-2 control-label">药物编号</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="restock_drug_id" class="form-control" id="restock_drug_id" >
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="restock_amount" class="col-sm-2 control-label">数量</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="restock_amount" class="form-control" id="restock_amount" >
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="restock_date" class="col-sm-2 control-label">过期日期</label>
+                        <div class="col-sm-10">
+                            <input type="date" name="restock_date" class="form-control" id="restock_date" >
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="restock_remark" class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="restock_remark" class="form-control" id="restock_remark" >
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button id="restockBtn" type="button" class="btn btn-info">入货</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <body class="flat-blue">
 <div class="app-container">
     <div class="row content-container">
@@ -81,6 +128,7 @@
                                             <th>默认服用数量</th>
                                             <th>简介</th>
                                             <th>数量</th>
+                                            <th>单价</th>
                                             <th>单位</th>
                                             <th>当前状态</th>
                                             <th>操作</th>
@@ -158,6 +206,13 @@
                                         <label for="Amount" class="col-sm-2 control-label">数量</label>
                                         <div class="col-sm-10">
                                             <input type="text" name="Amount" class="form-control" id="Amount" >
+                                            <span class="help-block"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Price" class="col-sm-2 control-label">价格</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="Price" class="form-control" id="Price" >
                                             <span class="help-block"></span>
                                         </div>
                                     </div>
