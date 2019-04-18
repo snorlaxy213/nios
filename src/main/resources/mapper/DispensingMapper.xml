@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.mapper.DispensingMapper">
+
+    <select id="findByDiagnosisID" resultType="java.util.HashMap">
+        SELECT dru.drug_name,dst.amount,dia.description,usr.name,pat.p_name from drug_stock dst
+            LEFT JOIN drug_profile dru on dst.drug_id = dru.drug_id
+            LEFT JOIN diagnosis dia on dst.diagnosis_id = dia.diagnosis_id
+            LEFT JOIN user_profile usr on dia.user_id = usr.user_id
+            LEFT JOIN patient pat on dia.patient_key = pat.patient_key
+            WHERE dst.diagnosis_id = #{diagnosisID}
+    </select>
+
+</mapper>

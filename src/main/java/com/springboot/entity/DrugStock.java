@@ -65,6 +65,7 @@ public class DrugStock implements Serializable {
         this.diagnosis = diagnosis;
     }
 
+    @Embedded
     public BasicInformation getBasicInformation() {
         return basicInformation;
     }
@@ -73,6 +74,8 @@ public class DrugStock implements Serializable {
         this.basicInformation = basicInformation;
     }
 
+    @Version
+    @Column(name = "Timestamp")
     public Timestamp getTimestamp() {
         return timestamp;
     }

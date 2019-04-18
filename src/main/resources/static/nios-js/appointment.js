@@ -3,16 +3,6 @@ $(function () {
     getPatients();
 });
 
-$("#AppointmentTime").on("click",function(e){
-    e.stopPropagation();
-    $(this).lqdatetimepicker({
-        css : 'datetime-day',
-        dateType : 'D',
-        selectback : function(){
-        }
-    });
-});
-
 function getDoctor() {
     $.ajax({
         url: "/nios/user/userByDoctor",

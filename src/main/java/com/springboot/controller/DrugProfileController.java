@@ -47,7 +47,19 @@ public class DrugProfileController {
             LOGGER.error(e.getMessage(),e.getCause());
             throw e;
         }
+    }
 
+    @ResponseBody
+    @GetMapping("getAllDrugProfile")
+    public Message findAllDrug() {
+        try {
+            List<DrugProfileDto> dtos = drugProfileService.findAll();
+
+            return Message.success().add("list", dtos);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(),e.getCause());
+            throw e;
+        }
     }
 
     @ResponseBody

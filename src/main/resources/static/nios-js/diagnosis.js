@@ -79,7 +79,7 @@ function getDiagnosis(id) {
 
 function getDrug() {
     $.ajax({
-        url: "/nios/drugProfile/drugProfile",
+        url: "/nios/drugProfile/getAllDrugProfile",
         type: "GET",
         success: function (result) {
             let drugs = result.content.list;
@@ -92,7 +92,6 @@ function getDrug() {
                     optionEle.appendTo("#Drug");
                 }
             })
-            // $("#Drug").val(drugs[0].id).select2();
         }
     });
 }
