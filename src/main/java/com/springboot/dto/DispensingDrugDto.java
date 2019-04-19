@@ -1,6 +1,7 @@
 package com.springboot.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class DispensingDrugDto implements Serializable {
 
@@ -9,6 +10,8 @@ public class DispensingDrugDto implements Serializable {
     private String drugName;
 
     private int amount;
+
+    private BigDecimal price;
 
     public DispensingDrugDto() {
     }
@@ -27,5 +30,13 @@ public class DispensingDrugDto implements Serializable {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }

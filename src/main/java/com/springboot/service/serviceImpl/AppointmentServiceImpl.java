@@ -14,13 +14,11 @@ import org.apache.log4j.Logger;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service("appointmentServiceImpl")
 @Transactional
@@ -135,6 +133,27 @@ public class AppointmentServiceImpl implements AppointmentService {
             LOGGER.error("delete fail",ex);
             throw ex;
         }
+    }
+
+    @Override
+    @Scheduled(cron = "0 0/1 * * * ? ")
+    public void deleteSchedule() {
+        System.out.println("执行测试cron时间： " + new Date(System.currentTimeMillis()));
+        List<Appointment> appointments = appointmentRepository.findAllByStatus("Y");
+        appointments.forEach(appointment -> {
+            Date appointmentTime = appointment.getAppointmentTime();
+            Calendar appointmentCad = Calendar.getInstance();
+            Calendar nowCad = Calendar.getInstance();
+            appointmentCad.setTime(appointmentTime);
+
+            int appointmentMinute = appointmentCad.get(Calendar.MINUTE);
+            int nowMinute = nowCad.get(Calendar.MINUTE);
+
+            if (nowMinute - appointmentMinute >= 5 ) {
+                delete(appointment.getId());
+                System.out.println("预约："+ appointment.getId() +"已超时");
+            }
+        });
     }
 
     private BasicInformation getModifiedInfo(BasicInformation basicInformation, String userID) {

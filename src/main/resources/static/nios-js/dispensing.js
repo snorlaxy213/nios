@@ -20,7 +20,7 @@ function build_diagnosis_area(result) {
     $.each(dispensingDrugDtos, function (index, item) {
         let a = $("<a></a>").attr("href", "#").addClass("list-group-item edit_btn");
         let content = $("<span></span>").addClass("badge").append("数量： "+item.amount);
-        let content2 = $("<span></span>").append(item.drugName);
+        let content2 = $("<span></span>").append(item.drugName+"(价格： "+item.price+")");
         a.attr("edit-id", item.id);
         content.appendTo(a);
         content2.appendTo(a);
@@ -40,7 +40,8 @@ function build_basicInfo_area(result) {
     let userName = $("<p></p>").append("求诊人姓名: "+dispensing.userName);
     let patientName = $("<p></p>").append("医师姓名: "+dispensing.patientName);
     let description = $("<p></p>").append("医嘱: "+dispensing.description);
-    let div3 = $("<div></div>").addClass("panel-body").append(userName).append(patientName).append(description);
+    let total = $("<p></p>").append("总价钱: "+dispensing.total);
+    let div3 = $("<div></div>").addClass("panel-body").append(userName).append(patientName).append(description).append(total);
     div2.appendTo(div1);
     div3.appendTo(div1);
 

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,15 +31,20 @@ public class DispensingServiceImpl implements DispensingService {
         dispensingDto.setPatientName((String) objectMap.get("p_name"));
         dispensingDto.setDescription((String) objectMap.get("description"));
 
+        BigDecimal total = new BigDecimal("0.0");
         List<DispensingDrugDto> dispensingDrugDtos = new ArrayList<>();
         for (int i = 0; i < mapList.size(); i++) {
             Map<String, Object> objectMapTemp = mapList.get(i);
             DispensingDrugDto dispensingDrugDto = new DispensingDrugDto();
             dispensingDrugDto.setDrugName((String) objectMapTemp.get("drug_name"));
             dispensingDrugDto.setAmount((int) objectMapTemp.get("amount"));
+            dispensingDrugDto.setPrice((BigDecimal) objectMapTemp.get("price"));
+            BigDecimal totalTemp = (BigDecimal) objectMapTemp.get("total");
+            total = total.add(totalTemp);
 
             dispensingDrugDtos.add(dispensingDrugDto);
         }
+        dispensingDto.setTotal(total);
         dispensingDto.setDispensingDrugDtos(dispensingDrugDtos);
         return dispensingDto;
     }

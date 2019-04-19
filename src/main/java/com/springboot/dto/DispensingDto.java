@@ -1,6 +1,7 @@
 package com.springboot.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class DispensingDto implements Serializable {
@@ -14,6 +15,8 @@ public class DispensingDto implements Serializable {
     private String userName;
 
     private String patientName;
+
+    private BigDecimal total;
 
     public DispensingDto() {
     }
@@ -48,5 +51,13 @@ public class DispensingDto implements Serializable {
 
     public void setPatientName(String patientName) {
         this.patientName = patientName;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
 }

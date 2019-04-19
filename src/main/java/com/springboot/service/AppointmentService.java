@@ -12,4 +12,6 @@ public interface AppointmentService {
     void save(AppointmentDto appointmentDto, String userId) throws Exception;
 
     void delete(String Id);
+
+    void deleteSchedule();
 }
