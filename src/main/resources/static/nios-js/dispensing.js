@@ -14,6 +14,7 @@ $("#dispensingSearch").click(function () {
 function build_diagnosis_area(result) {
     $("#diagnosis_area").empty();
     $("#subTitle").removeAttr("hidden");
+    let diagnosisID = $("#diagnosisID").val();
     let dispensingDrugDtos = result.content.dispensing.dispensingDrugDtos;
     let div = $("<div></div>").addClass("list-group");
 
@@ -26,6 +27,10 @@ function build_diagnosis_area(result) {
         content2.appendTo(a);
         a.appendTo(div);
     });
+    let btn = $("<button></button>").addClass("btn btn-info  btn-sm edit_btn").append($("<span></span>").addClass(
+        "glyphicon glyphicon-pencil")).append("配药");
+    btn.attr("edit-id", diagnosisID);
+    btn.appendTo(div);
 
     div.appendTo("#diagnosis_area");
 }
@@ -47,3 +52,18 @@ function build_basicInfo_area(result) {
 
     div1.appendTo("#basic_info_area");
 }
+
+$(document).on("click", ".edit_btn", function () {
+    let id = $(this).attr("edit-id");
+    if(confirm("如需配药，请缴纳所需费用？")){
+        // $.ajax({
+        //     url:"/nios/user/user/"+delId_str,
+        //     type:"DELETE",
+        //     success:function(result)
+        //     {
+        //         to_page(0);
+        //     }
+        // });
+        alert(id);
+    }
+});

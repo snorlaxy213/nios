@@ -11,6 +11,8 @@ import com.springboot.exception.GlobalException;
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class PrintUtil {
@@ -90,12 +92,15 @@ public class PrintUtil {
             try {
                 baos.close();
 
-                String folderStr = "C:\\temp\\report\\";
+                Date date = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat YYYY_MM_DD_SSS = new SimpleDateFormat("yyyy-MM-dd SSS");
+                String folderStr = "C:\\Users\\Administrator\\Desktop\\Pdf_backup\\"+sdf.format(date)+"\\";
                 File folder = new File(folderStr);
                 if (!folder.exists() && !folder.isDirectory()) {
                     folder.mkdirs();
                 }
-                OutputStream out = new FileOutputStream(folderStr + "\\" + (1 + Math.random() * 999) + ".png");
+                OutputStream out = new FileOutputStream(folderStr + "\\" + dispensingDto.getPatientName() + "_" + YYYY_MM_DD_SSS.format(date) + ".pdf");
                 InputStream is = new ByteArrayInputStream(bytes);
                 byte[] buff = new byte[1024];
                 int len = 0;
