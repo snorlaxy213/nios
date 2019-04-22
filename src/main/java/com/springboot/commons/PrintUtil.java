@@ -5,13 +5,17 @@ import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.springboot.dto.DispensingDrugDto;
+import com.springboot.dto.DispensingDto;
 import com.springboot.exception.GlobalException;
+import org.apache.commons.codec.binary.Base64;
 
 import java.io.*;
+import java.util.List;
 
 public class PrintUtil {
 
-    public byte[] generatePdfByte() {
+    public String generatePdfByte(DispensingDto dispensingDto) {
         try {
             Document document = new Document();
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -25,7 +29,23 @@ public class PrintUtil {
             table.setTotalWidth(340);
             table.setLockedWidth(true);
             table.setHorizontalAlignment(Element.ALIGN_LEFT);
-            Object[][] datas = {{"区域产品销售额"},{"区域", "总销售额(万元)", "总利润(万元)简单的表格"}, {"江苏省" , 9045,  2256}, {"广东省", 3000, 690}};
+
+            List<DispensingDrugDto> drugDtos = dispensingDto.getDispensingDrugDtos();
+            Object[][] datas = new Object[drugDtos.size()+2][3];
+            datas[0][0] = "配药信息";
+            datas[1][0] = "药物名称";
+            datas[1][1] = "数量";
+            datas[1][2] = "价格（元）";
+
+            int x = 2;
+            for (int i = 0; i < drugDtos.size(); i++) {
+                DispensingDrugDto drugDto = drugDtos.get(i);
+                datas[x][0] = drugDto.getDrugName();
+                datas[x][1] = drugDto.getAmount();
+                datas[x][2] = drugDto.getPrice();
+                x++;
+            }
+
             for (int i = 0; i < datas.length; i++) {
                 for (int j = 0; j < datas[i].length; j++) {
                     PdfPCell pdfCell = new PdfPCell(); //表格的单元格
@@ -50,14 +70,19 @@ public class PrintUtil {
                         pdfCell.setRowspan(1);
                         pdfCell.setColspan(3);
                     }
-
-                    Paragraph paragraph = new Paragraph(datas[i][j].toString(), getPdfChineseFont());
-                    pdfCell.setPhrase(paragraph);
-                    table.addCell(pdfCell);
+                    if (!(i == 0 && (j == 1 || j == 2))) {
+                        Paragraph paragraph = new Paragraph(datas[i][j].toString(), getPdfChineseFont());
+                        pdfCell.setPhrase(paragraph);
+                        table.addCell(pdfCell);
+                    }
                 }
             }
 
-            document.add(new Paragraph("hello world"));
+            document.add(new Paragraph("医生姓名: " + dispensingDto.getUserName(), getPdfChineseFont()));
+            document.add(new Paragraph("求诊人姓名: " + dispensingDto.getPatientName(), getPdfChineseFont()));
+            document.add(new Paragraph("医嘱: " + dispensingDto.getDescription(), getPdfChineseFont()));
+            document.add(new Paragraph("总价钱: " + dispensingDto.getTotal(), getPdfChineseFont()));
+            document.add(new Paragraph(" "));
             document.add(table);
             document.close();
             byte[] bytes = baos.toByteArray().clone();
@@ -70,7 +95,7 @@ public class PrintUtil {
                 if (!folder.exists() && !folder.isDirectory()) {
                     folder.mkdirs();
                 }
-                OutputStream out = new FileOutputStream(folderStr + "\\" + (1 + Math.random() * 999) + ".pdf");
+                OutputStream out = new FileOutputStream(folderStr + "\\" + (1 + Math.random() * 999) + ".png");
                 InputStream is = new ByteArrayInputStream(bytes);
                 byte[] buff = new byte[1024];
                 int len = 0;
@@ -79,6 +104,7 @@ public class PrintUtil {
                 }
                 is.close();
                 out.close();
+                return Base64.encodeBase64String(bytes);
             } catch (IOException ex) {
                 throw new GlobalException();
             }
@@ -87,7 +113,6 @@ public class PrintUtil {
         } catch (Exception e) {
             throw new GlobalException();
         }
-        return null;
     }
 
     public static Font getPdfChineseFont() throws Exception {
