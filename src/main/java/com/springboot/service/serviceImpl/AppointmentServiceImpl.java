@@ -62,6 +62,12 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
+    public long getCount() {
+        long count = appointmentRepository.countByStatus("Y");
+        return count;
+    }
+
+    @Override
     public AppointmentDto findByID(String id) {
         Optional<Appointment> appointment = appointmentRepository.findById(id);
 

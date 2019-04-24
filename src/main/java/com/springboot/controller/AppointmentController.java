@@ -53,6 +53,18 @@ public class AppointmentController {
     }
 
     @ResponseBody
+    @GetMapping("/getCount")
+    public Message getCount() {
+        try {
+            long count = appointmentService.getCount();
+            return Message.success("success").add("count",count);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(),e.getCause());
+            throw e;
+        }
+    }
+
+    @ResponseBody
     @PostMapping("/appointment")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Message save(@RequestBody AppointmentDto appointmentDto, HttpServletRequest request) throws Exception {

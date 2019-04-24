@@ -14,4 +14,6 @@ public interface AppointmentService {
     void delete(String Id);
 
     void deleteSchedule();
+
+    long getCount();
 }

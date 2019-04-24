@@ -11,4 +11,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment,String>
     Long countById(String id);
 
     List findAllByStatus(String status);
+
+    Long countByStatus(String status);
 }

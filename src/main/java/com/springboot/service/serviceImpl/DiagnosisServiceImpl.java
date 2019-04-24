@@ -80,6 +80,7 @@ public class DiagnosisServiceImpl implements DiagnosisService {
         }
 
         Diagnosis diagnosis = mapper.map(diagnosisDto,Diagnosis.class);
+        diagnosis.setStatus("Y");
 
         UserDto userDto = userService.findById(diagnosisDto.getUserDto().getId());
         diagnosis.setUser(mapper.map(userDto, User.class));
