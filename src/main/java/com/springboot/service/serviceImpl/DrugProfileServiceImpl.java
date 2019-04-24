@@ -82,6 +82,15 @@ public class DrugProfileServiceImpl implements DrugProfileService {
     }
 
     @Override
+    public DrugProfileDto findByNAME(String name) {
+        DrugProfile drugProfile = drugProfileRepository.findByName(name);
+
+        if (drugProfile != null) {
+            return mapper.map(drugProfile,DrugProfileDto.class);
+        }else return null;
+    }
+
+    @Override
     public void save(DrugProfileDto drugProfileDto, String userId) {
         try {
             Long count = drugProfileRepository.countById(drugProfileDto.getId());

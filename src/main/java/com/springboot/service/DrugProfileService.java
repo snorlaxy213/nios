@@ -13,6 +13,8 @@ public interface DrugProfileService {
 
     DrugProfileDto findById(String id);
 
+    DrugProfileDto findByNAME(String name);
+
     void save(DrugProfileDto drugProfileDto, String userId);
 
     void save(DrugProfileDto drugProfileDto, String userId, boolean batchSave);

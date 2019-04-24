@@ -15,6 +15,8 @@ public class Diagnosis implements Serializable {
 
     private String description;
 
+    private String status;
+
     private User user;
 
     private Patient patient;
@@ -45,6 +47,15 @@ public class Diagnosis implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Column(name = "status", length = 5)
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @ManyToOne

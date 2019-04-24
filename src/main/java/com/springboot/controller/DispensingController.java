@@ -7,10 +7,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/dispensing")
@@ -28,6 +27,19 @@ public class DispensingController {
         try {
             DispensingDto dispensingDto = dispensingService.findByDiagnosisID(diagnosisID);
             return Message.success().add("dispensing", dispensingDto);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(),e.getCause());
+            throw e;
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("dispensing")
+    public Message save(@RequestParam(value = "diagnosisID") String diagnosisID, HttpServletRequest request) throws Exception {
+        try {
+            String userId = (String) request.getSession().getAttribute("userId");
+            String message = dispensingService.dispensing(diagnosisID,userId);
+            return Message.success().add("message", message);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(),e.getCause());
             throw e;

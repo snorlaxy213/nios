@@ -12,6 +12,8 @@ public class DiagnosisDto extends BasicRowInfo implements Serializable {
 
     private String description;
 
+    private String status;
+
     private UserDto userDto;
 
     private PatientDto patientDto;
@@ -39,6 +41,14 @@ public class DiagnosisDto extends BasicRowInfo implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public UserDto getUserDto() {

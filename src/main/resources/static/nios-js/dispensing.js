@@ -56,14 +56,15 @@ function build_basicInfo_area(result) {
 $(document).on("click", ".edit_btn", function () {
     let id = $(this).attr("edit-id");
     if(confirm("如需配药，请缴纳所需费用？")){
-        // $.ajax({
-        //     url:"/nios/user/user/"+delId_str,
-        //     type:"DELETE",
-        //     success:function(result)
-        //     {
-        //         to_page(0);
-        //     }
-        // });
-        alert(id);
+        $.ajax({
+            url:"/nios/dispensing/dispensing",
+            data: "diagnosisID=" + id,
+            type:"POST",
+            success:function(result)
+            {
+                alert(result.content.message);
+            }
+        });
+
     }
 });
