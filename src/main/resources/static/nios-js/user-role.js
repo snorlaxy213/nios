@@ -5,17 +5,18 @@ $(function () {
 function to_page(pn) {
     $.ajax({
         url: "/nios/userRole/userRole",
-        data: "pn=" + pn,
+        data: "pageNumber=" + pn,
         type: "GET",
         success: function (result) {
-            build_users_table(result);
+            build_userRoles_table(result);
+            build_page_nav(result);
         }
     });
 }
 
-function build_users_table(result) {
+function build_userRoles_table(result) {
     $("#userRoles_table tbody").empty();
-    let userRoleInfo = result.content.list;
+    let userRoleInfo = result.content.pageInfo.list;
     $.each(userRoleInfo, function (index, item) {
         let checkBoxTD = $("<td><input type='checkbox' class='check_item'/></td>");
         let userRoleIdTd = $("<td></td>").append(item.id);
@@ -43,6 +44,80 @@ function build_users_table(result) {
     });
 }
 
+function build_page_nav(result) {
+    //page_nav_area
+    $("#page_nav_area").empty();
+    var ul = $("<ul></ul>").addClass("pagination");
+
+    //构建元素
+    var firstPageli = $("<li></li>").append(
+        $("<a></a>").append("首页").attr("href", "#"));
+    var prePageli = $("<li></li>").append(
+        $("<a></a>").append("&laquo;"));
+    if (result.content.pageInfo.hasPreviousPage == false) {
+        firstPageli.addClass("disabled");
+        prePageli.addClass("disabled");
+    } else {
+        //为元素添加点击事件
+        firstPageli.click(function() {
+
+            to_page(1);
+
+        });
+        prePageli.click(function() {
+            //当前页面减一
+            to_page(result.content.pageInfo.pageNum - 1);
+
+        });
+
+    }
+
+    var nextPageli = $("<li></li>").append(
+        $("<a></a>").append("&raquo;"));
+    var lastPageli = $("<li></li>").append(
+        $("<a></a>").append("末页").attr("href", "#"));
+    if (result.content.pageInfo.hasNextPage == false) {
+        nextPageli.addClass("disabled");
+        lastPageli.addClass("disabled");
+    } else {
+        nextPageli.click(function() {
+            //当前页面减一
+            to_page(result.content.pageInfo.pageNum + 1);
+
+        });
+        lastPageli.click(function() {
+            //当前页面减一
+            to_page(result.content.pageInfo.pages);
+
+        });
+
+    }
+
+    //添加首页和前一页的提示
+    ul.append(firstPageli).append(prePageli);
+
+    //遍历页码号1,2,3,4,5
+    $.each(result.content.pageInfo.navigatepageNums, function(index,
+                                                              item) {
+        var numLi = $("<li></li>").append($("<a></a>").append(item));
+        if (result.content.pageInfo.pageNum == item) {
+            //让当前页面高亮
+            numLi.addClass("active");
+        }
+        numLi.click(function() {
+
+            to_page(item);
+        });
+        ul.append(numLi);
+    });
+
+    //添加下一页和末页的提示
+    ul.append(nextPageli).append(lastPageli);
+    //把url加入
+    var navEle = $("<nav></nav>").append(ul);
+    navEle.appendTo("#page_nav_area");
+}
+
 $(document).on("click", ".edit_btn", function () {
     getUserRole($(this).attr("edit-id"));
     $("#user_save_btn").attr("edit-id", $(this).attr("edit-id"));
@@ -61,7 +136,6 @@ function getUserRole(id) {
             } else {
                 $("input[name='Status'][value='N']").attr("checked", true);
             }
-
         }
     });
 }

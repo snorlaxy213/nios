@@ -1,7 +1,5 @@
 package com.springboot.dto;
 
-import com.springboot.entity.BasicInformation;
-
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
@@ -23,8 +21,6 @@ public class PatientDto extends BasicRowInfo implements Serializable {
     private String mobile;
 
     private String status;
-
-    private BasicInformation basicInformation;
 
     private Timestamp timestamp;
 
@@ -86,14 +82,6 @@ public class PatientDto extends BasicRowInfo implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public BasicInformation getBasicInformation() {
-        return basicInformation;
-    }
-
-    public void setBasicInformation(BasicInformation basicInformation) {
-        this.basicInformation = basicInformation;
     }
 
     public Timestamp getTimestamp() {

@@ -65,7 +65,9 @@ function getPatients() {
 }
 
 $("#appointment_save_btn").click(function () {
-
+    if (!nullCheck()) {
+        return false;
+    }
     let json = getJson();
     $.ajax({
         url: "/nios/appointment/appointment",
@@ -134,11 +136,10 @@ $("#patient").change(function(){
             if (result.code == 100) {
                 show_validate_msg("#patient", "success", "");
             } else {
-                show_validate_msg("#patient", "error", "用户名不可用");
+                show_validate_msg("#patient", "error", result.content.msg);
             }
         }
     });
-
 });
 
 function show_validate_msg(ele, status, msg) {
@@ -168,3 +169,44 @@ function getJson() {
     let json = JSON.stringify(object);
     return json
 }
+
+function nullCheck() {
+    if ($("#doctorInput").val() == "" || $.trim($("#doctorInput").val()).length == 0) {
+        show_validate_msg("#doctorInput", "error", "必填选项");
+        return false;
+    }
+
+    if ($("#patient").val() == "" || $.trim($("#patient").val()).length == 0) {
+        show_validate_msg("#patient", "error", "必填选项");
+        return false;
+    }
+
+    if ($("#AppointmentTime").val() == "" || $.trim($("#AppointmentTime").val()).length == 0) {
+        show_validate_msg("#AppointmentTime", "error", "必填选项");
+        return false;
+    }
+
+    if ($("#Description").val() == "" || $.trim($("#Description").val()).length == 0) {
+        show_validate_msg("#Description", "error", "必填选项");
+        return false;
+    }
+    return true;
+}
+
+$("#doctorInput").change(function(){
+    if ($("#doctorInput").val() != "") {
+        show_validate_msg("#doctorInput", "success", "");
+    }
+});
+
+$("#AppointmentTime").change(function(){
+    if ($("#AppointmentTime").val() != "") {
+        show_validate_msg("#AppointmentTime", "success", "");
+    }
+});
+
+$("#Description").change(function(){
+    if ($("#Description").val() != "") {
+        show_validate_msg("#Description", "success", "");
+    }
+});

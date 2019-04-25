@@ -1,10 +1,13 @@
 package com.springboot.service.serviceImpl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.springboot.commons.CommonTableUtils;
 import com.springboot.dto.UserRoleDto;
 import com.springboot.dto.User_UserRole;
 import com.springboot.entity.BasicInformation;
 import com.springboot.entity.UserRole;
+import com.springboot.mapper.UserRoleMapper;
 import com.springboot.repository.UserRoleRepository;
 import com.springboot.service.SqeNoService;
 import com.springboot.service.UserRoleService;
@@ -35,6 +38,10 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Qualifier("sqeNoServiceImpl")
     SqeNoService sqeNoService;
 
+    @Autowired
+    @Qualifier("userRoleMapper")
+    UserRoleMapper userRoleMapper;
+
     @Override
     public List<UserRoleDto> findAll() {
         List<UserRole> userRoles = userRoleRepository.findAll();
@@ -47,6 +54,38 @@ public class UserRoleServiceImpl implements UserRoleService {
             } else if ("N".equals(userRoleDto.getStatus())) {
                 userRoleDto.setStatus("unEffective");
             }
+            userRoleDtos.add(userRoleDto);
+        });
+
+        return userRoleDtos;
+    }
+
+    @Override
+    public PageInfo findAllByMybatis(Integer pageNumber, Integer pageSize) {
+        PageHelper.startPage(pageNumber, pageSize);
+        List<UserRoleDto> roleDtos = userRoleMapper.findAll();
+
+        roleDtos.forEach(userRoleDto -> {
+            if ("Y".equals(userRoleDto.getStatus())) {
+                userRoleDto.setStatus("Effective");
+            } else if ("N".equals(userRoleDto.getStatus())) {
+                userRoleDto.setStatus("unEffective");
+            }
+        });
+
+        PageInfo<UserRoleDto> userRoleDtoPageInfo = new PageInfo<>(roleDtos);
+
+        return userRoleDtoPageInfo;
+    }
+
+    @Override
+    public List<UserRoleDto> findByStatus(String status) {
+        List<UserRole> userRoles = userRoleRepository.findByStatus(status);
+
+        List<UserRoleDto> userRoleDtos = new ArrayList<>();
+        userRoles.forEach(userRole -> {
+            UserRoleDto userRoleDto = mapper.map(userRole, UserRoleDto.class);
+
             userRoleDtos.add(userRoleDto);
         });
 

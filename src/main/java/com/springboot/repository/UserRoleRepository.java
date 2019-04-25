@@ -13,6 +13,8 @@ public interface UserRoleRepository extends JpaRepository<UserRole,String> {
 
     Long countById(String id);
 
+    List<UserRole> findByStatus(String status);
+
     @Query(value = "select * from user_user_role u where u.user_id = :userId", nativeQuery = true)
     List<Object[]> findUserRole(@Param("userId") String userId);
 

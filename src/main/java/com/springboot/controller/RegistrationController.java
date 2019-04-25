@@ -46,12 +46,18 @@ public class RegistrationController {
         try {
             PatientDto patientDto = patientService.findById(id);
             if (patientDto != null) {
-                return Message.success().add("patient", patientDto);
+                if (patientDto.getStatus().equals("N")) {
+                    return Message.fail().add("msg", "用户名不可用");
+                } else if (patientDto.getStatus().equals("Y")) {
+                    return Message.success().add("msg", "用户名可用");
+                } else {
+                    return Message.success();
+                }
             } else {
-                return Message.fail();
+                return Message.fail().add("msg", "用户名不存在");
             }
         } catch (Exception e) {
-            LOGGER.error(e.getMessage(),e.getCause());
+            LOGGER.error(e.getMessage(), e.getCause());
             throw e;
         }
     }

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserService {
     //Mybatis
-    PageInfo findAllWithPage(Integer pageNumber, Integer pageSize);
+    PageInfo findAllByMybatis(Integer pageNumber, Integer pageSize);
 
     UserDto findByIdWithMapper(String id);
 

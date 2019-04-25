@@ -1,5 +1,7 @@
 package com.springboot.controller;
 
+import com.github.pagehelper.PageInfo;
+import com.springboot.commons.PageUtils;
 import com.springboot.dto.Message;
 import com.springboot.dto.UserRoleDto;
 import com.springboot.service.UserRoleService;
@@ -33,8 +35,16 @@ public class UserRoleController {
 
     @ResponseBody
     @GetMapping("userRole")
-    public Message findAll() {
-        List<UserRoleDto> userRoleDtos = userRoleService.findAll();
+    public Message findAll(@RequestParam(value = "pageNumber", defaultValue = "1")Integer pageNumber) {
+        PageInfo pageInfo = userRoleService.findAllByMybatis(pageNumber, PageUtils.PAGE_SIZE);
+
+        return Message.success().add("pageInfo",pageInfo);
+    }
+
+    @ResponseBody
+    @GetMapping("availableUserRole")
+    public Message findAvailableUserRole() {
+        List<UserRoleDto> userRoleDtos = userRoleService.findByStatus("Y");
 
         return Message.success("success").add("list",userRoleDtos);
     }

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50640
 File Encoding         : 65001
 
-Date: 2019-04-24 18:52:29
+Date: 2019-04-25 18:50:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -43,6 +43,7 @@ CREATE TABLE `appointment` (
 INSERT INTO `appointment` VALUES ('APP0012', '2019-04-13 08:00:00', 'TEST', '1', 'N', 'USR0001', 'PAT0001', 'USR0001', '2019-04-13 20:49:45', 'USR0001', '2019-04-13 20:49:45', '2019-04-14 14:47:03');
 INSERT INTO `appointment` VALUES ('APP0013', '2019-04-13 08:00:00', 'TEST', '2', 'N', 'USR0001', 'PAT0001', 'USR0001', '2019-04-13 20:52:03', 'USR0001', '2019-04-13 20:52:03', '2019-04-14 14:45:58');
 INSERT INTO `appointment` VALUES ('APP0014', '2019-04-19 15:05:00', 'SA', '1', 'N', 'USR0001', 'PAT0003', 'USR0001', '2019-04-14 14:47:48', 'USR0001', '2019-04-14 14:47:48', '2019-04-19 15:10:00');
+INSERT INTO `appointment` VALUES ('APP0015', '2019-04-25 10:05:00', '123', '1', 'N', 'USR0002', 'PAT0008', 'USR0001', '2019-04-25 18:48:43', 'USR0001', '2019-04-25 18:48:43', '2019-04-25 18:49:00');
 
 -- ----------------------------
 -- Table structure for clinic
@@ -105,6 +106,7 @@ INSERT INTO `diagnosis` VALUES ('DIA0013', 'sad', 'Y', 'USR0001', 'PAT0001', 'US
 INSERT INTO `diagnosis` VALUES ('DIA0014', 'jjjj', 'Y', 'USR0001', 'PAT0001', 'USR0001', '2019-04-14 14:45:58', 'USR0001', '2019-04-14 14:45:58', '2019-04-24 17:49:58');
 INSERT INTO `diagnosis` VALUES ('DIA0015', 'ssss', 'Y', 'USR0001', 'PAT0001', 'USR0001', '2019-04-14 14:47:03', 'USR0001', '2019-04-14 14:47:03', '2019-04-24 17:49:59');
 INSERT INTO `diagnosis` VALUES ('DIA0016', 'SAD', 'N', 'USR0001', 'PAT0003', 'USR0001', '2019-04-14 14:48:03', 'USR0001', '2019-04-14 14:48:03', '2019-04-24 17:50:02');
+INSERT INTO `diagnosis` VALUES ('DIA0017', 'test', 'Y', 'USR0002', 'PAT0008', 'USR0001', '2019-04-25 18:49:09', 'USR0001', '2019-04-25 18:49:09', '2019-04-25 18:49:09');
 
 -- ----------------------------
 -- Table structure for drug_profile
@@ -199,6 +201,8 @@ INSERT INTO `drug_stock` VALUES ('DRS0009', '6', 'CCM0003', 'DIA0016', 'USR0001'
 INSERT INTO `drug_stock` VALUES ('DRS0010', '6', 'CCM0004', 'DIA0016', 'USR0001', '2019-04-14 14:48:03', 'USR0001', '2019-04-14 14:48:03', null);
 INSERT INTO `drug_stock` VALUES ('DRS0011', '6', 'CCM0005', 'DIA0016', 'USR0001', '2019-04-14 14:48:03', 'USR0001', '2019-04-14 14:48:03', null);
 INSERT INTO `drug_stock` VALUES ('DRS0012', '6', 'CCM0006', 'DIA0016', 'USR0001', '2019-04-14 14:48:03', 'USR0001', '2019-04-14 14:48:03', null);
+INSERT INTO `drug_stock` VALUES ('DRS0013', '6', 'CCM0001', 'DIA0017', 'USR0001', '2019-04-25 18:49:09', 'USR0001', '2019-04-25 18:49:09', '2019-04-25 18:49:09');
+INSERT INTO `drug_stock` VALUES ('DRS0014', '6', 'CCM0002', 'DIA0017', 'USR0001', '2019-04-25 18:49:09', 'USR0001', '2019-04-25 18:49:09', '2019-04-25 18:49:09');
 
 -- ----------------------------
 -- Table structure for parameter
@@ -239,16 +243,16 @@ CREATE TABLE `patient` (
 -- ----------------------------
 -- Records of patient
 -- ----------------------------
-INSERT INTO `patient` VALUES ('PAT0001', '20', '1658895307@qq.com', 'M', '1658895307', 'limei', 'Y', '1', '2019-03-13 16:22:57', 'USR0001', '2019-04-11 11:19:24', '2019-04-11 11:19:24');
-INSERT INTO `patient` VALUES ('PAT0002', '20', '1658895307@qq.com', 'M', '1658895307', 'chan', 'Y', '1', '2019-03-14 18:03:59', '1', '2019-03-14 18:03:59', '2019-04-11 13:47:30');
-INSERT INTO `patient` VALUES ('PAT0003', '20', '1658895307@qq.com', 'M', '1658895307', 'chan', 'Y', '1', '2019-03-14 18:03:59', '1', '2019-03-14 18:03:59', '2019-04-11 13:47:31');
-INSERT INTO `patient` VALUES ('PAT0004', '20', '1658895307@qq.com', 'M', '1658895307', 'chan', 'Y', '1', '2019-03-14 18:03:59', '1', '2019-03-14 18:03:59', '2019-04-11 13:47:31');
-INSERT INTO `patient` VALUES ('PAT0005', '20', '1658895307@qq.com', 'M', '1658895307', 'chan', 'Y', '1', '2019-03-14 18:03:59', '1', '2019-03-14 18:03:59', '2019-04-11 13:47:50');
-INSERT INTO `patient` VALUES ('PAT0006', '20', '1658895307@qq.com', 'M', '1658895307', 'chan', 'Y', '1', '2019-03-14 18:03:59', '1', '2019-03-14 18:03:59', '2019-04-11 13:47:51');
-INSERT INTO `patient` VALUES ('PAT0007', '20', '1658895307@qq.com', 'M', '1658895307', 'chan', 'Y', '1', '2019-03-14 18:03:59', '1', '2019-03-14 18:03:59', '2019-04-11 13:47:51');
-INSERT INTO `patient` VALUES ('PAT0008', '20', '1658895307@qq.com', 'M', '1658895307', 'chan', 'Y', '1', '2019-03-14 18:03:59', '1', '2019-03-14 18:03:59', '2019-04-11 13:47:52');
-INSERT INTO `patient` VALUES ('PAT0009', '20', '1658895307@qq.com', 'M', '1658895307', 'chan', 'Y', '1', '2019-03-14 18:03:59', '1', '2019-03-14 18:03:59', '2019-04-11 13:47:53');
-INSERT INTO `patient` VALUES ('PAT0010', '20', '1658895307@qq.com', 'M', '1658895307', 'chan', 'Y', '1', '2019-03-14 18:03:59', 'USR0001', '2019-04-11 10:54:18', '2019-04-11 10:54:18');
+INSERT INTO `patient` VALUES ('PAT0001', '21', '1658895307@qq.com', 'F', '1658895307', '李梅熬', 'Y', '1', '2019-03-13 16:22:57', 'USR0001', '2019-04-25 17:18:12', '2019-04-25 17:18:12');
+INSERT INTO `patient` VALUES ('PAT0002', '23', '1658895307@qq.com', 'M', '1658895307', '深ლ(′◉❥◉｀ლ)', 'Y', '1', '2019-03-14 18:03:59', 'USR0001', '2019-04-25 17:18:27', '2019-04-25 17:18:27');
+INSERT INTO `patient` VALUES ('PAT0003', '20', '1658895307@qq.com', 'F', '1658895307', '丰盛', 'Y', '1', '2019-03-14 18:03:59', 'USR0001', '2019-04-25 17:18:37', '2019-04-25 17:18:37');
+INSERT INTO `patient` VALUES ('PAT0004', '56', '1658895307@qq.com', 'F', '1658895307', '听人', 'N', '1', '2019-03-14 18:03:59', 'USR0001', '2019-04-25 17:24:32', '2019-04-25 17:24:32');
+INSERT INTO `patient` VALUES ('PAT0005', '12', '1658895307@qq.com', 'M', '1658895307', '二娃', 'N', '1', '2019-03-14 18:03:59', 'USR0001', '2019-04-25 17:24:49', '2019-04-25 17:24:49');
+INSERT INTO `patient` VALUES ('PAT0006', '26', '1658895307@qq.com', 'F', '1658895307', '囖为', 'Y', '1', '2019-03-14 18:03:59', 'USR0001', '2019-04-25 17:20:58', '2019-04-25 17:20:58');
+INSERT INTO `patient` VALUES ('PAT0007', '20', '1658895307@qq.com', 'F', '1658895307', '额我是', 'N', '1', '2019-03-14 18:03:59', 'USR0001', '2019-04-25 17:21:14', '2019-04-25 17:21:14');
+INSERT INTO `patient` VALUES ('PAT0008', '20', '1658895307@qq.com', 'F', '1658895307', '食发鬼', 'Y', '1', '2019-03-14 18:03:59', 'USR0001', '2019-04-25 17:23:57', '2019-04-25 17:23:57');
+INSERT INTO `patient` VALUES ('PAT0009', '20', '1658895307@qq.com', 'F', '1658895307', '二维', 'Y', '1', '2019-03-14 18:03:59', 'USR0001', '2019-04-25 17:24:25', '2019-04-25 17:24:25');
+INSERT INTO `patient` VALUES ('PAT0010', '20', '1658895307@qq.com', 'M', '1658895307', '法定', 'Y', '1', '2019-03-14 18:03:59', 'USR0001', '2019-04-25 17:24:11', '2019-04-25 17:24:11');
 
 -- ----------------------------
 -- Table structure for table_identity
@@ -267,11 +271,11 @@ CREATE TABLE `table_identity` (
 -- ----------------------------
 INSERT INTO `table_identity` VALUES ('USER', 'USR', '4', '11');
 INSERT INTO `table_identity` VALUES ('USER_ROLE', 'ROL', '4', '6');
-INSERT INTO `table_identity` VALUES ('APPOINTMENT', 'APP', '4', '15');
-INSERT INTO `table_identity` VALUES ('DIAGNOSIS', 'DIA', '4', '17');
+INSERT INTO `table_identity` VALUES ('APPOINTMENT', 'APP', '4', '16');
+INSERT INTO `table_identity` VALUES ('DIAGNOSIS', 'DIA', '4', '18');
 INSERT INTO `table_identity` VALUES ('DRUG', 'CCM', '4', '8');
 INSERT INTO `table_identity` VALUES ('PATIENT', 'PAT', '4', '11');
-INSERT INTO `table_identity` VALUES ('DRUGSTOCK', 'DRS', '4', '13');
+INSERT INTO `table_identity` VALUES ('DRUGSTOCK', 'DRS', '4', '15');
 INSERT INTO `table_identity` VALUES ('DRUGRESTOCK', 'DST', '4', '3');
 
 -- ----------------------------
@@ -288,7 +292,6 @@ CREATE TABLE `user_profile` (
   `current_num` int(11) DEFAULT NULL,
   `order_num` int(11) DEFAULT NULL,
   `create_by` varchar(100) NOT NULL,
-  `create_clinic` int(11) NOT NULL,
   `create_dtm` datetime NOT NULL,
   `update_by` varchar(100) DEFAULT NULL,
   `update_dtm` datetime DEFAULT NULL,
@@ -299,16 +302,10 @@ CREATE TABLE `user_profile` (
 -- ----------------------------
 -- Records of user_profile
 -- ----------------------------
-INSERT INTO `user_profile` VALUES ('USR0001', '1658895307@qq.com', '16620375709', 'admin', '9fc3dae6ad418ff1f14b34abba261f6d', '骨科', '-1', '10', 'admin', '1', '2019-03-08 15:53:31', '1', '2019-03-21 16:21:55', '2019-04-19 15:10:00');
-INSERT INTO `user_profile` VALUES ('USR0002', '1658895307@qq.com', '1658895307', '骨科医师1', '123456', '骨科', '0', '10', 'user', '1', '2019-03-08 17:27:49', '1', '2019-03-21 16:24:08', '2019-04-13 19:42:16');
-INSERT INTO `user_profile` VALUES ('USR0003', '1658895307@qq.com', '16620375709', '骨科医师2', '835f409e9fac9d721567bee16ac9e387', '骨科', '0', '10', '1', '1', '2019-03-17 18:09:14', '1', '2019-03-21 16:22:36', '2019-04-13 19:42:26');
-INSERT INTO `user_profile` VALUES ('USR0004', '1658895307@qq.com', '16620375709', 'happy', '835f409e9fac9d721567bee16ac9e387', '咽喉科', '0', '10', '1', '1', '2019-03-17 18:09:14', '1', '2019-03-21 16:22:36', '2019-03-21 17:45:30');
-INSERT INTO `user_profile` VALUES ('USR0005', '1658895307@qq.com', '16620375709', 'happy', '835f409e9fac9d721567bee16ac9e387', '咽喉科', '0', '10', '1', '1', '2019-03-17 18:09:14', '1', '2019-03-21 16:22:36', '2019-03-21 17:45:30');
-INSERT INTO `user_profile` VALUES ('USR0006', '1658895307@qq.com', '16620375709', 'happy', '835f409e9fac9d721567bee16ac9e387', '咽喉科', '0', '10', '1', '1', '2019-03-17 18:09:14', '1', '2019-03-21 16:22:36', '2019-03-21 17:45:30');
-INSERT INTO `user_profile` VALUES ('USR0007', '1658895307@qq.com', '16620375709', 'happy', '835f409e9fac9d721567bee16ac9e387', '咽喉科', '0', '10', '1', '1', '2019-03-17 18:09:14', '1', '2019-03-21 16:22:36', '2019-03-21 17:45:30');
-INSERT INTO `user_profile` VALUES ('USR0008', '1658895307@qq.com', '16620375709', 'happy', '835f409e9fac9d721567bee16ac9e387', '咽喉科', '0', '10', '1', '1', '2019-03-17 18:09:14', '1', '2019-03-21 16:22:36', '2019-03-21 17:45:30');
-INSERT INTO `user_profile` VALUES ('USR0009', '1658895307@qq.com', '16620375709', 'happy', '835f409e9fac9d721567bee16ac9e387', '咽喉科', '0', '10', '1', '1', '2019-03-17 18:09:14', '1', '2019-03-21 16:22:36', '2019-03-21 17:45:30');
-INSERT INTO `user_profile` VALUES ('USR0010', '1658895307@qq.com', '16620375709', 'happy', '835f409e9fac9d721567bee16ac9e387', '咽喉科', '0', '10', '1', '1', '2019-03-17 18:09:14', '1', '2019-03-21 16:22:36', '2019-03-21 17:45:30');
+INSERT INTO `user_profile` VALUES ('USR0001', '1658895307@qq.com', '16620375709', '管理员', '9fc3dae6ad418ff1f14b34abba261f6d', '鼻科', '-1', '10', 'admin', '2019-03-08 15:53:31', 'USR0001', '2019-04-25 16:14:20', '2019-04-25 16:14:20');
+INSERT INTO `user_profile` VALUES ('USR0002', '1658895307@qq.com', '1658895307', '骨科医师', '123456', '骨科', '-1', '10', 'user', '2019-03-08 17:27:49', 'USR0001', '2019-04-25 16:14:52', '2019-04-25 18:49:09');
+INSERT INTO `user_profile` VALUES ('USR0004', '1658895307@qq.com', '16620375709', '诊所工作人员', '835f409e9fac9d721567bee16ac9e387', '鼻科', '0', '10', '1', '2019-03-17 18:09:14', 'USR0001', '2019-04-25 16:15:32', '2019-04-25 16:15:32');
+INSERT INTO `user_profile` VALUES ('NIOS_TEST', 'juleschen@asl.com.cn', '16620375709', '测试', 'a5d6f2491e17f00f8b0724d3d44ab8e2', '骨科', '0', '10', 'USR0001', '2019-04-25 16:39:38', 'USR0001', '2019-04-25 16:40:35', '2019-04-25 16:40:35');
 
 -- ----------------------------
 -- Table structure for user_role
@@ -329,11 +326,9 @@ CREATE TABLE `user_role` (
 -- ----------------------------
 -- Records of user_role
 -- ----------------------------
-INSERT INTO `user_role` VALUES ('ROL0001', 'admin', 'N', 'admin', '2019-03-08 15:56:23', 'USR0001', '2019-04-18 17:45:36', '2019-04-18 17:45:36');
-INSERT INTO `user_role` VALUES ('ROL0002', 'user', 'Y', '1', '2019-03-20 15:39:41', '1', '2019-03-20 15:39:41', '2019-03-20 15:39:41');
-INSERT INTO `user_role` VALUES ('ROL0003', 'user', 'Y', '1', '2019-03-20 15:50:47', '1', '2019-03-20 15:50:47', '2019-03-20 15:50:47');
-INSERT INTO `user_role` VALUES ('ROL0004', 'test', 'Y', '1', '2019-03-20 15:52:51', '1', '2019-03-20 15:52:51', '2019-03-20 15:52:51');
-INSERT INTO `user_role` VALUES ('ROL0005', 'admin', 'N', 'USR0001', '2019-04-18 17:41:35', 'USR0001', '2019-04-18 17:41:35', '2019-04-18 17:41:35');
+INSERT INTO `user_role` VALUES ('ROL0001', '管理员', 'Y', 'USR0001', '2019-03-08 15:56:23', 'USR0001', '2019-04-18 17:45:36', '2019-04-25 14:09:34');
+INSERT INTO `user_role` VALUES ('ROL0002', '医师', 'N', 'USR0001', '2019-03-20 15:39:41', 'USR0001', '2019-04-25 16:46:03', '2019-04-25 16:46:03');
+INSERT INTO `user_role` VALUES ('ROL0003', '诊所工作人员', 'Y', 'USR0001', '2019-03-20 15:50:47', 'USR0001', '2019-04-25 16:42:24', '2019-04-25 16:42:24');
 
 -- ----------------------------
 -- Table structure for user_user_role
@@ -350,12 +345,6 @@ CREATE TABLE `user_user_role` (
 -- Records of user_user_role
 -- ----------------------------
 INSERT INTO `user_user_role` VALUES ('USR0001', 'ROL0001');
-INSERT INTO `user_user_role` VALUES ('USR0002', 'ROL0001');
-INSERT INTO `user_user_role` VALUES ('USR0003', 'ROL0002');
-INSERT INTO `user_user_role` VALUES ('USR0004', 'ROL0001');
-INSERT INTO `user_user_role` VALUES ('USR0005', 'ROL0001');
-INSERT INTO `user_user_role` VALUES ('USR0006', 'ROL0001');
-INSERT INTO `user_user_role` VALUES ('USR0007', 'ROL0001');
-INSERT INTO `user_user_role` VALUES ('USR0008', 'ROL0001');
-INSERT INTO `user_user_role` VALUES ('USR0009', 'ROL0001');
-INSERT INTO `user_user_role` VALUES ('USR0010', 'ROL0001');
+INSERT INTO `user_user_role` VALUES ('USR0002', 'ROL0002');
+INSERT INTO `user_user_role` VALUES ('USR0004', 'ROL0003');
+INSERT INTO `user_user_role` VALUES ('NIOS_TEST', 'ROL0001');

@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageInfo findAllWithPage(Integer pageNumber, Integer pageSize) {
+    public PageInfo findAllByMybatis(Integer pageNumber, Integer pageSize) {
         PageHelper.startPage(pageNumber, pageSize);
         List<UserDto> userDtos = userMapper.findAll();
         PageInfo<UserDto> userDtoPageInfo = new PageInfo<>(userDtos);

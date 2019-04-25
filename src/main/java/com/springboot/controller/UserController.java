@@ -60,9 +60,9 @@ public class UserController {
     @ResponseBody
     @GetMapping("/user")
     @RequiresAuthentication
-    public Message findAll(@RequestParam(value = "pageNumber", defaultValue = "0")Integer pageNumber) {
+    public Message findAll(@RequestParam(value = "pageNumber", defaultValue = "1")Integer pageNumber) {
         try {
-            PageInfo pageInfo = userService.findAllWithPage(pageNumber, PageUtils.PAGE_SIZE);
+            PageInfo pageInfo = userService.findAllByMybatis(pageNumber, PageUtils.PAGE_SIZE);
             return Message.success().add("pageInfo",pageInfo);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(),e.getCause());
