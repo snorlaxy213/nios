@@ -202,6 +202,7 @@ $("#delete_all_btn").click(function(){
             success:function(result)
             {
                 to_page(0);
+                alert("删除成功");
             }
         });
     }
@@ -209,15 +210,18 @@ $("#delete_all_btn").click(function(){
 
 $(document).on("click", ".delete_btn", function () {
     let UserRoleId = $(this).attr("del-id");
-    $.ajax({
-        url: "/nios/userRole/userRole/"+UserRoleId,
-        type: "DELETE",
-        success: function (result) {
-            if (result.code == 100) {
-                to_page(0);
+    if(confirm("确认删除【"+UserRoleId+"】吗？")) {
+        $.ajax({
+            url: "/nios/userRole/userRole/" + UserRoleId,
+            type: "DELETE",
+            success: function (result) {
+                if (result.code == 100) {
+                    to_page(0);
+                    alert("删除成功");
+                }
             }
-        }
-    });
+        });
+    }
 });
 
 function getJson() {

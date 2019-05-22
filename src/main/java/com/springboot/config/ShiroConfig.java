@@ -52,15 +52,17 @@ public class ShiroConfig {
         //-------------------role
         filterMap.put("/user.html", "roles[ROL0001]");
         filterMap.put("/user-role.html", "roles[ROL0001]");
-        filterMap.put("/appointment.html", "roles[ROL0001]");
-        filterMap.put("/diagnosis.html", "roles[ROL0001]");
-        filterMap.put("/registration.html", "roles[ROL0001]");
-        filterMap.put("/drug.html", "roles[ROL0001]");
+        filterMap.put("/appointment.html", "roles[ROL0003]");
+        filterMap.put("/diagnosis.html", "roles[ROL0002]");
+        filterMap.put("/registration.html", "roles[ROL0003]");
+        filterMap.put("/drug.html", "roles[ROL0003]");
+        filterMap.put("/dispensing.html", "roles[ROL0003]");
 
         //------------------logout
         filterMap.put("/logout.action", "logout");
 
         //------------------authc
+        filterMap.put("/index.html", "authc");
         filterMap.put("/*", "authc");
 
         shiroFilterFactoryBean.setLoginUrl("/toLogin");

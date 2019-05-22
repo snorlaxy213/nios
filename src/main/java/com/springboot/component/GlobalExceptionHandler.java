@@ -23,8 +23,8 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = GlobalException.class)
-    public GlobalException exceptionGlobalHandler(GlobalException e){
-        return e;
+    public String exceptionGlobalHandler(GlobalException e){
+        return e.getMessage();
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

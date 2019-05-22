@@ -1,7 +1,7 @@
 package com.springboot;
 
 import com.github.pagehelper.PageInfo;
-import com.springboot.commons.CommonTableUtils;
+import com.springboot.commons.Constants;
 import com.springboot.dto.PatientDto;
 import com.springboot.service.PatientService;
 import com.springboot.service.SqeNoService;
@@ -53,7 +53,7 @@ public class PatientTest {
     public void saveTest() {
 
         PatientDto patientDto = new PatientDto();
-        patientDto.setId(sqeNoService.getSeqNo(CommonTableUtils.PATIENT));
+        patientDto.setId(sqeNoService.getSeqNo(Constants.PATIENT));
         patientDto.setName("chan");
         patientDto.setAge(20L);
         patientDto.setEmail("1658895307@qq.com");

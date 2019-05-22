@@ -47,11 +47,11 @@ public class RegistrationController {
             PatientDto patientDto = patientService.findById(id);
             if (patientDto != null) {
                 if (patientDto.getStatus().equals("N")) {
-                    return Message.fail().add("msg", "用户名不可用");
+                    return Message.fail().add("msg", "用户名不可用").add("patient",patientDto);
                 } else if (patientDto.getStatus().equals("Y")) {
-                    return Message.success().add("msg", "用户名可用");
+                    return Message.success().add("msg", "用户名可用").add("patient",patientDto);
                 } else {
-                    return Message.success();
+                    return Message.success().add("patient",patientDto);
                 }
             } else {
                 return Message.fail().add("msg", "用户名不存在");

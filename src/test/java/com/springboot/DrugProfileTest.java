@@ -1,6 +1,6 @@
 package com.springboot;
 
-import com.springboot.commons.CommonTableUtils;
+import com.springboot.commons.Constants;
 import com.springboot.dto.DrugProfileDto;
 import com.springboot.service.DrugProfileService;
 import com.springboot.service.SqeNoService;
@@ -32,7 +32,7 @@ public class DrugProfileTest {
     @Test
     public void save() {
         DrugProfileDto drugProfileDto = new DrugProfileDto();
-        drugProfileDto.setId(sqeNoService.getSeqNo(CommonTableUtils.DRUG));
+        drugProfileDto.setId(sqeNoService.getSeqNo(Constants.DRUG));
         drugProfileDto.setName("八仙草");
         drugProfileDto.setType("配方颗粒");
         drugProfileDto.setDescription("Test");

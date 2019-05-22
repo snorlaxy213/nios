@@ -29,4 +29,12 @@
         where appointment.user_id = profile.user_id and appointment.patient_key = patient.patient_key and appointment.appointment_id = #{Id}
     </select>
 
+    <select id="findByPatientKey" parameterType="String" resultType="java.lang.Long">
+        SELECT count(*) FROM appointment appointment where appointment.patient_key = #{patientKey} and appointment.status = 'Y'
+    </select>
+
+    <select id="findByTimeAndUserId" parameterType="Map" resultType="java.lang.Long">
+        SELECT count(*) FROM appointment appointment where appointment.user_id = #{params.userId} and appointment.appointment_time = #{params.time} and appointment.status = 'Y'
+    </select>
+
 </mapper>

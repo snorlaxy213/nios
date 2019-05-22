@@ -1,5 +1,6 @@
 package com.springboot.service.serviceImpl;
 
+import com.springboot.commons.PrintUtil;
 import com.springboot.dto.DiagnosisDto;
 import com.springboot.dto.DispensingDrugDto;
 import com.springboot.dto.DispensingDto;
@@ -37,6 +38,10 @@ public class DispensingServiceImpl implements DispensingService {
     @Autowired
     @Qualifier("diagnosisServiceImpl")
     DiagnosisService diagnosisService;
+
+    @Autowired
+    @Qualifier("dispensingServiceImpl")
+    private DispensingService dispensingService;
 
     @Override
     public DispensingDto findByDiagnosisID(String diagnosisID) throws Exception {
@@ -95,10 +100,15 @@ public class DispensingServiceImpl implements DispensingService {
                 } else {
                     drugProfileDto.setAmount(temp);
                     drugProfileService.save(drugProfileDto, userId);
-                    diagnosisDto.setStatus("N");
-                    diagnosisService.save(diagnosisDto, userId);
+//                    diagnosisDto.setStatus("N");
+//                    diagnosisService.save(diagnosisDto, userId);
                 }
             }
+
+            PrintUtil printUtil = new PrintUtil();
+            DispensingDto dispensingDto = dispensingService.findByDiagnosisID(diagnosisID);
+            String pdfByte = printUtil.generatePdfByte(dispensingDto);
+
             return "配药成功";
         } catch (Exception e) {
             LOGGER.error(e.getMessage());

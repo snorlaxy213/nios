@@ -1,5 +1,6 @@
 package com.springboot.dto;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -9,7 +10,11 @@ public class AppointmentDto extends BasicRowInfo implements Serializable {
 
     private String id;
 
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
+    @NotNull(message = "预约时间不可以为空")
     private Date appointmentTime;
+
+    private String appointmentTime_str;
 
     private String description;
 
@@ -40,6 +45,14 @@ public class AppointmentDto extends BasicRowInfo implements Serializable {
 
     public void setAppointmentTime(Date appointmentTime) {
         this.appointmentTime = appointmentTime;
+    }
+
+    public String getAppointmentTime_str() {
+        return appointmentTime_str;
+    }
+
+    public void setAppointmentTime_str(String appointmentTime_str) {
+        this.appointmentTime_str = appointmentTime_str;
     }
 
     public String getDescription() {

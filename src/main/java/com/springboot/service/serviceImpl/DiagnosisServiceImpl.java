@@ -1,6 +1,6 @@
 package com.springboot.service.serviceImpl;
 
-import com.springboot.commons.CommonTableUtils;
+import com.springboot.commons.Constants;
 import com.springboot.dto.DiagnosisDto;
 import com.springboot.dto.DrugStockDto;
 import com.springboot.dto.PatientDto;
@@ -88,7 +88,7 @@ public class DiagnosisServiceImpl implements DiagnosisService {
         PatientDto patientDto = patientService.findById(diagnosisDto.getPatientDto().getId());
         diagnosis.setPatient(mapper.map(patientDto, Patient.class));
 
-        diagnosis.setId(sqeNoService.getSeqNo(CommonTableUtils.DIAGNOSIS));
+        diagnosis.setId(sqeNoService.getSeqNo(Constants.DIAGNOSIS));
         diagnosis.setBasicInformation(new BasicInformation());
         this.getModifiedInfo(diagnosis.getBasicInformation(), userId);
 

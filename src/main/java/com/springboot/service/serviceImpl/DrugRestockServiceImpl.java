@@ -1,6 +1,6 @@
 package com.springboot.service.serviceImpl;
 
-import com.springboot.commons.CommonTableUtils;
+import com.springboot.commons.Constants;
 import com.springboot.dto.DrugRestockDto;
 import com.springboot.entity.BasicInformation;
 import com.springboot.entity.DrugProfile;
@@ -53,7 +53,7 @@ public class DrugRestockServiceImpl implements DrugRestockService {
             DrugProfile drugProfile = drugProfileOptional.get();
 
             DrugRestock drugRestock = mapper.map(restockDto, DrugRestock.class);
-            drugRestock.setId(sqeNoService.getSeqNo(CommonTableUtils.RESTOCK));
+            drugRestock.setId(sqeNoService.getSeqNo(Constants.RESTOCK));
             drugRestock.setDrugProfile(drugProfile);
             drugRestock.setBasicInformation(new BasicInformation());
             this.getModifiedInfo(drugRestock.getBasicInformation(), userID);

@@ -22,14 +22,9 @@
             <li class="dropdown profile">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><!--<shiro:principal property = "name"/>--> <span class="caret"></span></a>
                 <ul class="dropdown-menu animated fadeInDown">
-                    <li class="profile-img">
-                        <img th:src="@{/img/profile/picjumbo.com_HNCK4153_resize.jpg}" class="profile-img">
-                    </li>
                     <li>
                         <div class="profile-info">
-                            <h4 class="username"><!--<shiro:principal property = "name"/>--></h4>
                             <div class="btn-group margin-bottom-2x" role="group">
-                                <button type="button" class="btn btn-default"><i class="fa fa-user"></i> Profile</button>
                                 <a th:href="@{/logout.action}"><button type="button" class="btn btn-default"><i class="fa fa-sign-out"></i> Logout</button></a>
                             </div>
                         </div>
@@ -57,6 +52,7 @@
                         <span class="icon fa fa-tachometer"></span><span class="title">仪板</span>
                     </a>
                 </li>
+                <shiro:hasRole name="ROL0003">
                 <li class="active" th:class="${activeUri=='registration.html'?'active':''}">
                     <a th:href="@{/registration.html}" href="registration.html">
                         <span class="icon glyphicon glyphicon-plus"></span><span class="title">登记</span>
@@ -67,11 +63,15 @@
                         <span class="icon glyphicon glyphicon-pencil"></span><span class="title">预约</span>
                     </a>
                 </li>
+                </shiro:hasRole>
+                <shiro:hasRole name="ROL0002">
                 <li class="active" th:class="${activeUri=='diagnosis.html'?'active':''}">
                     <a th:href="@{/diagnosis.html}" href="diagnosis.html">
                         <span class="icon glyphicon glyphicon-erase"></span><span class="title">诊断</span>
                     </a>
                 </li>
+                </shiro:hasRole>
+                <shiro:hasRole name="ROL0003">
                 <li class="panel panel-default dropdown active" th:class="${activeUri=='drug.html'?'panel panel-default dropdown active':'panel panel-default dropdown'}">
                     <a data-toggle="collapse" href="#drug-element">
                         <span class="icon glyphicon glyphicon-leaf"></span><span class="title">药物管理</span>
@@ -86,6 +86,7 @@
                         </div>
                     </div>
                 </li>
+                </shiro:hasRole>
                 <shiro:hasRole name="ROL0001">
                 <li class="panel panel-default dropdown active" th:class="${activeUri=='user-role.html'?'panel panel-default dropdown active':'panel panel-default dropdown'}">
                     <a data-toggle="collapse" href="#dropdown-element">
@@ -99,13 +100,16 @@
                                 </li>
                                 <li><a th:href="@{/user-role.html}" href="#">角色管理</a>
                                 </li>
-                                <li><a th:href="@{/change-password.html}" href="#">修改密码</a>
-                                </li>
                             </ul>
                         </div>
                     </div>
                 </li>
                 </shiro:hasRole>
+                <li class="active" th:class="${activeUri=='change-password.html'?'active':''}">
+                    <a th:href="@{/change-password.html}" href="license.html">
+                        <span class="icon fa fa-thumbs-o-up"></span><span class="title">修改密码</span>
+                    </a>
+                </li>
                 <li class="active" th:class="${activeUri=='license.html'?'active':''}">
                     <a th:href="@{/license.html}" href="license.html">
                         <span class="icon fa fa-thumbs-o-up"></span><span class="title">证书</span>

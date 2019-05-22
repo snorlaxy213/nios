@@ -2,7 +2,7 @@ package com.springboot.service.serviceImpl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.springboot.commons.CommonTableUtils;
+import com.springboot.commons.Constants;
 import com.springboot.dto.PatientDto;
 import com.springboot.entity.BasicInformation;
 import com.springboot.entity.Patient;
@@ -96,7 +96,7 @@ public class PatientServiceImpl implements PatientService {
                 patientRepository.save(patient);
             } else {
                 Patient patient = mapper.map(patientDto,Patient.class);
-                patient.setId(sqeNoService.getSeqNo(CommonTableUtils.PATIENT));
+                patient.setId(sqeNoService.getSeqNo(Constants.PATIENT));
 
                 patient.setBasicInformation(new BasicInformation());
                 this.getModifiedInfo(patient.getBasicInformation(),userId);

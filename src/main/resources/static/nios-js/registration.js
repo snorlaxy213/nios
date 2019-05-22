@@ -39,7 +39,7 @@ function build_registration_table(result) {
         let EmailTd = $("<td></td>").append(item.email);
         let StatusTd = $("<td></td>").append(status);
         let editBtn = $("<button></button>").addClass("btn btn-success  btn-sm edit_btn").append($("<span></span>").addClass(
-            "glyphicon glyphicon-pencil")).append("update");
+            "glyphicon glyphicon-pencil")).append("编辑");
         editBtn.attr("edit-id", item.id);
         // let delBth = $("<button></button>").addClass(
         //     "btn btn-warning  btn-sm delete_btn").append(
@@ -52,6 +52,11 @@ function build_registration_table(result) {
 }
 
 $("#patient_save_btn").click(function () {
+
+    if (!nullCheck()) {
+        return false;
+    }
+
     let json = getJson();
     $.ajax({
         url: "/nios/registration/registration",
@@ -194,6 +199,67 @@ function build_page_nav(result) {
     //把url加入
     var navEle = $("<nav></nav>").append(ul);
     navEle.appendTo("#page_nav_area");
+}
+
+function nullCheck() {
+    if ($("#Name").val() == "" || $.trim($("#Name").val()).length == 0) {
+        show_validate_msg("#Name", "error", "必填选项");
+        return false;
+    }
+
+    if ($("#Age").val() == "" || $.trim($("#Age").val()).length == 0) {
+        show_validate_msg("#Age", "error", "必填选项");
+        return false;
+    }
+
+    if ($("#Mobile").val() == "" || $.trim($("#Mobile").val()).length == 0) {
+        show_validate_msg("#Mobile", "error", "必填选项");
+        return false;
+    }
+
+    if ($("#Email").val() == "" || $.trim($("#Email").val()).length == 0) {
+        show_validate_msg("#Email", "error", "必填选项");
+        return false;
+    }
+
+    /*if ($("#Description").val() == "" || $.trim($("#Description").val()).length == 0) {
+        show_validate_msg("#Description", "error", "必填选项");
+        return false;
+    }*/
+    return true;
+}
+$("#Name").change(function(){
+    if ($("#Name").val() != "") {
+        show_validate_msg("#Name", "success", "");
+    }
+});
+
+$("#Age").change(function(){
+    if ($("#Age").val() != "") {
+        show_validate_msg("#Age", "success", "");
+    }
+});
+
+$("#Mobile").change(function(){
+    if ($("#Mobile").val() != "") {
+        show_validate_msg("#Mobile", "success", "");
+    }
+});
+
+$("#Email").change(function(){
+    if ($("#Email").val() != "") {
+        show_validate_msg("#Email", "success", "");
+    }
+});
+
+function show_validate_msg(ele, status, msg) {
+    $(ele).parent().removeClass("has-success has-error");
+    $(ele).next("span").text("");
+
+    if ("error" == status) {
+        $(ele).parent().addClass("has-error");
+        $(ele).next("span").text(msg);
+    }
 }
 
 function getJson() {

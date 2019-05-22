@@ -3,7 +3,7 @@ package com.springboot.service.serviceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.springboot.commons.AliyunOSSUtil;
-import com.springboot.commons.CommonTableUtils;
+import com.springboot.commons.Constants;
 import com.springboot.commons.ExcelUtil;
 import com.springboot.dto.DrugProfileDto;
 import com.springboot.entity.BasicInformation;
@@ -112,7 +112,7 @@ public class DrugProfileServiceImpl implements DrugProfileService {
                 drugProfileRepository.save(drugProfile);
             } else {
                 DrugProfile drugProfile = mapper.map(drugProfileDto,DrugProfile.class);
-                drugProfile.setId(sqeNoService.getSeqNo(CommonTableUtils.DRUG));
+                drugProfile.setId(sqeNoService.getSeqNo(Constants.DRUG));
                 drugProfile.setUrl(null);
 
                 drugProfile.setBasicInformation(new BasicInformation());
@@ -138,7 +138,8 @@ public class DrugProfileServiceImpl implements DrugProfileService {
                 drugProfile.setType(drugProfileDto.getType());
                 drugProfile.setDefaultQuantity(drugProfileDto.getDefaultQuantity());
                 drugProfile.setDescription(drugProfileDto.getDescription());
-                drugProfile.setAmount(drugProfileDto.getAmount());
+                int amount = drugProfileDto.getAmount() + drugProfile.getAmount();
+                drugProfile.setAmount(amount);
                 drugProfile.setUnit(drugProfileDto.getUnit());
                 drugProfile.setStatus(drugProfileDto.getStatus());
                 drugProfile.setUrl(drugProfileDto.getUrl());
@@ -147,7 +148,7 @@ public class DrugProfileServiceImpl implements DrugProfileService {
                 drugProfileRepository.save(drugProfile);
             } else {
                 DrugProfile drugProfile = mapper.map(drugProfileDto,DrugProfile.class);
-                drugProfile.setId(sqeNoService.getSeqNo(CommonTableUtils.DRUG));
+                drugProfile.setId(sqeNoService.getSeqNo(Constants.DRUG));
 
                 drugProfile.setBasicInformation(new BasicInformation());
                 this.getModifiedInfo(drugProfile.getBasicInformation(), userId);

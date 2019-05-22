@@ -140,7 +140,7 @@ public class UserServiceImpl implements UserService {
                 userRepository.save(user);
             }
         } catch (Exception ex) {
-            LOGGER.error("delete fail",ex);
+            LOGGER.error("save fail",ex);
             throw ex;
         }
     }

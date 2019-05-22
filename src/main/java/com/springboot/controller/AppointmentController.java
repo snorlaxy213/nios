@@ -7,12 +7,15 @@ import com.springboot.service.AppointmentService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("appointment")
@@ -31,7 +34,11 @@ public class AppointmentController {
     @GetMapping("/appointment")
     public Message findAll() {
         try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             List<AppointmentDto> appointmentDtos = appointmentMapper.findAll("Y");
+            for (AppointmentDto appointmentDto : appointmentDtos) {
+                appointmentDto.setAppointmentTime_str(sdf.format(appointmentDto.getAppointmentTime()));
+            }
 
             return Message.success().add("list",appointmentDtos);
         } catch (Exception e) {
@@ -66,12 +73,43 @@ public class AppointmentController {
 
     @ResponseBody
     @PostMapping("/appointment")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Message save(@RequestBody AppointmentDto appointmentDto, HttpServletRequest request) throws Exception {
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Message save(@RequestBody @Valid AppointmentDto appointmentDto, BindingResult bindingResult, HttpServletRequest request) throws Exception {
         try {
+            if (bindingResult.hasErrors()) {
+                List<ObjectError> allErrors = bindingResult.getAllErrors();
+                List<String> errorMessages = new ArrayList<>();
+                for (ObjectError error : allErrors) {
+                    String defaultMessage = error.getDefaultMessage();
+                    errorMessages.add(defaultMessage);
+                }
+
+                return Message.validation(300, errorMessages);
+            }
+            String id = appointmentDto.getPatientDto().getId();
+            Long byPatientKey = appointmentMapper.findByPatientKey(id);
+            if (byPatientKey > 0) {
+                return Message.fail("只能同时有一个预约");
+            }
+            Date appointmentTime = appointmentDto.getAppointmentTime();
+            Calendar instance = Calendar.getInstance();
+            instance.setTime(appointmentTime);
+            int i = instance.get(10);
+            instance.set(10, i - 8);
+            String doctorId = appointmentDto.getUserDto().getId();
+            HashMap<String,Object> map = new HashMap<>();
+            map.put("userId", doctorId);
+
+            map.put("time", instance.getTime());
+            Long byTimeAndUserId = appointmentMapper.findByTimeAndUserId(map);
+            if (byTimeAndUserId > 0) {
+                return Message.fail("预约时间冲突");
+            }
+
+            appointmentDto.setAppointmentTime(instance.getTime());
             String userId = (String) request.getSession().getAttribute("userId");
             appointmentService.save(appointmentDto, userId);
-            return null;
+            return Message.success();
         } catch (Exception e) {
             LOGGER.error(e.getMessage());
             throw e;

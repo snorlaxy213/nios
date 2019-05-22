@@ -1,6 +1,6 @@
 package com.springboot.service.serviceImpl;
 
-import com.springboot.commons.CommonTableUtils;
+import com.springboot.commons.Constants;
 import com.springboot.dto.AppointmentDto;
 import com.springboot.dto.PatientDto;
 import com.springboot.dto.UserDto;
@@ -101,7 +101,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 appointmentRepository.save(appointment);
             } else {
                 Appointment appointment = mapper.map(appointmentDto,Appointment.class);
-                appointment.setId(sqeNoService.getSeqNo(CommonTableUtils.APPOINTMENT));
+                appointment.setId(sqeNoService.getSeqNo(Constants.APPOINTMENT));
                 appointment.setSequence(userService.getCurrentNum(appointmentDto.getUserDto().getId()));
                 appointment.setStatus("Y");
 
@@ -152,10 +152,12 @@ public class AppointmentServiceImpl implements AppointmentService {
             Calendar nowCad = Calendar.getInstance();
             appointmentCad.setTime(appointmentTime);
 
-            int appointmentMinute = appointmentCad.get(Calendar.MINUTE);
-            int nowMinute = nowCad.get(Calendar.MINUTE);
+//            int appointmentMinute = appointmentCad.get(Calendar.MINUTE);
+//            int nowMinute = nowCad.get(Calendar.MINUTE);
+            long appointmentMinute = appointmentCad.getTimeInMillis();
+            long nowMinute = nowCad.getTimeInMillis();
 
-            if (nowMinute - appointmentMinute >= 5 ) {
+            if ((nowMinute-appointmentMinute)/(1000*60) > 5 ) {
                 delete(appointment.getId());
                 System.out.println("预约："+ appointment.getId() +"已超时");
             }

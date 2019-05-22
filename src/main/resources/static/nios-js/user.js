@@ -26,13 +26,13 @@ function build_users_table(result) {
         let EmailTd = $("<td></td>").append(item.email);
         let OfficeTd = $("<td></td>").append(item.office);
         let editBtn = $("<button></button>").addClass("btn btn-info  btn-sm edit_btn").append($("<span></span>").addClass(
-            "glyphicon glyphicon-pencil")).append("update");
+            "glyphicon glyphicon-pencil")).append("编辑");
         editBtn.attr("edit-id", item.id);
         let delBth = $("<button></button>").addClass(
             "btn btn-danger  btn-sm delete_btn").append(
             $("<span></span>")
                 .addClass("glyphicon glyphicon-trash")).append(
-            "delete");
+            "删除");
         delBth.attr("del-id", item.id);
         let btnTd = $("<td></td>").append(editBtn).append(" ").append(
             delBth);
@@ -136,12 +136,12 @@ $("#user_save_btn").click(function () {
                 let str = "";
                 for (let i = 0; i < errorMessages.length; i++) {
                     if (i != errorMessages.length-1) {
-                        str = str + errorMessages[i] + ",";
+                        str = str + errorMessages[i] + "\n";
                     } else {
                         str = str + errorMessages[i];
                     }
                 }
-                alert(str+"不可以为空");
+                alert(str);
             }
         }
     });
@@ -154,26 +154,37 @@ function reset_form(ele) {
 }
 
 function validate_add_form() {
-    //userId validation
-    let userId = $("#UserID").val();
+    /*//userId validation
+    let userId = $("#UserName").val();
     //6-16 digit number or letter
     let regUserId = /(^[a-zA-Z0-9_-]{6,16}$)/;
     if (!regUserId.test(userId)) {
-        show_validate_msg("#UserID", "error", "The user name can be a combination of 6-16 digits in English and a number");
+        show_validate_msg("#UserName", "error", "用户名可以是6-16位英文和数字的组合");
         return false;
     } else {
-        show_validate_msg("#UserID", "success", "");
+        show_validate_msg("#UserName", "success", "123");
+    }*/
+
+    //phone number validation
+    let mobile = $("#Mobile").val();
+    let regexMobile = /^1[345678]\d{9}$/;
+    if (!regexMobile.test(mobile)) {
+        show_validate_msg("#Mobile", "error", "手机号码格式错误");
+        return false
+    } else {
+        show_validate_msg("#Mobile", "success", "");
     }
 
     //email validation
     let email = $("#Email").val();
     let regexMail = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
     if (!regexMail.test(email)) {
-        show_validate_msg("#Email", "error", "email format is not right");
+        show_validate_msg("#Email", "error", "邮箱格式错误");
         return false
     } else {
         show_validate_msg("#Email", "success", "");
     }
+
     return true;
 }
 
@@ -194,15 +205,18 @@ $(document).on("click", ".edit_btn", function () {
 
 $(document).on("click", ".delete_btn", function () {
     let UserId = $(this).attr("del-id");
-    $.ajax({
-        url: "/nios/user/user/"+UserId,
-        type: "DELETE",
-        success: function (result) {
-            if (result.code == 100) {
-                to_page(0);
+    if(confirm("确认删除【"+UserId+"】吗？")) {
+        $.ajax({
+            url: "/nios/user/user/" + UserId,
+            type: "DELETE",
+            success: function (result) {
+                if (result.code == 100) {
+                    to_page(0);
+                    alert("删除成功")
+                }
             }
-        }
-    });
+        });
+    }
 });
 
 $("#check_all").click(function(){
@@ -230,6 +244,7 @@ $("#delete_all_btn").click(function(){
             success:function(result)
             {
                 to_page(0);
+                alert("删除成功")
             }
         });
     }
@@ -249,6 +264,7 @@ function getUser(id) {
             $("#Office").val(data.office).select2();
             $("#UserRoles").val(userRoles[0].id).select2();
             // $("#UserRoles").val(userRoles[0].id);
+            $('#UserID').attr('readonly',true);
         }
     });
 }

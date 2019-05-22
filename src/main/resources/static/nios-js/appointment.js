@@ -77,8 +77,14 @@ $("#appointment_save_btn").click(function () {
         contentType: "application/json; charset=utf-8",
         data: json,
         success: function (result) {
-            alert("添加成功");
-            $("#saveModal").modal("hide");
+            if (result.code == 100) {
+                alert("添加成功");
+                $("#saveModal").modal("hide");
+            } else if (result.code == 200) {
+                alert("添加失败,"+result.message);
+                $("#saveModal").modal("hide");
+            }
+
         },
 
     });
@@ -186,10 +192,10 @@ function nullCheck() {
         return false;
     }
 
-    if ($("#Description").val() == "" || $.trim($("#Description").val()).length == 0) {
+    /*if ($("#Description").val() == "" || $.trim($("#Description").val()).length == 0) {
         show_validate_msg("#Description", "error", "必填选项");
         return false;
-    }
+    }*/
     return true;
 }
 
@@ -205,8 +211,9 @@ $("#AppointmentTime").change(function(){
     }
 });
 
+/*
 $("#Description").change(function(){
     if ($("#Description").val() != "") {
         show_validate_msg("#Description", "success", "");
     }
-});
+});*/

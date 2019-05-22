@@ -2,7 +2,7 @@ package com.springboot.service.serviceImpl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.springboot.commons.CommonTableUtils;
+import com.springboot.commons.Constants;
 import com.springboot.dto.UserRoleDto;
 import com.springboot.dto.User_UserRole;
 import com.springboot.entity.BasicInformation;
@@ -140,7 +140,7 @@ public class UserRoleServiceImpl implements UserRoleService {
             });
             return userRoleDto.getId();
         } else {
-            String id = sqeNoService.getSeqNo(CommonTableUtils.USER_ROLE);
+            String id = sqeNoService.getSeqNo(Constants.USER_ROLE);
 
             UserRole userRole = mapper.map(userRoleDto, UserRole.class);
             userRole.setId(id);

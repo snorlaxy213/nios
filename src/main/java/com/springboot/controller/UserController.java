@@ -192,7 +192,7 @@ public class UserController {
                 userService.save(userDto, userId);
                 return Message.success();
             }else{
-                return Message.fail();
+                return Message.fail("验证码错误");
             }
         } catch (Exception e) {
             LOGGER.error(e.getMessage(),e.getCause());

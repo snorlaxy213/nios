@@ -1,6 +1,7 @@
 package com.springboot.dto;
 
-import org.hibernate.validator.constraints.Length;
+import com.springboot.validation.EmailAddressValidation;
+import com.springboot.validation.PhoneNumberValidation;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -11,25 +12,24 @@ public class UserDto extends BasicRowInfo implements Serializable {
 
     private static final long serialVersionUID = 1711743832907074561L;
 
-    @NotEmpty(message = "UserID")
-    @Length(max = 12)
+    @NotEmpty(message = "用户编号不可以为空")
     private String id;
 
-    @NotEmpty(message = "UserName")
-    @Length(max = 100)
+//    @UserNameValidation
+    @NotEmpty(message = "用户名不可以为空")
     private String name;
 
-    @NotEmpty(message = "Email")
-    @Length(max = 50)
+    @EmailAddressValidation
+    @NotEmpty(message = "邮箱不可以为空")
     private String email;
 
-    @NotEmpty(message = "Mobile")
-    @Length(max = 100)
+    @PhoneNumberValidation
+    @NotEmpty(message = "手机号码不可以为空")
     private String mobile;
 
-    @Length(max = 200)
     private String password;
 
+    @NotEmpty(message = "科室不可以为空")
     private String office;
 
     private Integer orderNum;
