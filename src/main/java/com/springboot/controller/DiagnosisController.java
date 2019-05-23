@@ -51,8 +51,8 @@ public class DiagnosisController {
     public Message save(@RequestBody DiagnosisDto diagnosisDto, HttpServletRequest request) {
         try {
             String userId = (String) request.getSession().getAttribute("userId");
-            diagnosisService.save(diagnosisDto, userId);
-            return Message.success();
+            String id = diagnosisService.save(diagnosisDto, userId);
+            return Message.success().add("id",id);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(),e.getCause());
             throw e;

@@ -72,7 +72,7 @@ public class DiagnosisServiceImpl implements DiagnosisService {
     }
 
     @Override
-    public void save(DiagnosisDto diagnosisDto, String userId) {
+    public String save(DiagnosisDto diagnosisDto, String userId) {
         if (diagnosisDto.getUserDto() == null) {
             throw new GlobalException("400","用户不存在");
         } else if (diagnosisDto.getPatientDto() == null) {
@@ -88,7 +88,8 @@ public class DiagnosisServiceImpl implements DiagnosisService {
         PatientDto patientDto = patientService.findById(diagnosisDto.getPatientDto().getId());
         diagnosis.setPatient(mapper.map(patientDto, Patient.class));
 
-        diagnosis.setId(sqeNoService.getSeqNo(Constants.DIAGNOSIS));
+        String id = sqeNoService.getSeqNo(Constants.DIAGNOSIS);
+        diagnosis.setId(id);
         diagnosis.setBasicInformation(new BasicInformation());
         this.getModifiedInfo(diagnosis.getBasicInformation(), userId);
 
@@ -105,6 +106,8 @@ public class DiagnosisServiceImpl implements DiagnosisService {
 
             drugStockService.save(drugStockDto,userId);
         });
+
+        return id;
 
     }
 

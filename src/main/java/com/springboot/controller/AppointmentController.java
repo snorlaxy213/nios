@@ -34,7 +34,7 @@ public class AppointmentController {
     @GetMapping("/appointment")
     public Message findAll() {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             List<AppointmentDto> appointmentDtos = appointmentMapper.findAll("Y");
             for (AppointmentDto appointmentDto : appointmentDtos) {
                 appointmentDto.setAppointmentTime_str(sdf.format(appointmentDto.getAppointmentTime()));
