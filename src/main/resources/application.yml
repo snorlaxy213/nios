@@ -39,7 +39,7 @@ logging:
 oss:
   endpoint: oss-cn-shenzhen.aliyuncs.com
   keyid: LTAIppa2MDOi5MRS
-  keysecret: TDUKKko8qnolggFTZcAEpqKzAKgBDZ
+  keysecret: 
   bucketname: nios
   filehost: excel-backup
 
