@@ -37,8 +37,8 @@ logging:
 
 #OSS配置
 oss:
-  endpoint: oss-cn-shenzhen.aliyuncs.com
-  keyid: LTAIppa2MDOi5MRS
+  endpoint: 
+  keyid: 
   keysecret: 
   bucketname: nios
   filehost: excel-backup
